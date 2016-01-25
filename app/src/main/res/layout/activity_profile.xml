@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:attr="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="profile"
+            type="by.pavlovskii.ilya.mvvm.test.models.ProfileModel"/>
+    </data>
+
+    <LinearLayout
+        android:id="@+id/vRlMain"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/vEtName"
+            android:hint="Name"
+            android:text="@{profile.name}"
+            attr:binding="@{profile.name}"
+            style="@style/ProfileEditText"/>
+        <EditText
+            android:id="@+id/vEtSurname"
+            android:hint="Surname"
+            android:text="@{profile.surname}"
+            attr:binding="@{profile.surname}"
+            style="@style/ProfileEditText"/>
+        <EditText
+            android:id="@+id/vEtPhone"
+            android:hint="Phone"
+            android:inputType="phone"
+            android:text="@{profile.phone}"
+            attr:binding="@{profile.phone}"
+            style="@style/ProfileEditText"/>
+
+        <Button
+            android:id="@+id/vBtnCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="check"/>
+
+        <Button
+            android:id="@+id/vBtnChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/vRecyclerView"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</layout>

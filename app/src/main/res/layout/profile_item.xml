@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:attr="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="profile" type="by.pavlovskii.ilya.mvvm.test.models.ProfileModel" />
+    </data>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/vTvName"
+            android:textColor="@android:color/holo_red_dark"
+            android:text="@{profile.name}"
+            style="@style/TextViewStyle"/>
+        <TextView
+            android:id="@+id/vTvSurname"
+            android:text="@{profile.surname}"
+            android:textColor="@android:color/holo_blue_dark"
+            style="@style/TextViewStyle"/>
+        <TextView
+            android:id="@+id/vTvPhone"
+            android:text="@{profile.phone}"
+            android:textColor="@android:color/black"
+            style="@style/TextViewStyle"/>
+    </LinearLayout>
+
+</layout>
