@@ -18,6 +18,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -106,6 +108,15 @@ public abstract class BaseActivity<T extends IViewModel> extends AppCompatActivi
         }
     }
 
+    @BindingConversion
+    public static int convertBindableToInteger(@Nullable BindableGeneric<Integer> bindableInteger) {
+        if (bindableInteger != null) {
+            return bindableInteger.getValue();
+        } else {
+            return 0;
+        }
+    }
+
     //======================================================
     //--------------------Binding adapters------------------
     //======================================================
@@ -146,7 +157,7 @@ public abstract class BaseActivity<T extends IViewModel> extends AppCompatActivi
     }
 
     @BindingAdapter({"attr:binding"})
-    public static void bindCheckBox(CompoundButton checkBox, final BindableGeneric<Boolean> bindableBoolean) {
+    public static void bindCompoundButton(CompoundButton checkBox, final BindableGeneric<Boolean> bindableBoolean) {
         if (bindableBoolean == null) {
             return;
         }
@@ -158,4 +169,28 @@ public abstract class BaseActivity<T extends IViewModel> extends AppCompatActivi
         checkBox.setOnCheckedChangeListener(listener);
     }
 
+    @BindingAdapter({"attr:binding"})
+    public static void bindProgressBar(SeekBar seekBar, final BindableGeneric<Integer> bindableInteger) {
+        if (bindableInteger == null) {
+            return;
+        }
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (progress != bindableInteger.getValue()) {
+                    bindableInteger.setValue(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
 }

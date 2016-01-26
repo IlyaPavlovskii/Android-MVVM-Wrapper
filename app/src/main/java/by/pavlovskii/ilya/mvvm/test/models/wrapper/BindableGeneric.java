@@ -40,11 +40,7 @@ public class BindableGeneric<T extends Object> extends BaseObservable {
     public boolean equals(Object o) {
         if (o != null && o instanceof BindableGeneric) {
             BindableGeneric bg = (BindableGeneric) o;
-            if (mValue != null) {
-                return mValue.equals(bg);
-            } else {
-                return false;
-            }
+            return mValue != null && mValue.equals(bg);
         } else {
             return false;
         }

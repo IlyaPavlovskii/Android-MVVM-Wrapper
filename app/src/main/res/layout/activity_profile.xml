@@ -37,45 +37,66 @@
 
         <Button
             android:id="@+id/vBtnCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="check"/>
+            android:text="check"
+            style="@style/ProfileButton"/>
 
         <Button
             android:id="@+id/vBtnChange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change edit text"/>
+            android:text="Change edit text"
+            style="@style/ProfileButton"/>
 
-        <CheckBox
-            android:id="@+id/vCbCheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Confirm checkbox"
-            android:checked="@{profile.bool}"
-            attr:binding="@{profile.bool}"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Switch
-            android:id="@+id/vSwCheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Switch. Copy checkbox"
-            android:checked="@{profile.bool}"
-            attr:binding="@{profile.bool}"/>
+            <CheckBox
+                android:id="@+id/vCbCheckbox"
+                android:text="Checkbox"
+                android:checked="@{profile.bool}"
+                attr:binding="@{profile.bool}"
+                style="@style/ProfileBool"/>
 
-        <ToggleButton
-            android:id="@+id/vTbCheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New ToggleButton"
-            android:checked="@{profile.bool}"
-            attr:binding="@{profile.bool}"/>
+            <Switch
+                android:id="@+id/vSwCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Switch"
+                android:checked="@{profile.bool}"
+                attr:binding="@{profile.bool}"/>
+
+            <ToggleButton
+                android:id="@+id/vTbCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@{profile.bool}"
+                attr:binding="@{profile.bool}"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/vBtnChangeCheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change checkbox"/>
+            android:text="Change checkbox"
+            style="@style/ProfileButton"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <SeekBar
+                android:id="@+id/vSbStatus"
+                android:layout_width="150dp"
+                android:layout_height="48dp"
+                android:background="@android:color/holo_blue_light"
+                android:progress="@{profile.status}"
+                attr:binding="@{profile.status}"/>
+
+            <Button
+                android:id="@+id/vBtnChangeStatus"
+                android:text="Change status"
+                style="@style/ProfileButton"/>
+        </LinearLayout>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/vRecyclerView"

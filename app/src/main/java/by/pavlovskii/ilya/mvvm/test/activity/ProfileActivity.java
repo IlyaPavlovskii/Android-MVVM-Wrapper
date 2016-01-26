@@ -64,5 +64,9 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel> {
         profileModel.bool.set(!profileModel.bool.getValue());
     }
 
-
+    @OnClick(R.id.vBtnChangeStatus)
+    public void onChangeStatus(View view) {
+        ProfileModel profileModel = mViewModel.mProfileModel;
+        profileModel.status.set(66);
+    }
 }

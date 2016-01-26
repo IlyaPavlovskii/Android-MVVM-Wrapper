@@ -23,6 +23,7 @@ public class ProfileModel {
     public BindableGeneric<String> surname;
     public BindableGeneric<String> phone;
     public BindableGeneric<Boolean> bool;
+    public BindableGeneric<Integer> status;
 
     //======================================================
     //----------------------Constructor---------------------
@@ -32,6 +33,7 @@ public class ProfileModel {
         this.surname = new BindableGeneric<>(null);
         this.phone = new BindableGeneric<>(null);
         this.bool = new BindableGeneric<>(false);
+        this.status = new BindableGeneric<>(0);
     }
 
     public ProfileModel(String name, String surname, String phone) {
@@ -48,7 +50,8 @@ public class ProfileModel {
         return "Name: " + name + ";\n "+
                 "Surname: " + surname + ";\n " +
                 "Phone: " + phone + ";\n" +
-                "Checkbox: " + bool + ";\n";
+                "Checkbox: " + bool + ";\n" +
+                "Status: " + status + ";\n";
     }
 
 }
