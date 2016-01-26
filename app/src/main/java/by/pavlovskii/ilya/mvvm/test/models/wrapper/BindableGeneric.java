@@ -1,7 +1,6 @@
 package by.pavlovskii.ilya.mvvm.test.models.wrapper;
 
 import android.databinding.BaseObservable;
-import android.text.TextUtils;
 
 /**
  * Create with Android Studio<br>
@@ -9,25 +8,26 @@ import android.text.TextUtils;
  * E-mail: pavlovskii_ilya@mail.ru, trane91666@gmail.com<br>
  * Skype: trane9119<br>
  * Date: 26.01.16<br>
- * Time: 0:39<br>
+ * Time: 2:54<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
  * //TODO Add description<br>
  * ===================================================================================
  */
-public class BindableString extends BaseObservable {
+public class BindableGeneric<T extends Object> extends BaseObservable {
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    protected String mValue;
+    protected T mValue;
 
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
-    public BindableString(){}
+    public BindableGeneric() {
+    }
 
-    public BindableString(String value) {
+    public BindableGeneric(T value) {
         mValue = value;
     }
 
@@ -36,44 +36,48 @@ public class BindableString extends BaseObservable {
     //======================================================
     @Override
     public int hashCode() {
-        return TextUtils.isEmpty(mValue) ? null : mValue.hashCode();
+        return mValue == null ? 0 : mValue.hashCode();
     }
 
     @Override
     public boolean equals(Object o) {
-        if( o != null && o instanceof BindableString){
-            BindableString bs = (BindableString)o;
-            return TextUtils.equals(mValue, bs.mValue);
+        if (o != null && o instanceof BindableGeneric) {
+            BindableGeneric bg = (BindableGeneric) o;
+            if (mValue != null) {
+                return mValue.equals(bg);
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
     }
 
     @Override
-    public BindableString clone() {
-        return new BindableString(mValue);
+    public BindableGeneric clone() {
+        return new BindableGeneric(mValue);
     }
 
     @Override
     public String toString() {
-        return mValue;
+        return mValue != null ? mValue.toString() : null;
     }
 
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
-    public String getValue(){
+    public T getValue() {
         return mValue;
     }
 
-    public void set(String value) {
-        if (!TextUtils.equals(this.mValue, value)) {
+    public void set(T value) {
+        if (mValue == null || !mValue.equals(value)) {
             this.mValue = value;
             notifyChange();
         }
     }
 
-    public void setValue(String value){
+    public void setValue(T value) {
         this.mValue = value;
     }
 

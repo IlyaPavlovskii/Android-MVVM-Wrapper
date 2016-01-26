@@ -21,7 +21,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.ButterKnife;
-import by.pavlovskii.ilya.mvvm.test.models.wrapper.BindableString;
+import by.pavlovskii.ilya.mvvm.test.models.wrapper.BindableGeneric;
 import by.pavlovskii.ilya.mvvm.test.utils.TextWatcherAdapter;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.IViewModel;
 
@@ -87,7 +87,7 @@ public abstract class BaseActivity<T extends IViewModel> extends AppCompatActivi
     //--------------------Binding methods-------------------
     //======================================================
     @BindingConversion
-    public static String convertBindableToString(@Nullable BindableString bindableString) {
+    public static String convertBindableToString(@Nullable BindableGeneric<String> bindableString) {
         Log.d("BINDING","convertBindableToString");
         if( bindableString != null){
             return bindableString.getValue();
@@ -105,9 +105,9 @@ public abstract class BaseActivity<T extends IViewModel> extends AppCompatActivi
     }
 
     @BindingAdapter({"attr:binding"})
-    public static void bindEditText(@NonNull EditText view,@NonNull final BindableString bindableString) {
+    public static void bindEditText(@NonNull EditText view, @NonNull final BindableGeneric<String> bindableString) {
 
-        Pair<BindableString,TextWatcherAdapter> pair = (Pair) view.getTag();
+        Pair<BindableGeneric, TextWatcherAdapter> pair = (Pair) view.getTag();
 
         if (pair == null || pair.first != bindableString) {
             if (pair != null) {

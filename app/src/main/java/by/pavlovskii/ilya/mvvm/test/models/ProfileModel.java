@@ -1,10 +1,6 @@
 package by.pavlovskii.ilya.mvvm.test.models;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-
-import by.pavlovskii.ilya.mvvm.test.BR;
-import by.pavlovskii.ilya.mvvm.test.models.wrapper.BindableString;
+import by.pavlovskii.ilya.mvvm.test.models.wrapper.BindableGeneric;
 
 /**
  * Create with Android Studio<br>
@@ -23,26 +19,24 @@ public class ProfileModel {
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    public BindableString name;
-    public BindableString surname;
-    public BindableString phone;
+    public BindableGeneric<String> name;
+    public BindableGeneric<String> surname;
+    public BindableGeneric<String> phone;
 
     //======================================================
     //----------------------Constructor---------------------
     //======================================================
     public ProfileModel(){
-        this.name       =   new BindableString();
-        this.surname    =   new BindableString();
-        this.phone      =   new BindableString();
+        this.name = new BindableGeneric<>();
+        this.surname = new BindableGeneric<>();
+        this.phone = new BindableGeneric<>();
     }
 
     public ProfileModel(String name, String surname, String phone) {
-        this.name       =   new BindableString(name);
-        this.surname    =   new BindableString(surname);
-        this.phone      =   new BindableString(phone);
+        this.name = new BindableGeneric<>(name);
+        this.surname = new BindableGeneric<>(surname);
+        this.phone = new BindableGeneric<>(phone);
     }
-
-
 
     //======================================================
     //--------------------Override methods------------------
