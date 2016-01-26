@@ -48,12 +48,28 @@
             android:text="Change edit text"/>
 
         <CheckBox
-            android:id="@+id/vCbName"
+            android:id="@+id/vCbCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Confirm checkbox"
-            android:checked="@{profile.checkbox}"
-            attr:binding="@{profile.checkbox}"/>
+            android:checked="@{profile.bool}"
+            attr:binding="@{profile.bool}"/>
+
+        <Switch
+            android:id="@+id/vSwCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Switch. Copy checkbox"
+            android:checked="@{profile.bool}"
+            attr:binding="@{profile.bool}"/>
+
+        <ToggleButton
+            android:id="@+id/vTbCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New ToggleButton"
+            android:checked="@{profile.bool}"
+            attr:binding="@{profile.bool}"/>
 
         <Button
             android:id="@+id/vBtnChangeCheckbox"

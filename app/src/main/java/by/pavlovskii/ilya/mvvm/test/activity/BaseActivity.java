@@ -152,7 +152,7 @@ public abstract class BaseActivity<T extends IViewModel> extends AppCompatActivi
         }
         CompoundButton.OnCheckedChangeListener listener = (buttonView, isChecked) -> {
             if (isChecked != bindableBoolean.getValue()) {
-                bindableBoolean.setValue(isChecked);
+                bindableBoolean.set(isChecked);
             }
         };
         checkBox.setOnCheckedChangeListener(listener);

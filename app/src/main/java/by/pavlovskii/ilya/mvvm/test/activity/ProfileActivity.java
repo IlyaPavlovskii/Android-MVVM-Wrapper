@@ -61,7 +61,7 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel> {
     @OnClick(R.id.vBtnChangeCheckbox)
     public void onChangeCheckBox(View view) {
         ProfileModel profileModel = mViewModel.mProfileModel;
-        profileModel.checkbox.set(!profileModel.checkbox.getValue());
+        profileModel.bool.set(!profileModel.bool.getValue());
     }
 
 
