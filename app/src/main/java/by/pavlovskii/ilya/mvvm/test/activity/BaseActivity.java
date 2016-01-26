@@ -14,6 +14,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -84,18 +86,29 @@ public abstract class BaseActivity<T extends IViewModel> extends AppCompatActivi
 
 
     //======================================================
-    //--------------------Binding methods-------------------
+    //------------------Binding conversions-----------------
     //======================================================
     @BindingConversion
     public static String convertBindableToString(@Nullable BindableGeneric<String> bindableString) {
-        Log.d("BINDING","convertBindableToString");
         if( bindableString != null){
             return bindableString.getValue();
         } else {
-            return "";
+            return null;
         }
     }
 
+    @BindingConversion
+    public static boolean convertBindableToBoolean(@Nullable BindableGeneric<Boolean> bindableBoolean) {
+        if (bindableBoolean != null) {
+            return bindableBoolean.getValue();
+        } else {
+            return false;
+        }
+    }
+
+    //======================================================
+    //--------------------Binding adapters------------------
+    //======================================================
     @BindingAdapter({"attr:imageUrl","attr:error"})
     public static void loadImage(ImageView imageView, String url, Drawable error){
         DisplayImageOptions dio = new DisplayImageOptions.Builder()
@@ -105,7 +118,10 @@ public abstract class BaseActivity<T extends IViewModel> extends AppCompatActivi
     }
 
     @BindingAdapter({"attr:binding"})
-    public static void bindEditText(@NonNull EditText view, @NonNull final BindableGeneric<String> bindableString) {
+    public static void bindEditText(EditText view, final BindableGeneric<String> bindableString) {
+        if (bindableString == null) {
+            return;
+        }
 
         Pair<BindableGeneric, TextWatcherAdapter> pair = (Pair) view.getTag();
 
@@ -127,6 +143,19 @@ public abstract class BaseActivity<T extends IViewModel> extends AppCompatActivi
         if (!TextUtils.equals(view.getText().toString(), newValue) ) {
             view.setText(newValue);
         }
+    }
+
+    @BindingAdapter({"attr:binding"})
+    public static void bindCheckBox(CompoundButton checkBox, final BindableGeneric<Boolean> bindableBoolean) {
+        if (bindableBoolean == null) {
+            return;
+        }
+        CompoundButton.OnCheckedChangeListener listener = (buttonView, isChecked) -> {
+            if (isChecked != bindableBoolean.getValue()) {
+                bindableBoolean.setValue(isChecked);
+            }
+        };
+        checkBox.setOnCheckedChangeListener(listener);
     }
 
 }

@@ -58,5 +58,11 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel> {
         profileModel.phone.set("9379992");
     }
 
+    @OnClick(R.id.vBtnChangeCheckbox)
+    public void onChangeCheckBox(View view) {
+        ProfileModel profileModel = mViewModel.mProfileModel;
+        profileModel.checkbox.set(!profileModel.checkbox.getValue());
+    }
+
 
 }

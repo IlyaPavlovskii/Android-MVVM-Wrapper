@@ -60,22 +60,19 @@ public class App extends Application {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .memoryCacheExtraOptions(480, 800)
                 .diskCacheExtraOptions(480, 800, null)
-                //.taskExecutor(...)
-                //.taskExecutorForCachedImages(...)
-                .threadPoolSize(3) // default
-                .threadPriority(Thread.NORM_PRIORITY - 2) // default
-                .tasksProcessingOrder(QueueProcessingType.FIFO) // default
+                .threadPoolSize(3)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
                 .denyCacheImageMultipleSizesInMemory()
                 .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
                 .memoryCacheSize(2 * 1024 * 1024)
-                .memoryCacheSizePercentage(13) // default
-                .diskCache(new UnlimitedDiskCache(cacheDir)) // default
+                .memoryCacheSizePercentage(13)
+                .diskCache(new UnlimitedDiskCache(cacheDir))
                 .diskCacheSize(50 * 1024 * 1024)
                 .diskCacheFileCount(100)
-                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
-                .imageDownloader(new BaseImageDownloader(this)) // default
-                //.imageDecoder(new BaseImageDecoder()) // default
-                .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
+                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .imageDownloader(new BaseImageDownloader(this))
+                .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
                 .writeDebugLogs()
                 .build();
         ImageLoader.getInstance().init(config);

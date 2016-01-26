@@ -22,14 +22,16 @@ public class ProfileModel {
     public BindableGeneric<String> name;
     public BindableGeneric<String> surname;
     public BindableGeneric<String> phone;
+    public BindableGeneric<Boolean> checkbox;
 
     //======================================================
     //----------------------Constructor---------------------
     //======================================================
     public ProfileModel(){
-        this.name = new BindableGeneric<>();
-        this.surname = new BindableGeneric<>();
-        this.phone = new BindableGeneric<>();
+        this.name = new BindableGeneric<>(null);
+        this.surname = new BindableGeneric<>(null);
+        this.phone = new BindableGeneric<>(null);
+        this.checkbox = new BindableGeneric<>(false);
     }
 
     public ProfileModel(String name, String surname, String phone) {
@@ -45,7 +47,8 @@ public class ProfileModel {
     public String toString() {
         return "Name: " + name + ";\n "+
                 "Surname: " + surname + ";\n " +
-                "Phone: " + phone + ";\n";
+                "Phone: " + phone + ";\n" +
+                "Checkbox: " + checkbox + ";\n";
     }
 
 }

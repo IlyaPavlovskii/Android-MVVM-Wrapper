@@ -24,9 +24,6 @@ public class BindableGeneric<T extends Object> extends BaseObservable {
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
-    public BindableGeneric() {
-    }
-
     public BindableGeneric(T value) {
         mValue = value;
     }

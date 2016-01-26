@@ -45,7 +45,21 @@
             android:id="@+id/vBtnChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change"/>
+            android:text="Change edit text"/>
+
+        <CheckBox
+            android:id="@+id/vCbName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm checkbox"
+            android:checked="@{profile.checkbox}"
+            attr:binding="@{profile.checkbox}"/>
+
+        <Button
+            android:id="@+id/vBtnChangeCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change checkbox"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/vRecyclerView"
