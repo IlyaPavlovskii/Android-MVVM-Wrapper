@@ -87,7 +87,6 @@ public class ProfileActivityViewModel implements IViewModel<ActivityProfileBindi
         viewDataBinding.vRecyclerView.setHasFixedSize(true);
         viewDataBinding.vRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         viewDataBinding.vRecyclerView.setAdapter(new ProfileAdapter(context, mProfileList));
-
     }
 
     @Override

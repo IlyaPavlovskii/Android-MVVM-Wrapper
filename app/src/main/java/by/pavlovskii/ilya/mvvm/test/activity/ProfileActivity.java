@@ -1,8 +1,12 @@
 package by.pavlovskii.ilya.mvvm.test.activity;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.seppius.i18n.plurals.PluralResources;
 
 import butterknife.OnClick;
 import by.pavlovskii.ilya.mvvm.test.R;
@@ -48,6 +52,22 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel> {
     @OnClick(R.id.vBtnCheck)
     public void onCheckClick(View view){
         Toast.makeText(view.getContext(), "Profile model: " + mViewModel.mProfileModel, Toast.LENGTH_SHORT).show();
+        PluralResources pr = null;
+        try {
+            pr = new PluralResources(getResources());
+            pr.setTreatZero(true);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i <= 10; i++) {
+            String val = pr.getQuantityString(R.plurals.plurals_1, i);
+            Log.d(TAG, "Val: " + val);
+        }
+        Log.d(TAG, "===================================");
+        for (int i = 0; i <= 10; i++) {
+            String val = getResources().getQuantityString(R.plurals.plurals_1, i, i);
+            Log.d(TAG, "Val: " + val);
+        }
     }
 
     @OnClick(R.id.vBtnChange)

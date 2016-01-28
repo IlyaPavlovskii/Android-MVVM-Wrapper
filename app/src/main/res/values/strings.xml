@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MVVMtest</string>
+
+    <plurals name="plurals_1">
+        <item quantity="zero">нет андроидов zero</item>
+        <item quantity="one">андроид one</item>
+        <item quantity="two">%1$d андроида two</item>
+        <item quantity="few">%1$d андроида few</item>
+        <item quantity="many">%1$d андроидов many</item>
+        <item quantity="other">%1$d андроидов other</item>
+    </plurals>
 </resources>

@@ -35,5 +35,6 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'joda-time:joda-time:2.9.1'
     compile 'com.googlecode.libphonenumber:geocoder:2.1'
+    compile 'com.seppius.plurals:android-i18n-plurals:1.1'
     retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.0.6'
 }

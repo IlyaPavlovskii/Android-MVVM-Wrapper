@@ -15,19 +15,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
+        <by.pavlovskii.ilya.mvvm.test.view.BindableEditText
             android:id="@+id/vEtName"
             android:hint="Name"
             android:text="@{profile.name}"
             attr:binding="@{profile.name}"
             style="@style/ProfileEditText"/>
-        <EditText
-            android:id="@+id/vEtSurname"
-            android:hint="Surname"
-            android:text="@{profile.surname}"
-            attr:binding="@{profile.surname}"
-            style="@style/ProfileEditText"/>
-        <EditText
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <by.pavlovskii.ilya.mvvm.test.view.BindableEditText
+                android:id="@+id/vEtSurname"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="Surname"
+                android:text="@{profile.surname}"
+                attr:binding="@{profile.surname}"
+                style="@style/ProfileEditText"/>
+
+            <by.pavlovskii.ilya.mvvm.test.view.BindableEditText
+                android:id="@+id/vEtSurnameCopy"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="Surname"
+                android:text="@{profile.surname}"
+                attr:binding="@{profile.surname}"
+                style="@style/ProfileEditText"/>
+
+            <by.pavlovskii.ilya.mvvm.test.view.BindableEditText
+                android:id="@+id/vEtSurnameCopyAgain"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="Surname"
+                android:text="@{profile.surname}"
+                attr:binding="@{profile.surname}"
+                style="@style/ProfileEditText"/>
+        </LinearLayout>
+
+        <by.pavlovskii.ilya.mvvm.test.view.BindableEditText
             android:id="@+id/vEtPhone"
             android:hint="Phone"
             android:inputType="phone"

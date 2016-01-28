@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import butterknife.ButterKnife;
 import by.pavlovskii.ilya.mvvm.test.models.wrapper.BindableGeneric;
 import by.pavlovskii.ilya.mvvm.test.utils.TextWatcherAdapter;
+import by.pavlovskii.ilya.mvvm.test.view.BindableEditText;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.IViewModel;
 
 /**
@@ -129,13 +130,12 @@ public abstract class BaseActivity<T extends IViewModel> extends AppCompatActivi
     }
 
     @BindingAdapter({"attr:binding"})
-    public static void bindEditText(EditText view, final BindableGeneric<String> bindableString) {
+    public static void bindEditText(EditText view,
+                                    @Nullable final BindableGeneric<String> bindableString) {
         if (bindableString == null) {
             return;
         }
-
         Pair<BindableGeneric, TextWatcherAdapter> pair = (Pair) view.getTag();
-
         if (pair == null || pair.first != bindableString) {
             if (pair != null) {
                 view.removeTextChangedListener(pair.second);
@@ -146,13 +146,33 @@ public abstract class BaseActivity<T extends IViewModel> extends AppCompatActivi
                     bindableString.setValue(s.toString());
                 }
             };
-
-            view.setTag(new Pair<>(bindableString, watcher));
+            pair = new Pair<>(bindableString, watcher);
+            view.setTag(pair);
             view.addTextChangedListener(watcher);
         }
-        String newValue = bindableString.getValue();
-        if (!TextUtils.equals(view.getText().toString(), newValue) ) {
-            view.setText(newValue);
+    }
+
+    @BindingAdapter({"attr:binding"})
+    public static void bindEditText(BindableEditText view,
+                                    @Nullable final BindableGeneric<String> bindableString) {
+        if (bindableString == null) {
+            return;
+        }
+        Pair<BindableGeneric, TextWatcherAdapter> pair = (Pair) view.getTag();
+        if (pair == null || pair.first != bindableString) {
+            if (pair != null) {
+                view.removeTextChangedListener(pair.second);
+            }
+            TextWatcherAdapter watcher = new TextWatcherAdapter() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    view.acquire();
+                    bindableString.set(s.toString());
+                }
+            };
+            pair = new Pair<>(bindableString, watcher);
+            view.setTag(pair);
+            view.addTextChangedListener(watcher);
         }
     }
 
