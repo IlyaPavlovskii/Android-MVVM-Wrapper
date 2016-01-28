@@ -1,6 +1,9 @@
-package by.pavlovskii.ilya.mvvm.test.models;
+package by.pavlovskii.ilya.mvvm.test.bindmodels;
 
-import by.pavlovskii.ilya.mvvm.test.models.wrapper.BindableGeneric;
+import java.util.ArrayList;
+import java.util.List;
+
+import by.pavlovskii.ilya.mvvm.test.wrapper.BindableGeneric;
 
 /**
  * Create with Android Studio<br>
@@ -14,7 +17,7 @@ import by.pavlovskii.ilya.mvvm.test.models.wrapper.BindableGeneric;
  * //TODO Add description<br>
  * ===================================================================================
  */
-public class ProfileModel {
+public class ProfileViewData implements IViewData {
 
     //======================================================
     //------------------------Fields------------------------
@@ -24,22 +27,18 @@ public class ProfileModel {
     public BindableGeneric<String> phone;
     public BindableGeneric<Boolean> bool;
     public BindableGeneric<Integer> status;
+    public BindableGeneric<List<ProfileViewData>> profiles;
 
     //======================================================
     //----------------------Constructor---------------------
     //======================================================
-    public ProfileModel(){
+    public ProfileViewData() {
         this.name = new BindableGeneric<>(null);
         this.surname = new BindableGeneric<>(null);
         this.phone = new BindableGeneric<>(null);
         this.bool = new BindableGeneric<>(false);
         this.status = new BindableGeneric<>(0);
-    }
-
-    public ProfileModel(String name, String surname, String phone) {
-        this.name = new BindableGeneric<>(name);
-        this.surname = new BindableGeneric<>(surname);
-        this.phone = new BindableGeneric<>(phone);
+        this.profiles = new BindableGeneric<>(new ArrayList<>());
     }
 
     //======================================================

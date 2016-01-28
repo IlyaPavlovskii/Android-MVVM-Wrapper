@@ -2,6 +2,9 @@ package by.pavlovskii.ilya.mvvm.test.viewmodel;
 
 import android.content.Context;
 import android.databinding.ViewDataBinding;
+import android.support.annotation.NonNull;
+
+import by.pavlovskii.ilya.mvvm.test.bindmodels.IViewData;
 
 /**
  * Create with Android Studio<br>
@@ -15,7 +18,7 @@ import android.databinding.ViewDataBinding;
  * //TODO Add description<br>
  * ===================================================================================
  */
-public interface IViewModel<T extends ViewDataBinding>  {
+public interface IViewModel<TViewData extends IViewData, TViewDataBinding extends ViewDataBinding> {
 
     //======================================================
     //------------------------Fields------------------------
@@ -24,7 +27,9 @@ public interface IViewModel<T extends ViewDataBinding>  {
     //======================================================
     //------------------------Methods-----------------------
     //======================================================
-    void initModel();
-    void bindData(Context context, T viewDataBinding);
+    @NonNull
+    TViewData initViewData();
+
+    void bindViewData(@NonNull Context context, @NonNull TViewDataBinding viewDataBinding);
     void destroy();
 }

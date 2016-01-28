@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import by.pavlovskii.ilya.mvvm.test.R;
+import by.pavlovskii.ilya.mvvm.test.bindmodels.ProfileViewData;
 import by.pavlovskii.ilya.mvvm.test.databinding.ProfileItemBinding;
-import by.pavlovskii.ilya.mvvm.test.models.ProfileModel;
 
 /**
  * Create with Android Studio<br>
@@ -31,12 +31,12 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileA
     //------------------------Fields------------------------
     //======================================================
     private final LayoutInflater mInflater;
-    private List<ProfileModel> mProfileList;
+    private List<ProfileViewData> mProfileList;
 
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
-    public ProfileAdapter(Context context, List<ProfileModel> profileList) {
+    public ProfileAdapter(Context context, List<ProfileViewData> profileList) {
         super();
         this.mInflater = LayoutInflater.from(context);
         this.mProfileList = profileList;
@@ -53,8 +53,8 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileA
 
     @Override
     public void onBindViewHolder(ProfileAdapterHolder holder, int position) {
-        final ProfileModel ProfileModel = mProfileList.get(position);
-        holder.binding.setProfile(ProfileModel);
+        final ProfileViewData profile = mProfileList.get(position);
+        holder.binding.setProfile(profile);
     }
 
     @Override

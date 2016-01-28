@@ -1,17 +1,25 @@
 package by.pavlovskii.ilya.mvvm.test.activity;
 
+import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.seppius.i18n.plurals.PluralResources;
 
+import java.util.List;
+
 import butterknife.OnClick;
 import by.pavlovskii.ilya.mvvm.test.R;
-import by.pavlovskii.ilya.mvvm.test.models.ProfileModel;
+import by.pavlovskii.ilya.mvvm.test.adapters.ProfileAdapter;
+import by.pavlovskii.ilya.mvvm.test.bindmodels.ProfileViewData;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.ProfileActivityViewModel;
+import by.pavlovskii.ilya.mvvm.test.wrapper.BindableGeneric;
 
 /**
  * Create with Android Studio<br>
@@ -51,7 +59,7 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel> {
     //======================================================
     @OnClick(R.id.vBtnCheck)
     public void onCheckClick(View view){
-        Toast.makeText(view.getContext(), "Profile model: " + mViewModel.mProfileModel, Toast.LENGTH_SHORT).show();
+        Toast.makeText(view.getContext(), "Profile model: " + mViewModel.profileViewData, Toast.LENGTH_SHORT).show();
         PluralResources pr = null;
         try {
             pr = new PluralResources(getResources());
@@ -72,21 +80,33 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel> {
 
     @OnClick(R.id.vBtnChange)
     public void onChangeClick(View view){
-        ProfileModel profileModel = mViewModel.mProfileModel;
-        profileModel.name.set("Ivan");
-        profileModel.surname.set("Ivanov");
-        profileModel.phone.set("9379992");
+        mViewModel.profileViewData.name.set("Alexi");
+        mViewModel.profileViewData.surname.set("Laiho");
+        mViewModel.profileViewData.phone.set("9379992");
     }
 
     @OnClick(R.id.vBtnChangeCheckbox)
     public void onChangeCheckBox(View view) {
-        ProfileModel profileModel = mViewModel.mProfileModel;
-        profileModel.bool.set(!profileModel.bool.getValue());
+        boolean val = mViewModel.profileViewData.bool.getValue();
+        mViewModel.profileViewData.bool.set(!val);
     }
 
     @OnClick(R.id.vBtnChangeStatus)
     public void onChangeStatus(View view) {
-        ProfileModel profileModel = mViewModel.mProfileModel;
-        profileModel.status.set(66);
+        mViewModel.profileViewData.status.set(55);
+    }
+
+    //======================================================
+    //------------------Binding adapters--------------------
+    //======================================================
+    @BindingAdapter({"attr:adapter"})
+    public static void bindAdapter(@NonNull RecyclerView recyclerView,
+                                   @Nullable List<ProfileViewData> list) {
+        if (list != null) {
+            Context context = recyclerView.getContext();
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(new ProfileAdapter(context, list));
+        }
     }
 }

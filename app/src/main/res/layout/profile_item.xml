@@ -4,7 +4,10 @@
     xmlns:attr="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="profile" type="by.pavlovskii.ilya.mvvm.test.models.ProfileModel" />
+
+        <variable
+            name="profile"
+            type="by.pavlovskii.ilya.mvvm.test.bindmodels.ProfileViewData"/>
     </data>
 
 

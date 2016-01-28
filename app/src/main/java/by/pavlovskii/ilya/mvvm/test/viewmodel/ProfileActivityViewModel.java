@@ -1,14 +1,10 @@
 package by.pavlovskii.ilya.mvvm.test.viewmodel;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import by.pavlovskii.ilya.mvvm.test.adapters.ProfileAdapter;
+import by.pavlovskii.ilya.mvvm.test.bindmodels.ProfileViewData;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityProfileBinding;
-import by.pavlovskii.ilya.mvvm.test.models.ProfileModel;
 
 /**
  * Create with Android Studio<br>
@@ -22,77 +18,30 @@ import by.pavlovskii.ilya.mvvm.test.models.ProfileModel;
  * //TODO Add description<br>
  * ===================================================================================
  */
-public class ProfileActivityViewModel implements IViewModel<ActivityProfileBinding>{
+public class ProfileActivityViewModel implements IViewModel<ProfileViewData, ActivityProfileBinding> {
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    public List<ProfileModel> mProfileList = new ArrayList<>();
-    public ProfileModel mProfileModel;
+    public ProfileViewData profileViewData;
 
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
     @Override
-    public void initModel() {
-        mProfileList = new ArrayList<>();
-        mProfileList.add(new ProfileModel("Ivan","Ivanov","9379992"));
-        mProfileList.add(new ProfileModel("Petr","Petrov","2020327"));
-        mProfileList.add(new ProfileModel("Atrem","Babuk","2020302"));
-        mProfileList.add(new ProfileModel("Pikabu","Pikabushevich","1233210"));
-        mProfileList.add(new ProfileModel("Ivan","Ivanov","9379992"));
-        mProfileList.add(new ProfileModel("Petr","Petrov","2020327"));
-        mProfileList.add(new ProfileModel("Atrem","Babuk","2020302"));
-        mProfileList.add(new ProfileModel("Pikabu","Pikabushevich","1233210"));
-        mProfileList.add(new ProfileModel("Ivan","Ivanov","9379992"));
-        mProfileList.add(new ProfileModel("Petr","Petrov","2020327"));
-        mProfileList.add(new ProfileModel("Atrem","Babuk","2020302"));
-        mProfileList.add(new ProfileModel("Pikabu","Pikabushevich","1233210"));
-        mProfileList.add(new ProfileModel("Ivan","Ivanov","9379992"));
-        mProfileList.add(new ProfileModel("Petr","Petrov","2020327"));
-        mProfileList.add(new ProfileModel("Atrem","Babuk","2020302"));
-        mProfileList.add(new ProfileModel("Pikabu","Pikabushevich","1233210"));
-        mProfileList.add(new ProfileModel("Ivan","Ivanov","9379992"));
-        mProfileList.add(new ProfileModel("Petr","Petrov","2020327"));
-        mProfileList.add(new ProfileModel("Atrem","Babuk","2020302"));
-        mProfileList.add(new ProfileModel("Pikabu","Pikabushevich","1233210"));
-        mProfileList.add(new ProfileModel("Ivan","Ivanov","9379992"));
-        mProfileList.add(new ProfileModel("Petr","Petrov","2020327"));
-        mProfileList.add(new ProfileModel("Atrem","Babuk","2020302"));
-        mProfileList.add(new ProfileModel("Pikabu","Pikabushevich","1233210"));
-        mProfileList.add(new ProfileModel("Ivan","Ivanov","9379992"));
-        mProfileList.add(new ProfileModel("Petr","Petrov","2020327"));
-        mProfileList.add(new ProfileModel("Atrem","Babuk","2020302"));
-        mProfileList.add(new ProfileModel("Pikabu","Pikabushevich","1233210"));
-        mProfileList.add(new ProfileModel("Ivan","Ivanov","9379992"));
-        mProfileList.add(new ProfileModel("Petr","Petrov","2020327"));
-        mProfileList.add(new ProfileModel("Atrem","Babuk","2020302"));
-        mProfileList.add(new ProfileModel("Pikabu","Pikabushevich","1233210"));
-        mProfileList.add(new ProfileModel("Ivan","Ivanov","9379992"));
-        mProfileList.add(new ProfileModel("Petr","Petrov","2020327"));
-        mProfileList.add(new ProfileModel("Atrem","Babuk","2020302"));
-        mProfileList.add(new ProfileModel("Pikabu","Pikabushevich","1233210"));
-        mProfileList.add(new ProfileModel("Ivan","Ivanov","9379992"));
-        mProfileList.add(new ProfileModel("Petr","Petrov","2020327"));
-        mProfileList.add(new ProfileModel("Atrem","Babuk","2020302"));
-        mProfileList.add(new ProfileModel("Pikabu","Pikabushevich","1233210"));
-
-        mProfileModel = new ProfileModel();
+    public void bindViewData(@NonNull Context context, ActivityProfileBinding viewDataBinding) {
+        viewDataBinding.setProfile(profileViewData);
     }
 
     @Override
-    public void bindData(Context context, ActivityProfileBinding viewDataBinding) {
-        viewDataBinding.setProfile(mProfileModel);
-
-        viewDataBinding.vRecyclerView.setHasFixedSize(true);
-        viewDataBinding.vRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        viewDataBinding.vRecyclerView.setAdapter(new ProfileAdapter(context, mProfileList));
+    public ProfileViewData initViewData() {
+        profileViewData = new ProfileViewData();
+        return profileViewData;
     }
 
     @Override
     public void destroy() {
-        mProfileList.clear();
-        mProfileList = null;
+        profileViewData = null;
     }
 
     //======================================================

@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.models.wrapper;
+package by.pavlovskii.ilya.mvvm.test.wrapper;
 
 import android.databinding.BaseObservable;
 

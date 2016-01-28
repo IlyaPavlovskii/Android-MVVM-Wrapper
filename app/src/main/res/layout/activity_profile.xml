@@ -6,7 +6,7 @@
     <data>
         <variable
             name="profile"
-            type="by.pavlovskii.ilya.mvvm.test.models.ProfileModel"/>
+            type="by.pavlovskii.ilya.mvvm.test.bindmodels.ProfileViewData"/>
     </data>
 
     <LinearLayout
@@ -125,12 +125,12 @@
                 style="@style/ProfileButton"/>
         </LinearLayout>
 
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/vRecyclerView"
             android:scrollbars="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            attr:adapter="@{profile.profiles}"/>
     </LinearLayout>
 
 </layout>
