@@ -2,6 +2,8 @@ package by.pavlovskii.ilya.mvvm.test.viewmodel;
 
 import android.content.Context;
 import android.databinding.ViewDataBinding;
+import android.os.Handler;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 
 import by.pavlovskii.ilya.mvvm.test.bindmodels.IViewData;
@@ -29,7 +31,13 @@ public interface IViewModel<TViewData extends IViewData, TViewDataBinding extend
     //======================================================
     @NonNull
     TViewData initViewData();
-
     void bindViewData(@NonNull Context context, @NonNull TViewDataBinding viewDataBinding);
+
+    @NonNull
+    IBinder getReceiverBinder();
+
+    void setSenderBinder(@NonNull IBinder binder);
     void destroy();
+
+
 }

@@ -1,33 +1,31 @@
-package by.pavlovskii.ilya.mvvm.test.activity;
+package by.pavlovskii.ilya.mvvm.test.viewmodel;
 
-import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 
 import java.lang.ref.WeakReference;
 
-import butterknife.ButterKnife;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.IViewModel;
+import by.pavlovskii.ilya.mvvm.test.bindmodels.IViewData;
+
 /**
  * Create with Android Studio<br>
  * Created by Pavlovskii Ilya<br>
  * E-mail: pavlovskii_ilya@mail.ru, trane91666@gmail.com<br>
  * Skype: trane9119<br>
- * Date: 06.01.16<br>
- * Time: 19:53<br>
+ * Date: 31.01.16<br>
+ * Time: 19:03<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
  * //TODO Add description<br>
  * ===================================================================================
  */
-public abstract class BaseActivity<TViewModel extends IViewModel> extends AppCompatActivity {
+public abstract class BaseViewModel<TViewData extends IViewData, TViewDataBinding extends ViewDataBinding>
+        implements IViewModel<TViewData, TViewDataBinding> {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -37,42 +35,30 @@ public abstract class BaseActivity<TViewModel extends IViewModel> extends AppCom
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    protected ViewDataBinding mBinding;
-    protected TViewModel mViewModel;
-
     private Messenger mSenderMessenger;
     private Messenger mReceiverMessenger;
+    private Handler mHandler;
+
+    //======================================================
+    //---------------------Constructors---------------------
+    //======================================================
+    public BaseViewModel() {
+        mHandler = new IncomingHandler(this);
+        mReceiverMessenger = new Messenger(mHandler);
+    }
 
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
-
+    @NonNull
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
-        ButterKnife.bind(this);
-
-        mViewModel = getViewModel();
-        mViewModel.initViewData();
-        mViewModel.bindViewData(this, mBinding);
-
-        mSenderMessenger = new Messenger(mViewModel.getReceiverBinder());
-        mReceiverMessenger = new Messenger(new IncomingHandler(this));
-
-        mViewModel.setSenderBinder(mReceiverMessenger.getBinder());
+    public IBinder getReceiverBinder() {
+        return mReceiverMessenger.getBinder();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-        mBinding.unbind();
-        mViewModel.destroy();
-        mViewModel = null;
-
-        mSenderMessenger = null;
-        mReceiverMessenger = null;
+    public void setSenderBinder(@NonNull IBinder binder) {
+        mSenderMessenger = new Messenger(binder);
     }
 
     //======================================================
@@ -87,31 +73,26 @@ public abstract class BaseActivity<TViewModel extends IViewModel> extends AppCom
     //======================================================
     //-------------------Abstract methods-------------------
     //======================================================
-    @LayoutRes
-    protected abstract int getLayoutRes();
-    @NonNull
-    protected abstract TViewModel getViewModel();
-
-    protected abstract void handleMessage(Message msg);
+    public abstract void handleMessage(Message message);
 
     //======================================================
     //--------------------Inner classes---------------------
     //======================================================
     private static class IncomingHandler extends Handler {
 
-        private WeakReference<BaseActivity> mWeakReference;
+        private WeakReference<BaseViewModel> mWeakReference;
 
-        private IncomingHandler(@NonNull BaseActivity activity) {
-            mWeakReference = new WeakReference<>(activity);
+        private IncomingHandler(@NonNull BaseViewModel viewModel) {
+            mWeakReference = new WeakReference<>(viewModel);
         }
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            BaseActivity activity = mWeakReference.get();
+            BaseViewModel viewModel = mWeakReference.get();
 
-            if (msg != null && activity != null && !activity.isFinishing()) {
-                activity.handleMessage(msg);
+            if (msg != null && viewModel != null) {
+                viewModel.handleMessage(msg);
             }
         }
     }

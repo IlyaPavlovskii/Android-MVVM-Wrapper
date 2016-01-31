@@ -1,7 +1,10 @@
 package by.pavlovskii.ilya.mvvm.test.viewmodel;
 
 import android.content.Context;
+import android.os.Message;
+import android.os.RemoteException;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import by.pavlovskii.ilya.mvvm.test.bindmodels.ProfileViewData;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityProfileBinding;
@@ -18,7 +21,7 @@ import by.pavlovskii.ilya.mvvm.test.databinding.ActivityProfileBinding;
  * //TODO Add description<br>
  * ===================================================================================
  */
-public class ProfileActivityViewModel implements IViewModel<ProfileViewData, ActivityProfileBinding> {
+public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData, ActivityProfileBinding> {
 
     //======================================================
     //------------------------Fields------------------------
@@ -29,8 +32,22 @@ public class ProfileActivityViewModel implements IViewModel<ProfileViewData, Act
     //-------------------Override methods-------------------
     //======================================================
     @Override
-    public void bindViewData(@NonNull Context context, ActivityProfileBinding viewDataBinding) {
+    public void bindViewData(@NonNull Context context, @NonNull ActivityProfileBinding viewDataBinding) {
         viewDataBinding.setProfile(profileViewData);
+    }
+
+    @Override
+    public void handleMessage(Message message) {
+        Log.d(TAG, "Message: " + message.what);
+        switch (message.what) {
+            case 100:
+                try {
+                    sendCommand(Message.obtain(null, 888666));
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
     }
 
     @Override
