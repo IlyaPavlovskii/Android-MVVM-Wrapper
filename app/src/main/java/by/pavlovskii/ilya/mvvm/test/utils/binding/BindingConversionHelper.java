@@ -17,15 +17,20 @@ import by.pavlovskii.ilya.mvvm.test.wrapper.BindableGeneric;
  * Time: 1:03<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * //TODO Add description<br>
+ * All {@link BindingConversion} methods to fast conversion {@link BindableGeneric}
+ * to target primitive<br>
  * ===================================================================================
  */
-public class BindingConversionMethods {
+public class BindingConversionHelper {
 
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
-    private BindingConversionMethods() {
+
+    /**
+     * Implement base helper realization constructor
+     */
+    private BindingConversionHelper() {
     }
 
     //======================================================

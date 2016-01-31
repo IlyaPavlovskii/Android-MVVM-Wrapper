@@ -21,7 +21,9 @@ import by.pavlovskii.ilya.mvvm.test.bindmodels.IViewData;
  * Time: 19:03<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * //TODO Add description<br>
+ * Base {@link IViewModel} realization with communication between
+ * {@link by.pavlovskii.ilya.mvvm.test.activity.BaseActivity} and {@link IViewModel}.
+ * Contains required fields like - {@link IViewData} and {@link ViewDataBinding}<br>
  * ===================================================================================
  */
 public abstract class BaseViewModel<TViewData extends IViewData, TViewDataBinding extends ViewDataBinding>
@@ -64,6 +66,12 @@ public abstract class BaseViewModel<TViewData extends IViewData, TViewDataBindin
     //======================================================
     //-------------------Protected methods------------------
     //======================================================
+
+    /**
+     * Send command into activity or another subscriber
+     *
+     * @param message command to subscriber
+     */
     protected void sendCommand(Message message) throws RemoteException {
         if (mSenderMessenger != null) {
             mSenderMessenger.send(message);
@@ -73,6 +81,11 @@ public abstract class BaseViewModel<TViewData extends IViewData, TViewDataBindin
     //======================================================
     //-------------------Abstract methods-------------------
     //======================================================
+
+    /**
+     * Handle message from activity or another component who sent this message
+     *
+     * @param message command message*/
     public abstract void handleMessage(Message message);
 
     //======================================================

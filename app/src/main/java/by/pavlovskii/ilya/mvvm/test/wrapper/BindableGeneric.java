@@ -11,7 +11,7 @@ import android.databinding.BaseObservable;
  * Time: 2:54<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * //TODO Add description<br>
+ * Bindable generic with observable functions. Notifying all components about changes<br>
  * ===================================================================================
  */
 public class BindableGeneric<T extends Object> extends BaseObservable {
@@ -47,8 +47,8 @@ public class BindableGeneric<T extends Object> extends BaseObservable {
     }
 
     @Override
-    public BindableGeneric clone() {
-        return new BindableGeneric(mValue);
+    public BindableGeneric<T> clone() {
+        return new BindableGeneric<>(mValue);
     }
 
     @Override
@@ -59,10 +59,18 @@ public class BindableGeneric<T extends Object> extends BaseObservable {
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
+
+    /**
+     * Get template value
+     */
     public T getValue() {
         return mValue;
     }
 
+    /**
+     * Set new value to template variable and notify all components about changes
+     *
+     * @param value new template value*/
     public void set(T value) {
         if (mValue == null || !mValue.equals(value)) {
             this.mValue = value;
@@ -70,6 +78,10 @@ public class BindableGeneric<T extends Object> extends BaseObservable {
         }
     }
 
+    /**
+     * Set new value to template variable without notify subscribers
+     *
+     * @param value new template value*/
     public void setValue(T value) {
         this.mValue = value;
     }

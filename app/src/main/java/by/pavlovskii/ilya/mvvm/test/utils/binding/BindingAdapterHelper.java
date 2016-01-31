@@ -2,6 +2,7 @@ package by.pavlovskii.ilya.mvvm.test.utils.binding;
 
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.util.Pair;
@@ -26,30 +27,63 @@ import by.pavlovskii.ilya.mvvm.test.view.BindableEditText;
  * Time: 1:06<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * //TODO Add description<br>
+ * All {@link BindingAdapter} methods used in base pack methods<br>
  * ===================================================================================
  */
-public class BindingAdapterMethods {
+public class BindingAdapterHelper {
 
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
-    private BindingAdapterMethods() {
+
+    /**
+     * Implement base helper realization constructor
+     */
+    private BindingAdapterHelper() {
     }
 
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
-    @BindingAdapter({"attr:imageUrl", "attr:error"})
-    public static void loadImage(ImageView imageView, String url, Drawable error) {
+
+    /**
+     * Load image from URL address to target {@see ImageView} component
+     *
+     * @param imageView target {@link ImageView} component
+     * @param url       image URL address
+     * @param error     error {@link Drawable}, used when something is wrong to loading by current
+     *                  URL address
+     */
+    @BindingAdapter({"attr:imageUrl", "attr:errorImage"})
+    public static void loadImage(@NonNull ImageView imageView, @Nullable String url,
+                                 @Nullable Drawable error) {
         DisplayImageOptions dio = new DisplayImageOptions.Builder()
                 .showImageOnFail(error)
                 .build();
         ImageLoader.getInstance().displayImage(url, imageView, dio);
     }
 
+    /**
+     * Load image from URL address to target {@see ImageView } component
+     *
+     * @param imageView target {@link ImageView} component
+     * @param url       image URL address
+     */
+    @BindingAdapter({"attr:imageUrl"})
+    public static void loadImage(@NonNull ImageView imageView, @Nullable String url) {
+        ImageLoader.getInstance().displayImage(url, imageView);
+    }
+
+    /**
+     * Fill text and tracking changes on target {@see EditText} component
+     * !WARNING!
+     * Current method have some problems with subscribe multiply {@see EditText} components to one
+     * bindable argument. To avoid this problems use {@link BindableEditText}.
+     *
+     * @param view target {@link BindableEditText} component
+     * @param bindableString target text*/
     @BindingAdapter({"attr:binding"})
-    public static void bindEditText(EditText view,
+    public static void bindEditText(@NonNull EditText view,
                                     @Nullable final BindableGeneric<String> bindableString) {
         if (bindableString == null) {
             return;
@@ -71,8 +105,13 @@ public class BindingAdapterMethods {
         }
     }
 
+    /**
+     * Fill text and tracking changes on target {@see BindableEditText} component
+     *
+     * @param view target {@link BindableEditText} component
+     * @param bindableString target text*/
     @BindingAdapter({"attr:binding"})
-    public static void bindEditText(BindableEditText view,
+    public static void bindEditText(@NonNull BindableEditText view,
                                     @Nullable final BindableGeneric<String> bindableString) {
         if (bindableString == null) {
             return;
@@ -95,9 +134,14 @@ public class BindingAdapterMethods {
         }
     }
 
+    /**
+     * Fill checked/unchecked states to {@see CompoundButton} component and tracking changes
+     *
+     * @param checkBox target {@link CompoundButton} component
+     * @param bindableBoolean observable checked/unchecked state data*/
     @BindingAdapter({"attr:binding"})
-    public static void bindCompoundButton(CompoundButton checkBox,
-                                          final BindableGeneric<Boolean> bindableBoolean) {
+    public static void bindCompoundButton(@NonNull CompoundButton checkBox,
+                                          @Nullable BindableGeneric<Boolean> bindableBoolean) {
         if (bindableBoolean == null) {
             return;
         }
@@ -109,6 +153,11 @@ public class BindingAdapterMethods {
         checkBox.setOnCheckedChangeListener(listener);
     }
 
+    /**
+     * Set progress state value and tracking changes on {@see SeekBar} component
+     *
+     * @param seekBar target {@link SeekBar} component
+     * @param bindableInteger observable progress state value*/
     @BindingAdapter({"attr:binding"})
     public static void bindProgressBar(SeekBar seekBar,
                                        final BindableGeneric<Integer> bindableInteger) {

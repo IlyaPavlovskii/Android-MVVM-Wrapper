@@ -5,8 +5,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
-import java.util.concurrent.Semaphore;
-
 /**
  * Create with Android Studio<br>
  * Created by Pavlovskii Ilya<br>
@@ -16,15 +14,10 @@ import java.util.concurrent.Semaphore;
  * Time: 22:57<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * //TODO Add description<br>
+ * EditText with function to link 2 or more view component to one data<br>
  * ===================================================================================
  */
 public class BindableEditText extends EditText {
-
-    //======================================================
-    //----------------------Constants-----------------------
-    //======================================================
-    private static final String TAG = BindableEditText.class.getSimpleName();
 
     //======================================================
     //------------------------Fields------------------------
