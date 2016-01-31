@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.view;
+package by.mvvmwrapper.view;
 
 import android.content.Context;
 import android.text.TextUtils;

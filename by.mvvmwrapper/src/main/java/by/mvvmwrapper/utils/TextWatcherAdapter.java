@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.utils;
+package by.mvvmwrapper.utils;
 
 import android.text.Editable;
 import android.text.TextWatcher;

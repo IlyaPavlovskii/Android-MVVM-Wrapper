@@ -1,12 +1,9 @@
-package by.pavlovskii.ilya.mvvm.test.utils.binding;
+package by.mvvmwrapper.utils.binding;
 
 import android.databinding.BindingConversion;
 import android.support.annotation.Nullable;
 
-import java.util.List;
-
-import by.pavlovskii.ilya.mvvm.test.bindmodels.ProfileViewData;
-import by.pavlovskii.ilya.mvvm.test.wrapper.BindableGeneric;
+import by.mvvmwrapper.wrapper.BindableGeneric;
 
 /**
  * Create with Android Studio<br>
@@ -63,13 +60,4 @@ public class BindingConversionHelper {
         }
     }
 
-    @BindingConversion
-    public static List<ProfileViewData> convertBindableToProfileViewDataList(
-            @Nullable BindableGeneric<List<ProfileViewData>> bindableList) {
-        if (bindableList != null) {
-            return bindableList.getValue();
-        } else {
-            return null;
-        }
-    }
 }

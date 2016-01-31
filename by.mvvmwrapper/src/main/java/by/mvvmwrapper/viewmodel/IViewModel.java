@@ -1,11 +1,11 @@
-package by.pavlovskii.ilya.mvvm.test.viewmodel;
+package by.mvvmwrapper.viewmodel;
 
 import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 
-import by.pavlovskii.ilya.mvvm.test.bindmodels.IViewData;
+import by.mvvmwrapper.bindmodels.IViewData;
 
 /**
  * Create with Android Studio<br>

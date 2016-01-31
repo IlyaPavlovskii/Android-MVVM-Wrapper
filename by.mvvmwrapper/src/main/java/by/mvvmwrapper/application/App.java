@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.application;
+package by.mvvmwrapper.application;
 
 import android.app.Application;
 

@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.bindmodels;
+package by.mvvmwrapper.bindmodels;
 
 /**
  * Create with Android Studio<br>

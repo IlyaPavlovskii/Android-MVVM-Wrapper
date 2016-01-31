@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.utils.binding;
+package by.mvvmwrapper.utils.binding;
 
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
@@ -14,9 +14,9 @@ import android.widget.SeekBar;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import by.pavlovskii.ilya.mvvm.test.wrapper.BindableGeneric;
-import by.pavlovskii.ilya.mvvm.test.utils.TextWatcherAdapter;
-import by.pavlovskii.ilya.mvvm.test.view.BindableEditText;
+import by.mvvmwrapper.wrapper.BindableGeneric;
+import by.mvvmwrapper.utils.TextWatcherAdapter;
+import by.mvvmwrapper.view.BindableEditText;
 
 /**
  * Create with Android Studio<br>
@@ -182,5 +182,10 @@ public class BindingAdapterHelper {
 
             }
         });
+    }
+
+    @BindingAdapter({"attr:text"})
+    public static void bindText(@NonNull EditText editText, @Nullable String text) {
+        editText.setText(text);
     }
 }

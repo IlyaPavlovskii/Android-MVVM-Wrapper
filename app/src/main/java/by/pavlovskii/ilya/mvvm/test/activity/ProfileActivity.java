@@ -2,9 +2,7 @@ package by.pavlovskii.ilya.mvvm.test.activity;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
-import android.os.Handler;
 import android.os.Message;
-import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,11 +17,11 @@ import com.seppius.i18n.plurals.PluralResources;
 import java.util.List;
 
 import butterknife.OnClick;
+import by.mvvmwrapper.activity.BaseActivity;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.adapters.ProfileAdapter;
-import by.pavlovskii.ilya.mvvm.test.bindmodels.ProfileViewData;
+import by.pavlovskii.ilya.mvvm.test.bindingmodels.ProfileViewData;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.ProfileActivityViewModel;
-
 /**
  * Create with Android Studio<br>
  * Created by Pavlovskii Ilya<br>
@@ -92,7 +90,6 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel> {
         mViewModel.profileViewData.name.set("Alexi");
         mViewModel.profileViewData.surname.set("Laiho");
         mViewModel.profileViewData.phone.set("9379992");
-
         try {
             sendCommand(Message.obtain(null, 123));
         } catch (RemoteException e) {
@@ -104,7 +101,6 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel> {
     public void onChangeCheckBox(View view) {
         boolean val = mViewModel.profileViewData.bool.getValue();
         mViewModel.profileViewData.bool.set(!val);
-
         try {
             sendCommand(Message.obtain(null, 100));
         } catch (RemoteException e) {

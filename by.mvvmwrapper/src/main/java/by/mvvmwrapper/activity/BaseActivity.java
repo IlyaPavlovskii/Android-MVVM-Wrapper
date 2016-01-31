@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.activity;
+package by.mvvmwrapper.activity;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -14,7 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import java.lang.ref.WeakReference;
 
 import butterknife.ButterKnife;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.IViewModel;
+import by.mvvmwrapper.viewmodel.IViewModel;
+
 /**
  * Create with Android Studio<br>
  * Created by Pavlovskii Ilya<br>

@@ -1,9 +1,12 @@
-package by.pavlovskii.ilya.mvvm.test.bindmodels;
+package by.pavlovskii.ilya.mvvm.test.bindingmodels;
+
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import by.pavlovskii.ilya.mvvm.test.wrapper.BindableGeneric;
+import by.mvvmwrapper.bindmodels.IViewData;
+import by.mvvmwrapper.wrapper.BindableGeneric;
 
 /**
  * Create with Android Studio<br>
@@ -36,6 +39,23 @@ public class ProfileViewData implements IViewData {
         this.name = new BindableGeneric<>(null);
         this.surname = new BindableGeneric<>(null);
         this.phone = new BindableGeneric<>(null);
+        this.bool = new BindableGeneric<>(false);
+        this.status = new BindableGeneric<>(0);
+
+        List<ProfileViewData> list = new ArrayList<>();
+        list.add(new ProfileViewData("Erik", "Kartman", "2020327"));
+        list.add(new ProfileViewData("Kenni", "McCormick", "911"));
+        list.add(new ProfileViewData("Stan", "Marshal", "6661313"));
+        list.add(new ProfileViewData("Kyle", "Broflovski", "9379992"));
+
+        this.profiles = new BindableGeneric<>(list);
+
+    }
+
+    public ProfileViewData(@Nullable String name, @Nullable String surname, @Nullable String phone) {
+        this.name = new BindableGeneric<>(name);
+        this.surname = new BindableGeneric<>(surname);
+        this.phone = new BindableGeneric<>(phone);
         this.bool = new BindableGeneric<>(false);
         this.status = new BindableGeneric<>(0);
         this.profiles = new BindableGeneric<>(new ArrayList<>());

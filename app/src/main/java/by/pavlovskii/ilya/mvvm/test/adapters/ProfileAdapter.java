@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import by.pavlovskii.ilya.mvvm.test.R;
-import by.pavlovskii.ilya.mvvm.test.bindmodels.ProfileViewData;
+import by.pavlovskii.ilya.mvvm.test.bindingmodels.ProfileViewData;
 import by.pavlovskii.ilya.mvvm.test.databinding.ProfileItemBinding;
 
 /**

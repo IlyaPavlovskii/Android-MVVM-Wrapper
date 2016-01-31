@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.wrapper;
+package by.mvvmwrapper.wrapper;
 
 import android.databinding.BaseObservable;
 
@@ -14,7 +14,7 @@ import android.databinding.BaseObservable;
  * Bindable generic with observable functions. Notifying all components about changes<br>
  * ===================================================================================
  */
-public class BindableGeneric<T> extends BaseObservable {
+public class BindableGeneric<T extends Object> extends BaseObservable {
 
     //======================================================
     //------------------------Fields------------------------

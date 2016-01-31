@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.viewmodel;
+package by.mvvmwrapper.viewmodel;
 
 import android.databinding.ViewDataBinding;
 import android.os.Handler;
@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
 
-import by.pavlovskii.ilya.mvvm.test.bindmodels.IViewData;
+import by.mvvmwrapper.bindmodels.IViewData;
 
 /**
  * Create with Android Studio<br>
