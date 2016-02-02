@@ -22,7 +22,7 @@ import by.mvvmwrapper.bindmodels.IViewData;
  * Project name: MVVMtest<br>
  * ===================================================================================
  * Base {@link IViewModel} realization with communication between
- * {@link by.pavlovskii.ilya.mvvm.test.activity.BaseActivity} and {@link IViewModel}.
+ * {@link by.mvvmwrapper.activity.BaseActivity} and {@link IViewModel}.
  * Contains required fields like - {@link IViewData} and {@link ViewDataBinding}<br>
  * ===================================================================================
  */
@@ -41,12 +41,15 @@ public abstract class BaseViewModel<TViewData extends IViewData, TViewDataBindin
     private Messenger mReceiverMessenger;
     private Handler mHandler;
 
+    protected TViewData mViewData;
+
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
     public BaseViewModel() {
         mHandler = new IncomingHandler(this);
         mReceiverMessenger = new Messenger(mHandler);
+        mViewData = initViewData();
     }
 
     //======================================================
@@ -61,6 +64,11 @@ public abstract class BaseViewModel<TViewData extends IViewData, TViewDataBindin
     @Override
     public void setSenderBinder(@NonNull IBinder binder) {
         mSenderMessenger = new Messenger(binder);
+    }
+
+    @Override
+    public void destroy() {
+        mViewData = null;
     }
 
     //======================================================
@@ -86,7 +94,7 @@ public abstract class BaseViewModel<TViewData extends IViewData, TViewDataBindin
      * Handle message from activity or another component who sent this message
      *
      * @param message command message*/
-    public abstract void handleMessage(Message message);
+    public abstract void handleMessage(@NonNull Message message);
 
     //======================================================
     //--------------------Inner classes---------------------

@@ -1,6 +1,7 @@
 package by.pavlovskii.ilya.mvvm.test.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.os.Message;
 import android.os.RemoteException;
@@ -111,6 +112,12 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel> {
     @OnClick(R.id.vBtnChangeStatus)
     public void onChangeStatus(View view) {
         mViewModel.profileViewData.status.set(55);
+    }
+
+    @OnClick(R.id.vBtnSpellChecker)
+    public void onSpellCheckerClick(View view) {
+        Intent intent = new Intent(view.getContext(), SpellCheckerActivity.class);
+        startActivity(intent);
     }
 
     //======================================================
