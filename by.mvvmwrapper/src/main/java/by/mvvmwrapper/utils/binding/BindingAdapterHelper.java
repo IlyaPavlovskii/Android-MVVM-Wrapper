@@ -33,9 +33,13 @@ import by.mvvmwrapper.view.BindableEditText;
 public class BindingAdapterHelper {
 
     //======================================================
+    //-----------------------Constants----------------------
+    //======================================================
+    private static final String ATTR_TAG = "attr";
+
+    //======================================================
     //---------------------Constructors---------------------
     //======================================================
-
     /**
      * Implement base helper realization constructor
      */
@@ -54,7 +58,7 @@ public class BindingAdapterHelper {
      * @param error     error {@link Drawable}, used when something is wrong to loading by current
      *                  URL address
      */
-    @BindingAdapter({"attr:imageUrl", "attr:errorImage"})
+    @BindingAdapter({ATTR_TAG + ":imageUrl", ATTR_TAG + ":errorImage"})
     public static void loadImage(@NonNull ImageView imageView, @Nullable String url,
                                  @Nullable Drawable error) {
         DisplayImageOptions dio = new DisplayImageOptions.Builder()
@@ -69,7 +73,7 @@ public class BindingAdapterHelper {
      * @param imageView target {@link ImageView} component
      * @param url       image URL address
      */
-    @BindingAdapter({"attr:imageUrl"})
+    @BindingAdapter({ATTR_TAG + ":imageUrl"})
     public static void loadImage(@NonNull ImageView imageView, @Nullable String url) {
         ImageLoader.getInstance().displayImage(url, imageView);
     }
@@ -82,7 +86,7 @@ public class BindingAdapterHelper {
      *
      * @param view target {@link BindableEditText} component
      * @param bindableString target text*/
-    @BindingAdapter({"attr:binding"})
+    @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindEditText(@NonNull EditText view,
                                     @Nullable final BindableGeneric<String> bindableString) {
         if (bindableString == null) {
@@ -110,7 +114,7 @@ public class BindingAdapterHelper {
      *
      * @param view target {@link BindableEditText} component
      * @param bindableString target text*/
-    @BindingAdapter({"attr:binding"})
+    @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindEditText(@NonNull BindableEditText view,
                                     @Nullable final BindableGeneric<String> bindableString) {
         if (bindableString == null) {
@@ -139,7 +143,7 @@ public class BindingAdapterHelper {
      *
      * @param checkBox target {@link CompoundButton} component
      * @param bindableBoolean observable checked/unchecked state data*/
-    @BindingAdapter({"attr:binding"})
+    @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindCompoundButton(@NonNull CompoundButton checkBox,
                                           @Nullable BindableGeneric<Boolean> bindableBoolean) {
         if (bindableBoolean == null) {
@@ -158,7 +162,7 @@ public class BindingAdapterHelper {
      *
      * @param seekBar target {@link SeekBar} component
      * @param bindableInteger observable progress state value*/
-    @BindingAdapter({"attr:binding"})
+    @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindProgressBar(SeekBar seekBar,
                                        final BindableGeneric<Integer> bindableInteger) {
         if (bindableInteger == null) {
@@ -184,8 +188,4 @@ public class BindingAdapterHelper {
         });
     }
 
-    @BindingAdapter({"attr:text"})
-    public static void bindText(@NonNull EditText editText, @Nullable String text) {
-        editText.setText(text);
-    }
 }
