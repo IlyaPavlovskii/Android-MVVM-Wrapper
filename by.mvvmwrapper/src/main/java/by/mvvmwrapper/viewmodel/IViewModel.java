@@ -1,5 +1,8 @@
 package by.mvvmwrapper.viewmodel;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.os.IBinder;
@@ -21,40 +24,32 @@ import by.mvvmwrapper.bindmodels.IViewData;
  * {@link ViewDataBinding}(compile time element which receive with android.databinding library)
  * ===================================================================================
  */
-public interface IViewModel<TViewData extends IViewData, TViewDataBinding extends ViewDataBinding> {
+public interface IViewModel<TViewData extends IViewData,
+        TViewDataBinding extends ViewDataBinding,
+        TViewComponent extends ComponentCallbacks> {
 
     //======================================================
     //------------------------Methods-----------------------
     //======================================================
-
     /**
      * Initialize view data binding model
      */
     @NonNull
-    TViewData initViewData();
+    TViewData initViewData() throws ClassNotFoundException;
+
+    /**
+     * Initialize View component - {@link Fragment} or {@link Activity}*/
+    void initViewComponent(TViewComponent view);
 
     /**
      * Bind data into {@link ViewDataBinding} component
      *
-     * @param context activity or service context
      * @param viewDataBinding generic binding view element*/
-    void bindViewData(@NonNull Context context, @NonNull TViewDataBinding viewDataBinding);
-
-    /**
-     * Binder element to communicate between View and ViewModel*/
-    @NonNull
-    IBinder getReceiverBinder();
-
-    /**
-     * Set binder from View component into ViewModel. Need initialize for achievement
-     * communication function between View and ViewModel components
-     *
-     * @param binder {@link android.os.Messenger} handler*/
-    void setSenderBinder(@NonNull IBinder binder);
+    void bindViewData(@NonNull TViewDataBinding viewDataBinding);
 
     /**
      * Destroy View callabck*/
     void destroy();
 
-
 }
+

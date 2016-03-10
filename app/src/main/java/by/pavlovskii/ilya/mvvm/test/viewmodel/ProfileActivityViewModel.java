@@ -6,6 +6,8 @@ import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import by.mvvmwrapper.bindmodels.IViewData;
+import by.pavlovskii.ilya.mvvm.test.activity.ProfileActivity;
 import by.pavlovskii.ilya.mvvm.test.bindingmodels.ProfileViewData;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityProfileBinding;
@@ -22,44 +24,45 @@ import by.pavlovskii.ilya.mvvm.test.databinding.ActivityProfileBinding;
  * //TODO Add description<br>
  * ===================================================================================
  */
-public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData, ActivityProfileBinding> {
+public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData, ActivityProfileBinding, ProfileActivity> {
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    public ProfileViewData profileViewData;
 
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
+    @NonNull
     @Override
-    public void bindViewData(@NonNull Context context, @NonNull ActivityProfileBinding viewDataBinding) {
-        viewDataBinding.setProfile(profileViewData);
+    public ProfileViewData initViewData() throws ClassNotFoundException {
+        return new ProfileViewData();
     }
 
     @Override
-    public void handleMessage(Message message) {
-        Log.d(TAG, "Message: " + message.what);
-        switch (message.what) {
-            case 100:
-                try {
-                    sendCommand(Message.obtain(null, 888666));
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-                break;
-        }
+    public void bindViewData(@NonNull ActivityProfileBinding viewDataBinding) {
+        viewDataBinding.setProfile(mViewData);
     }
 
-    @Override
-    public ProfileViewData initViewData() {
-        profileViewData = new ProfileViewData();
-        return profileViewData;
+    //======================================================
+    //---------------------Public methods-------------------
+    //======================================================
+    public void change() {
+        mViewData.name.set("Alexi");
+        mViewData.surname.set("Laiho");
+        mViewData.phone.set("9379992");
     }
 
-    @Override
-    public void destroy() {
-        profileViewData = null;
+    public void changeCheckBox() {
+        boolean val = mViewData.bool.getValue();
+        mViewData.bool.set(!val);
     }
 
+    public ProfileViewData getViewData() {
+        return mViewData;
+    }
+
+    public void changeStatus() {
+        mViewData.status.set(55);
+    }
 }

@@ -1,6 +1,7 @@
-package by.mvvmwrapper.application;
+package by.mvvmwrapper.utils;
 
-import android.app.Application;
+import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
@@ -9,7 +10,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
@@ -20,14 +20,14 @@ import java.io.File;
  * Created by Pavlovskii Ilya<br>
  * E-mail: pavlovskii_ilya@mail.ru, trane91666@gmail.com<br>
  * Skype: trane9119<br>
- * Date: 06.01.16<br>
- * Time: 14:52<br>
+ * Date: 11.03.16<br>
+ * Time: 0:24<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
  * //TODO Add description<br>
  * ===================================================================================
  */
-public class App extends Application {
+public class BindingConfig {
 
     //======================================================
     //----------------------Interfaces----------------------
@@ -44,20 +44,20 @@ public class App extends Application {
     //======================================================
     //------------------------Fields------------------------
     //======================================================
+    private static BindingConfig sInstance;
 
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
+    private BindingConfig() {
+    }
 
     //======================================================
-    //-------------------Override methods-------------------
+    //--------------------Private methods-------------------
     //======================================================
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        File cacheDir = StorageUtils.getCacheDirectory(this);
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+    private void initImageLoader(@NonNull Context context) {
+        File cacheDir = StorageUtils.getCacheDirectory(context);
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
                 .memoryCacheExtraOptions(480, 800)
                 .diskCacheExtraOptions(480, 800, null)
                 .threadPoolSize(3)
@@ -71,39 +71,28 @@ public class App extends Application {
                 .diskCacheSize(50 * 1024 * 1024)
                 .diskCacheFileCount(100)
                 .diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
-                .imageDownloader(new BaseImageDownloader(this))
+                .imageDownloader(new BaseImageDownloader(context))
                 .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
                 .writeDebugLogs()
                 .build();
         ImageLoader.getInstance().init(config);
     }
 
-
-    //======================================================
-    //---------------------Init methods---------------------
-    //======================================================
-
-    //======================================================
-    //------------------------Events------------------------
-    //======================================================
-
-    //======================================================
-    //--------------------Private methods-------------------
-    //======================================================
-
-    //======================================================
-    //-------------------Protected methods------------------
-    //======================================================
-
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
+    public void init(@NonNull Context context) {
+        initImageLoader(context);
+    }
 
-    //======================================================
-    //-----------------------Listeners----------------------
-    //======================================================
+    public void destroy() {
+        ImageLoader.getInstance().destroy();
+    }
 
-    //======================================================
-    //---------------------Inner classes--------------------
-    //======================================================
+    public static BindingConfig getInstance() {
+        if (sInstance == null) {
+            sInstance = new BindingConfig();
+        }
+        return sInstance;
+    }
 }

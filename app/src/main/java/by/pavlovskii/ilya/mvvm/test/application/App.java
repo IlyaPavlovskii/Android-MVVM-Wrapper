@@ -1,29 +1,22 @@
-package by.pavlovskii.ilya.mvvm.test.activity;
+package by.pavlovskii.ilya.mvvm.test.application;
 
-import android.os.Message;
-import android.os.RemoteException;
-import android.support.annotation.NonNull;
-import android.view.View;
+import android.app.Application;
 
-import butterknife.OnClick;
-import by.mvvmwrapper.activity.BaseActivity;
-import by.mvvmwrapper.viewmodel.IViewModel;
-import by.pavlovskii.ilya.mvvm.test.R;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.SpellCheckerActivityViewModel;
+import by.mvvmwrapper.utils.BindingConfig;
 
 /**
  * Create with Android Studio<br>
  * Created by Pavlovskii Ilya<br>
  * E-mail: pavlovskii_ilya@mail.ru, trane91666@gmail.com<br>
  * Skype: trane9119<br>
- * Date: 02.02.16<br>
- * Time: 22:17<br>
+ * Date: 11.03.16<br>
+ * Time: 0:32<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
  * //TODO Add description<br>
  * ===================================================================================
  */
-public class SpellCheckerActivity extends BaseActivity {
+public class App extends Application {
 
     //======================================================
     //----------------------Interfaces----------------------
@@ -48,33 +41,27 @@ public class SpellCheckerActivity extends BaseActivity {
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
-    @Override
-    protected int getLayoutRes() {
-        return R.layout.activity_spell_checker;
-    }
 
-    @NonNull
     @Override
-    protected IViewModel getViewModel() {
-        return new SpellCheckerActivityViewModel();
+    public void onCreate() {
+        super.onCreate();
+        BindingConfig.getInstance().init(this);
     }
 
     @Override
-    protected void handleMessage(Message msg) {
-
+    public void onTerminate() {
+        super.onTerminate();
+        BindingConfig.getInstance().destroy();
     }
+
+
+    //======================================================
+    //---------------------Init methods---------------------
+    //======================================================
 
     //======================================================
     //------------------------Events------------------------
     //======================================================
-    @OnClick(R.id.vBtnCheck)
-    public void onCheckClick(View view) {
-        try {
-            sendCommand(Message.obtain(null, SpellCheckerActivityViewModel.CHECK_DATA_METHOD));
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
 
     //======================================================
     //--------------------Private methods-------------------

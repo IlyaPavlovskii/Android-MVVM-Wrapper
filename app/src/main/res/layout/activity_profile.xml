@@ -123,11 +123,6 @@
                 android:id="@+id/vBtnChangeStatus"
                 android:text="Change status"
                 style="@style/ProfileButton"/>
-
-            <Button
-                android:id="@+id/vBtnSpellChecker"
-                android:text="SC"
-                style="@style/ProfileButton"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

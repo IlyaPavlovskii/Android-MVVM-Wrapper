@@ -1,5 +1,6 @@
 package by.mvvmwrapper.viewmodel;
 
+import android.content.ComponentCallbacks;
 import android.databinding.ViewDataBinding;
 import android.os.Handler;
 import android.os.IBinder;
@@ -26,8 +27,10 @@ import by.mvvmwrapper.bindmodels.IViewData;
  * Contains required fields like - {@link IViewData} and {@link ViewDataBinding}<br>
  * ===================================================================================
  */
-public abstract class BaseViewModel<TViewData extends IViewData, TViewDataBinding extends ViewDataBinding>
-        implements IViewModel<TViewData, TViewDataBinding> {
+public abstract class BaseViewModel<TViewData extends IViewData,
+        TViewDataBinding extends ViewDataBinding,
+        TViewComponent extends ComponentCallbacks>
+        implements IViewModel<TViewData, TViewDataBinding, TViewComponent> {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -37,84 +40,31 @@ public abstract class BaseViewModel<TViewData extends IViewData, TViewDataBindin
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    private Messenger mSenderMessenger;
-    private Messenger mReceiverMessenger;
-    private Handler mHandler;
-
+    protected TViewComponent mViewComponent;
     protected TViewData mViewData;
 
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
     public BaseViewModel() {
-        mHandler = new IncomingHandler(this);
-        mReceiverMessenger = new Messenger(mHandler);
-        mViewData = initViewData();
+        try {
+            mViewData = initViewData();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
-    @NonNull
     @Override
-    public IBinder getReceiverBinder() {
-        return mReceiverMessenger.getBinder();
-    }
-
-    @Override
-    public void setSenderBinder(@NonNull IBinder binder) {
-        mSenderMessenger = new Messenger(binder);
+    public void initViewComponent(TViewComponent view) {
+        this.mViewComponent = view;
     }
 
     @Override
     public void destroy() {
         mViewData = null;
     }
-
-    //======================================================
-    //-------------------Protected methods------------------
-    //======================================================
-
-    /**
-     * Send command into activity or another subscriber
-     *
-     * @param message command to subscriber
-     */
-    protected void sendCommand(Message message) throws RemoteException {
-        if (mSenderMessenger != null) {
-            mSenderMessenger.send(message);
-        }
-    }
-
-    //======================================================
-    //-------------------Abstract methods-------------------
-    //======================================================
-
-    /**
-     * Handle message from activity or another component who sent this message
-     *
-     * @param message command message*/
-    public abstract void handleMessage(@NonNull Message message);
-
-    //======================================================
-    //--------------------Inner classes---------------------
-    //======================================================
-    private static class IncomingHandler extends Handler {
-
-        private WeakReference<BaseViewModel> mWeakReference;
-
-        private IncomingHandler(@NonNull BaseViewModel viewModel) {
-            mWeakReference = new WeakReference<>(viewModel);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            BaseViewModel viewModel = mWeakReference.get();
-
-            if (msg != null && viewModel != null) {
-                viewModel.handleMessage(msg);
-            }
-        }
-    }
 }
+

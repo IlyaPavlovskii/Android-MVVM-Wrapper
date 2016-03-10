@@ -56,18 +56,13 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel> {
         return new ProfileActivityViewModel();
     }
 
-    @Override
-    protected void handleMessage(Message msg) {
-        Log.d(TAG, "Message: " + msg.what);
-    }
-
     //======================================================
     //------------------------Events------------------------
     //======================================================
     @OnClick(R.id.vBtnCheck)
     public void onCheckClick(View view){
 
-        Toast.makeText(view.getContext(), "Profile model: " + mViewModel.profileViewData, Toast.LENGTH_SHORT).show();
+        Toast.makeText(view.getContext(), "Profile model: " + mViewModel.getViewData(), Toast.LENGTH_SHORT).show();
         PluralResources pr = null;
         try {
             pr = new PluralResources(getResources());
@@ -88,36 +83,17 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel> {
 
     @OnClick(R.id.vBtnChange)
     public void onChangeClick(View view){
-        mViewModel.profileViewData.name.set("Alexi");
-        mViewModel.profileViewData.surname.set("Laiho");
-        mViewModel.profileViewData.phone.set("9379992");
-        try {
-            sendCommand(Message.obtain(null, 123));
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        mViewModel.change();
     }
 
     @OnClick(R.id.vBtnChangeCheckbox)
     public void onChangeCheckBox(View view) {
-        boolean val = mViewModel.profileViewData.bool.getValue();
-        mViewModel.profileViewData.bool.set(!val);
-        try {
-            sendCommand(Message.obtain(null, 100));
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        mViewModel.changeCheckBox();
     }
 
     @OnClick(R.id.vBtnChangeStatus)
     public void onChangeStatus(View view) {
-        mViewModel.profileViewData.status.set(55);
-    }
-
-    @OnClick(R.id.vBtnSpellChecker)
-    public void onSpellCheckerClick(View view) {
-        Intent intent = new Intent(view.getContext(), SpellCheckerActivity.class);
-        startActivity(intent);
+        mViewModel.changeStatus();
     }
 
     //======================================================
