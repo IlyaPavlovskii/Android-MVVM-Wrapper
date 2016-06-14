@@ -24,6 +24,7 @@
             android:hint="Name"
             android:text="@{viewData.name}"
             attr:binding="@{viewData.name}"
+            attr:assetTypeface="@{@string/typeface_good_times}"
             style="@style/ProfileEditText"/>
 
         <LinearLayout

@@ -1,6 +1,7 @@
 package by.mvvmwrapper.utils.binding;
 
 import android.databinding.BindingAdapter;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -9,9 +10,13 @@ import android.util.Pair;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.TextView;
+
+import java.io.File;
 
 import by.mvvmwrapper.utils.SeekBarChangeAdapter;
 import by.mvvmwrapper.utils.TextWatcherAdapter;
+import by.mvvmwrapper.utils.TypefaceHelper;
 import by.mvvmwrapper.view.BindableEditText;
 import by.mvvmwrapper.wrapper.BindableGeneric;
 
@@ -145,4 +150,27 @@ public class BindingAdapterHelper {
         }
     }
 
+    @BindingAdapter({ATTR_TAG + ":assetTypeface"})
+    public static void bindAssetTypeface(@NonNull TextView textView, @Nullable String assetPath) {
+        Typeface typeface = TypefaceHelper.getTypefaceFromAssets(textView.getContext(), assetPath);
+        if (typeface != null) {
+            textView.setTypeface(typeface);
+        }
+    }
+
+    @BindingAdapter({ATTR_TAG + ":fileTypeface"})
+    public static void bindFileTypeface(@NonNull TextView textView, @Nullable String filePath) {
+        Typeface typeface = TypefaceHelper.getTypefaceFromFile(filePath);
+        if (typeface != null) {
+            textView.setTypeface(typeface);
+        }
+    }
+
+    @BindingAdapter({ATTR_TAG + ":fileTypeface"})
+    public static void bindFileTypeface(@NonNull TextView textView, @Nullable File typefaceFile) {
+        Typeface typeface = TypefaceHelper.getTypefaceFromFile(typefaceFile);
+        if (typeface != null) {
+            textView.setTypeface(typeface);
+        }
+    }
 }
