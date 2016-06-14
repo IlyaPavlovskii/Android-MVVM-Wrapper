@@ -1,11 +1,11 @@
-package by.pavlovskii.ilya.mvvm.test.bindingmodels;
+package by.pavlovskii.ilya.mvvm.test.viewdata;
 
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import by.mvvmwrapper.bindmodels.IViewData;
+import by.mvvmwrapper.viewdata.IViewData;
 import by.mvvmwrapper.wrapper.BindableGeneric;
 
 /**
@@ -43,11 +43,22 @@ public class ProfileViewData implements IViewData {
         this.status = new BindableGeneric<>(0);
 
         List<ProfileViewData> list = new ArrayList<>();
-        list.add(new ProfileViewData("Erik", "Kartman", "2020327"));
-        list.add(new ProfileViewData("Kenni", "McCormick", "911"));
-        list.add(new ProfileViewData("Stan", "Marshal", "6661313"));
+        list.add(new ProfileViewData("Eric", "Cartman", "2020327"));
+        list.add(new ProfileViewData("Kenny", "McCormick", "911"));
+        list.add(new ProfileViewData("Stan", "Marsh", "6661313"));
         list.add(new ProfileViewData("Kyle", "Broflovski", "9379992"));
-
+        list.add(new ProfileViewData("Wendy", "Testaburger", ""));
+        list.add(new ProfileViewData("Butters", "Stotch", ""));
+        list.add(new ProfileViewData("Terrance", "", ""));
+        list.add(new ProfileViewData("Phillip", "", ""));
+        list.add(new ProfileViewData("Ugly", "Bob", ""));
+        list.add(new ProfileViewData("Al", "Big Gay", ""));
+        list.add(new ProfileViewData("Ike", "Broflovski", ""));
+        list.add(new ProfileViewData("Chief", "", ""));
+        list.add(new ProfileViewData("Mr.", "Hankey", ""));
+        list.add(new ProfileViewData("Mr.", "Garrison", ""));
+        list.add(new ProfileViewData("Jimmy", "Valmer", ""));
+        list.add(new ProfileViewData("Timmy", "Burch", ""));
         this.profiles = new BindableGeneric<>(list);
 
     }

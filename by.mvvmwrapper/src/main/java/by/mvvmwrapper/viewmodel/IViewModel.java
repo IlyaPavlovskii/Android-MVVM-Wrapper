@@ -3,12 +3,10 @@ package by.mvvmwrapper.viewmodel;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ComponentCallbacks;
-import android.content.Context;
 import android.databinding.ViewDataBinding;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
 
-import by.mvvmwrapper.bindmodels.IViewData;
+import by.mvvmwrapper.viewdata.IViewData;
 
 /**
  * Create with Android Studio<br>
@@ -35,7 +33,7 @@ public interface IViewModel<TViewData extends IViewData,
      * Initialize view data binding model
      */
     @NonNull
-    TViewData initViewData() throws ClassNotFoundException;
+    TViewData initViewData();
 
     /**
      * Initialize View component - {@link Fragment} or {@link Activity}*/

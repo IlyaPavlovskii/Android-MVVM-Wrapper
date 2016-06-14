@@ -1,19 +1,12 @@
 package by.mvvmwrapper.activity;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.Messenger;
-import android.os.RemoteException;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 
-import java.lang.ref.WeakReference;
-
-import butterknife.ButterKnife;
 import by.mvvmwrapper.viewmodel.IViewModel;
 
 /**
@@ -28,7 +21,8 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * //TODO Add description<br>
  * ===================================================================================
  */
-public abstract class BaseActivity<TViewModel extends IViewModel> extends AppCompatActivity {
+public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
+        extends Activity {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -38,32 +32,25 @@ public abstract class BaseActivity<TViewModel extends IViewModel> extends AppCom
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    protected ViewDataBinding mBinding;
+    protected TViewDataBinding mBinding;
     protected TViewModel mViewModel;
 
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
-        ButterKnife.bind(this);
 
         mViewModel = getViewModel();
-        try {
-            mViewModel.initViewData();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        mViewModel.initViewData();
         mViewModel.bindViewData(mBinding);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
         mBinding.unbind();
         mViewModel.destroy();
         mViewModel = null;

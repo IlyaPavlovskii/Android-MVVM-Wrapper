@@ -2,16 +2,8 @@ package by.mvvmwrapper.viewmodel;
 
 import android.content.ComponentCallbacks;
 import android.databinding.ViewDataBinding;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Message;
-import android.os.Messenger;
-import android.os.RemoteException;
-import android.support.annotation.NonNull;
 
-import java.lang.ref.WeakReference;
-
-import by.mvvmwrapper.bindmodels.IViewData;
+import by.mvvmwrapper.viewdata.IViewData;
 
 /**
  * Create with Android Studio<br>
@@ -47,11 +39,7 @@ public abstract class BaseViewModel<TViewData extends IViewData,
     //---------------------Constructors---------------------
     //======================================================
     public BaseViewModel() {
-        try {
-            mViewData = initViewData();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        mViewData = initViewData();
     }
 
     //======================================================

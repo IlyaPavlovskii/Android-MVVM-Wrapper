@@ -7,7 +7,7 @@
 
         <variable
             name="profile"
-            type="by.pavlovskii.ilya.mvvm.test.bindingmodels.ProfileViewData"/>
+            type="by.pavlovskii.ilya.mvvm.test.viewdata.ProfileViewData"/>
     </data>
 
 

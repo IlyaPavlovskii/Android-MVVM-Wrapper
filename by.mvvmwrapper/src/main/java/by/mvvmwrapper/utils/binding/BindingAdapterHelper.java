@@ -1,22 +1,19 @@
 package by.mvvmwrapper.utils.binding;
 
 import android.databinding.BindingAdapter;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.util.Log;
 import android.util.Pair;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
-import by.mvvmwrapper.wrapper.BindableGeneric;
+import by.mvvmwrapper.utils.SeekBarChangeAdapter;
 import by.mvvmwrapper.utils.TextWatcherAdapter;
 import by.mvvmwrapper.view.BindableEditText;
+import by.mvvmwrapper.wrapper.BindableGeneric;
 
 /**
  * Create with Android Studio<br>
@@ -49,38 +46,9 @@ public class BindingAdapterHelper {
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
-
-    /**
-     * Load image from URL address to target {@see ImageView} component
-     *
-     * @param imageView target {@link ImageView} component
-     * @param url       image URL address
-     * @param error     error {@link Drawable}, used when something is wrong to loading by current
-     *                  URL address
-     */
-    @BindingAdapter({ATTR_TAG + ":imageUrl", ATTR_TAG + ":errorImage"})
-    public static void loadImage(@NonNull ImageView imageView, @Nullable String url,
-                                 @Nullable Drawable error) {
-        DisplayImageOptions dio = new DisplayImageOptions.Builder()
-                .showImageOnFail(error)
-                .build();
-        ImageLoader.getInstance().displayImage(url, imageView, dio);
-    }
-
-    /**
-     * Load image from URL address to target {@see ImageView } component
-     *
-     * @param imageView target {@link ImageView} component
-     * @param url       image URL address
-     */
-    @BindingAdapter({ATTR_TAG + ":imageUrl"})
-    public static void loadImage(@NonNull ImageView imageView, @Nullable String url) {
-        ImageLoader.getInstance().displayImage(url, imageView);
-    }
-
     /**
      * Fill text and tracking changes on target {@see EditText} component
-     * !WARNING!
+     * !ATTENTION!
      * Current method have some problems with subscribe multiply {@see EditText} components to one
      * bindable argument. To avoid this problems use {@link BindableEditText}.
      *
@@ -161,31 +129,20 @@ public class BindingAdapterHelper {
      * Set progress state value and tracking changes on {@see SeekBar} component
      *
      * @param seekBar target {@link SeekBar} component
-     * @param bindableInteger observable progress state value*/
+     * @param obsValue observable progress state value*/
     @BindingAdapter({ATTR_TAG + ":binding"})
-    public static void bindProgressBar(SeekBar seekBar,
-                                       final BindableGeneric<Integer> bindableInteger) {
-        if (bindableInteger == null) {
-            return;
-        }
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (progress != bindableInteger.getValue()) {
-                    bindableInteger.set(progress);
+    public static void bindSeekBar(@NonNull SeekBar seekBar, @Nullable BindableGeneric<Integer> obsValue) {
+        if (obsValue != null) {
+            seekBar.setOnSeekBarChangeListener(new SeekBarChangeAdapter() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    Log.d("ACTION", "onProgressChanged. Val: " + obsValue.getValue() + " Progres: " + progress);
+                    if (progress != obsValue.getValue()) {
+                        obsValue.set(progress);
+                    }
                 }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+            });
+        }
     }
 
 }

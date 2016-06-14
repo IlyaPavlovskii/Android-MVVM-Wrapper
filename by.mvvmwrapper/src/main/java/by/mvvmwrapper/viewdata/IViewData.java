@@ -1,4 +1,4 @@
-package by.mvvmwrapper.bindmodels;
+package by.mvvmwrapper.viewdata;
 
 /**
  * Create with Android Studio<br>

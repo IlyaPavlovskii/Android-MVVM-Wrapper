@@ -5,8 +5,12 @@
 
     <data>
         <variable
-            name="profile"
-            type="by.pavlovskii.ilya.mvvm.test.bindingmodels.ProfileViewData"/>
+            name="viewData"
+            type="by.pavlovskii.ilya.mvvm.test.viewdata.ProfileViewData"/>
+
+        <variable
+            name="handler"
+            type="by.pavlovskii.ilya.mvvm.test.handlers.ProfileHandler"/>
     </data>
 
     <LinearLayout
@@ -18,8 +22,8 @@
         <by.mvvmwrapper.view.BindableEditText
             android:id="@+id/vEtName"
             android:hint="Name"
-            android:text="@{profile.name}"
-            attr:binding="@{profile.name}"
+            android:text="@{viewData.name}"
+            attr:binding="@{viewData.name}"
             style="@style/ProfileEditText"/>
 
         <LinearLayout
@@ -32,8 +36,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:hint="Surname"
-                android:text="@{profile.surname}"
-                attr:binding="@{profile.surname}"
+                android:text="@{viewData.surname}"
+                attr:binding="@{viewData.surname}"
                 style="@style/ProfileEditText"/>
 
             <by.mvvmwrapper.view.BindableEditText
@@ -41,8 +45,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:hint="Surname"
-                android:text="@{profile.surname}"
-                attr:binding="@{profile.surname}"
+                android:text="@{viewData.surname}"
+                attr:binding="@{viewData.surname}"
                 style="@style/ProfileEditText"/>
 
             <by.mvvmwrapper.view.BindableEditText
@@ -50,8 +54,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:hint="Surname"
-                android:text="@{profile.surname}"
-                attr:binding="@{profile.surname}"
+                android:text="@{viewData.surname}"
+                attr:binding="@{viewData.surname}"
                 style="@style/ProfileEditText"/>
         </LinearLayout>
 
@@ -59,19 +63,9 @@
             android:id="@+id/vEtPhone"
             android:hint="Phone"
             android:inputType="phone"
-            android:text="@{profile.phone}"
-            attr:binding="@{profile.phone}"
+            android:text="@{viewData.phone}"
+            attr:binding="@{viewData.phone}"
             style="@style/ProfileEditText"/>
-
-        <Button
-            android:id="@+id/vBtnCheck"
-            android:text="check"
-            style="@style/ProfileButton"/>
-
-        <Button
-            android:id="@+id/vBtnChange"
-            android:text="Change edit text"
-            style="@style/ProfileButton"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -81,8 +75,8 @@
             <CheckBox
                 android:id="@+id/vCbCheckbox"
                 android:text="Checkbox"
-                android:checked="@{profile.bool}"
-                attr:binding="@{profile.bool}"
+                android:checked="@{viewData.bool}"
+                attr:binding="@{viewData.bool}"
                 style="@style/ProfileBool"/>
 
             <Switch
@@ -90,21 +84,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Switch"
-                android:checked="@{profile.bool}"
-                attr:binding="@{profile.bool}"/>
+                android:checked="@{viewData.bool}"
+                attr:binding="@{viewData.bool}"/>
 
             <ToggleButton
                 android:id="@+id/vTbCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@{profile.bool}"
-                attr:binding="@{profile.bool}"/>
+                android:checked="@{viewData.bool}"
+                attr:binding="@{viewData.bool}"/>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/vBtnChangeCheckbox"
-            android:text="Change checkbox"
-            style="@style/ProfileButton"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -115,13 +104,14 @@
                 android:id="@+id/vSbStatus"
                 android:layout_width="150dp"
                 android:layout_height="48dp"
-                android:background="@android:color/holo_blue_light"
-                android:progress="@{profile.status}"
-                attr:binding="@{profile.status}"/>
+                android:background="@android:color/holo_green_light"
+                android:progress="@{viewData.status}"
+                attr:binding="@{viewData.status}"/>
 
             <Button
                 android:id="@+id/vBtnChangeStatus"
                 android:text="Change status"
+                android:onClick="@{handler.onChangeStatusListener}"
                 style="@style/ProfileButton"/>
         </LinearLayout>
 
@@ -130,7 +120,7 @@
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            attr:adapter="@{profile.profiles}"/>
+            attr:adapter="@{viewData.profiles}"/>
     </LinearLayout>
 
 </layout>

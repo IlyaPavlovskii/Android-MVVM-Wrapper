@@ -1,16 +1,12 @@
 package by.pavlovskii.ilya.mvvm.test.viewmodel;
 
-import android.content.Context;
-import android.os.Message;
-import android.os.RemoteException;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import by.mvvmwrapper.bindmodels.IViewData;
-import by.pavlovskii.ilya.mvvm.test.activity.ProfileActivity;
-import by.pavlovskii.ilya.mvvm.test.bindingmodels.ProfileViewData;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
+import by.pavlovskii.ilya.mvvm.test.activity.ProfileActivity;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityProfileBinding;
+import by.pavlovskii.ilya.mvvm.test.handlers.ProfileHandler;
+import by.pavlovskii.ilya.mvvm.test.viewdata.ProfileViewData;
 
 /**
  * Create with Android Studio<br>
@@ -24,45 +20,39 @@ import by.pavlovskii.ilya.mvvm.test.databinding.ActivityProfileBinding;
  * //TODO Add description<br>
  * ===================================================================================
  */
-public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData, ActivityProfileBinding, ProfileActivity> {
+public class ProfileActivityViewModel
+        extends BaseViewModel<ProfileViewData, ActivityProfileBinding, ProfileActivity>
+        implements ProfileHandler.ProfileHandlerListener {
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
+    private ProfileHandler mProfileHandler;
 
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
     @NonNull
     @Override
-    public ProfileViewData initViewData() throws ClassNotFoundException {
-        return new ProfileViewData();
+    public ProfileViewData initViewData() {
+        ProfileViewData viewData = new ProfileViewData();
+        mProfileHandler = new ProfileHandler(this);
+        return viewData;
     }
 
     @Override
     public void bindViewData(@NonNull ActivityProfileBinding viewDataBinding) {
-        viewDataBinding.setProfile(mViewData);
+        viewDataBinding.setViewData(mViewData);
+        viewDataBinding.setHandler(mProfileHandler);
     }
 
-    //======================================================
-    //---------------------Public methods-------------------
-    //======================================================
-    public void change() {
-        mViewData.name.set("Alexi");
-        mViewData.surname.set("Laiho");
-        mViewData.phone.set("9379992");
-    }
-
-    public void changeCheckBox() {
-        boolean val = mViewData.bool.getValue();
-        mViewData.bool.set(!val);
-    }
-
+    @Override
     public ProfileViewData getViewData() {
         return mViewData;
     }
 
-    public void changeStatus() {
-        mViewData.status.set(55);
-    }
+    //======================================================
+    //------------------------Listeners---------------------
+    //======================================================
+
 }

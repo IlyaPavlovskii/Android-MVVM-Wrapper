@@ -3,6 +3,10 @@ package by.mvvmwrapper.utils.binding;
 import android.databinding.BindingConversion;
 import android.support.annotation.Nullable;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import by.mvvmwrapper.wrapper.BindableGeneric;
 
 /**
@@ -23,7 +27,6 @@ public class BindingConversionHelper {
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
-
     /**
      * Implement base helper realization constructor
      */
@@ -33,8 +36,9 @@ public class BindingConversionHelper {
     //======================================================
     //--------------------Private methods-------------------
     //======================================================
+    @Nullable
     @BindingConversion
-    public static String convertBindableToString(@Nullable BindableGeneric<String> bindableString) {
+    public static String convertToString(@Nullable BindableGeneric<String> bindableString) {
         if (bindableString != null) {
             return bindableString.getValue();
         } else {
@@ -43,7 +47,7 @@ public class BindingConversionHelper {
     }
 
     @BindingConversion
-    public static boolean convertBindableToBoolean(@Nullable BindableGeneric<Boolean> bindableBoolean) {
+    public static boolean convertToBoolean(@Nullable BindableGeneric<Boolean> bindableBoolean) {
         if (bindableBoolean != null) {
             return bindableBoolean.getValue();
         } else {
@@ -52,11 +56,41 @@ public class BindingConversionHelper {
     }
 
     @BindingConversion
-    public static int convertBindableToInteger(@Nullable BindableGeneric<Integer> bindableInteger) {
+    public static int convertToInteger(@Nullable BindableGeneric<Integer> bindableInteger) {
         if (bindableInteger != null) {
             return bindableInteger.getValue();
         } else {
             return 0;
+        }
+    }
+
+    @Nullable
+    @BindingConversion
+    public static <T> Set<T> convertToSet(@Nullable BindableGeneric<Set<T>> bindable) {
+        if (bindable != null) {
+            return bindable.getValue();
+        } else {
+            return null;
+        }
+    }
+
+    @Nullable
+    @BindingConversion
+    public static <K, V> Map<K, V> convertToMap(@Nullable BindableGeneric<Map<K, V>> bindable) {
+        if (bindable != null) {
+            return bindable.getValue();
+        } else {
+            return null;
+        }
+    }
+
+    @Nullable
+    @BindingConversion
+    public static <T> List<T> convertToList(@Nullable BindableGeneric<List<T>> bindable) {
+        if (bindable != null) {
+            return bindable.getValue();
+        } else {
+            return null;
         }
     }
 

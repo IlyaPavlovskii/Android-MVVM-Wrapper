@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.ButterKnife;
 import by.mvvmwrapper.viewmodel.IViewModel;
 
 /**
@@ -26,8 +25,8 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * //TODO Add description<br>
  * ===================================================================================
  */
-public abstract class BaseFragment<TViewModel extends IViewModel> extends Fragment {
-
+public abstract class BaseFragment<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
+        extends Fragment {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -37,7 +36,7 @@ public abstract class BaseFragment<TViewModel extends IViewModel> extends Fragme
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    protected ViewDataBinding mBinding;
+    protected TViewDataBinding mBinding;
     protected TViewModel mViewModel;
 
     //======================================================
@@ -49,17 +48,12 @@ public abstract class BaseFragment<TViewModel extends IViewModel> extends Fragme
 
         mViewModel = getViewModel();
         mViewModel.initViewComponent(this);
-        try {
-            mViewModel.initViewData();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        mViewModel.initViewData();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //return inflater.inflate(getLayoutRes(),container,false);
         mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
         return mBinding.getRoot();
     }
@@ -67,7 +61,6 @@ public abstract class BaseFragment<TViewModel extends IViewModel> extends Fragme
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
         mViewModel.bindViewData(mBinding);
 
     }
@@ -75,7 +68,6 @@ public abstract class BaseFragment<TViewModel extends IViewModel> extends Fragme
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
         mBinding.unbind();
         mViewModel.destroy();
         mViewModel = null;
