@@ -1,5 +1,6 @@
 package by.pavlovskii.ilya.mvvm.test.viewmodel;
 
+import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 
 import by.mvvmwrapper.viewmodel.BaseViewModel;
@@ -20,8 +21,7 @@ import by.pavlovskii.ilya.mvvm.test.viewdata.ProfileViewData;
  * //TODO Add description<br>
  * ===================================================================================
  */
-public class ProfileActivityViewModel
-        extends BaseViewModel<ProfileViewData, ActivityProfileBinding, ProfileActivity>
+public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData, ProfileActivity>
         implements ProfileHandler.ProfileHandlerListener {
 
     //======================================================
@@ -41,9 +41,9 @@ public class ProfileActivityViewModel
     }
 
     @Override
-    public void bindViewData(@NonNull ActivityProfileBinding viewDataBinding) {
-        viewDataBinding.setViewData(mViewData);
-        viewDataBinding.setHandler(mProfileHandler);
+    public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
+        ((ActivityProfileBinding) viewDataBinding).setViewData(mViewData);
+        ((ActivityProfileBinding) viewDataBinding).setHandler(mProfileHandler);
     }
 
     @Override

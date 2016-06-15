@@ -20,9 +20,8 @@ import by.mvvmwrapper.viewdata.IViewData;
  * ===================================================================================
  */
 public abstract class BaseViewModel<TViewData extends IViewData,
-        TViewDataBinding extends ViewDataBinding,
         TViewComponent extends ComponentCallbacks>
-        implements IViewModel<TViewData, TViewDataBinding, TViewComponent> {
+        implements IViewModel<TViewData, TViewComponent> {
 
     //======================================================
     //----------------------Constants-----------------------

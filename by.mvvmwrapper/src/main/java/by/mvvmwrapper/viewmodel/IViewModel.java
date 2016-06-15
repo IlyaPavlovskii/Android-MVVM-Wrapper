@@ -22,9 +22,7 @@ import by.mvvmwrapper.viewdata.IViewData;
  * {@link ViewDataBinding}(compile time element which receive with android.databinding library)
  * ===================================================================================
  */
-public interface IViewModel<TViewData extends IViewData,
-        TViewDataBinding extends ViewDataBinding,
-        TViewComponent extends ComponentCallbacks> {
+public interface IViewModel<TViewData extends IViewData, TViewComponent extends ComponentCallbacks> {
 
     //======================================================
     //------------------------Methods-----------------------
@@ -40,10 +38,10 @@ public interface IViewModel<TViewData extends IViewData,
     void initViewComponent(TViewComponent view);
 
     /**
-     * Bind data into {@link ViewDataBinding} component
+     * Bind  view data into {@link ViewDataBinding} component
      *
-     * @param viewDataBinding generic binding view element*/
-    void bindViewData(@NonNull TViewDataBinding viewDataBinding);
+     * @param viewDataBinding binding view element*/
+    void bindViewData(@NonNull ViewDataBinding viewDataBinding);
 
     /**
      * Destroy View callabck*/
