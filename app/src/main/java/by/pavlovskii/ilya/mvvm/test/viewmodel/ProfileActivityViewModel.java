@@ -1,10 +1,10 @@
 package by.pavlovskii.ilya.mvvm.test.viewmodel;
 
+import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 
 import by.mvvmwrapper.viewmodel.BaseViewModel;
-import by.pavlovskii.ilya.mvvm.test.activity.ProfileActivity;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityProfileBinding;
 import by.pavlovskii.ilya.mvvm.test.handlers.ProfileHandler;
 import by.pavlovskii.ilya.mvvm.test.viewdata.ProfileViewData;
@@ -18,16 +18,23 @@ import by.pavlovskii.ilya.mvvm.test.viewdata.ProfileViewData;
  * Time: 19:20<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * //TODO Add description<br>
+ * {@link by.pavlovskii.ilya.mvvm.test.activity.ProfileActivity} ViewModel component<br>
  * ===================================================================================
  */
-public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData, ProfileActivity>
+public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData>
         implements ProfileHandler.ProfileHandlerListener {
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
     private ProfileHandler mProfileHandler;
+
+    //======================================================
+    //----------------------Constructor---------------------
+    //======================================================
+    public ProfileActivityViewModel(@NonNull Context context) {
+        super(context);
+    }
 
     //======================================================
     //-------------------Override methods-------------------
@@ -50,9 +57,5 @@ public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData, Pro
     public ProfileViewData getViewData() {
         return mViewData;
     }
-
-    //======================================================
-    //------------------------Listeners---------------------
-    //======================================================
 
 }

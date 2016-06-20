@@ -9,7 +9,7 @@ package by.mvvmwrapper.view;
  * Time: 21:50<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * View component interface of MVVM patter<br>
+ * View component interface of MVVM pattern<br>
  * ===================================================================================
  */
 public interface IView {

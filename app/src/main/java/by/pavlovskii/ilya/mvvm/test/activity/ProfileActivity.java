@@ -36,7 +36,7 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel, Acti
     @NonNull
     @Override
     protected ProfileActivityViewModel getViewModel() {
-        return new ProfileActivityViewModel();
+        return new ProfileActivityViewModel(this);
     }
 
 }

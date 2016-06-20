@@ -1,11 +1,8 @@
 package by.mvvmwrapper.viewmodel;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 
-import by.mvvmwrapper.view.IView;
 import by.mvvmwrapper.viewdata.IViewData;
 
 /**
@@ -22,7 +19,7 @@ import by.mvvmwrapper.viewdata.IViewData;
  * {@link ViewDataBinding}(compile time element which receive with android.databinding library)
  * ===================================================================================
  */
-public interface IViewModel<TViewData extends IViewData, TViewComponent extends IView> {
+public interface IViewModel<TViewData extends IViewData> {
 
     //======================================================
     //------------------------Methods-----------------------
@@ -32,10 +29,6 @@ public interface IViewModel<TViewData extends IViewData, TViewComponent extends 
      */
     @NonNull
     TViewData initViewData();
-
-    /**
-     * Initialize View component - {@link Fragment} or {@link Activity}*/
-    void initViewComponent(TViewComponent view);
 
     /**
      * Bind  view data into {@link ViewDataBinding} component

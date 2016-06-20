@@ -23,10 +23,11 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * Time: 0:23<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * //TODO Add description<br>
+ * Base {@link Fragment} realization of {@link IView} component<br>
  * ===================================================================================
  */
-public abstract class BaseFragment<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
+public abstract class BaseFragment<TViewModel extends IViewModel,
+        TViewDataBinding extends ViewDataBinding>
         extends Fragment implements IView {
 
     //======================================================
@@ -48,7 +49,6 @@ public abstract class BaseFragment<TViewModel extends IViewModel, TViewDataBindi
         super.onCreate(savedInstanceState);
 
         mViewModel = getViewModel();
-        mViewModel.initViewComponent(this);
         mViewModel.initViewData();
     }
 
@@ -69,8 +69,12 @@ public abstract class BaseFragment<TViewModel extends IViewModel, TViewDataBindi
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mBinding.unbind();
-        mViewModel.destroy();
+        if (mBinding != null) {
+            mBinding.unbind();
+        }
+        if (mViewModel != null) {
+            mViewModel.destroy();
+        }
         mViewModel = null;
         mBinding = null;
     }

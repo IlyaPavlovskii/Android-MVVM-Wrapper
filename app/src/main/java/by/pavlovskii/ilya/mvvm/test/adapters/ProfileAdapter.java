@@ -22,7 +22,8 @@ import by.pavlovskii.ilya.mvvm.test.databinding.ProfileItemBinding;
  * Time: 12:36<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * //TODO Add description<br>
+ * {@link by.pavlovskii.ilya.mvvm.test.activity.ProfileActivity} adapter. Used for binding data on
+ * {@link RecyclerView} component<br>
  * ===================================================================================
  */
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileAdapterHolder> {
@@ -53,8 +54,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileA
 
     @Override
     public void onBindViewHolder(ProfileAdapterHolder holder, int position) {
-        final ProfileViewData profile = mProfileList.get(position);
-        holder.binding.setProfile(profile);
+        holder.bind(getItem(position));
     }
 
     @Override
@@ -63,15 +63,26 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileA
     }
 
     //======================================================
+    //-------------------Private methods--------------------
+    //======================================================
+    private ProfileViewData getItem(int position) {
+        return mProfileList.get(position);
+    }
+
+    //======================================================
     //---------------------Inner classes--------------------
     //======================================================
     public static class ProfileAdapterHolder extends RecyclerView.ViewHolder{
 
-        public ProfileItemBinding binding;
+        private ProfileItemBinding binding;
 
         public ProfileAdapterHolder(View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
+        }
+
+        public void bind(ProfileViewData viewData) {
+            binding.setProfile(viewData);
         }
     }
 }

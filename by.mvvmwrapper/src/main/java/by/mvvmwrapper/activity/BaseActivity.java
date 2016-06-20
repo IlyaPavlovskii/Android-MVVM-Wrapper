@@ -19,7 +19,7 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * Time: 19:53<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * //TODO Add description<br>
+ * Base {@link Activity} realization of {@link IView} component<br>
  * ===================================================================================
  */
 public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>

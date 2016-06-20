@@ -1,6 +1,9 @@
 package by.mvvmwrapper.viewmodel;
 
+import android.content.Context;
 import android.databinding.ViewDataBinding;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import by.mvvmwrapper.view.IView;
 import by.mvvmwrapper.viewdata.IViewData;
@@ -15,12 +18,11 @@ import by.mvvmwrapper.viewdata.IViewData;
  * Project name: MVVMtest<br>
  * ===================================================================================
  * Base {@link IViewModel} realization with communication between
- * {@link by.mvvmwrapper.activity.BaseActivity} and {@link IViewModel}.
+ * {@link IView} and {@link IViewModel}.
  * Contains required fields like - {@link IViewData} and {@link ViewDataBinding}<br>
  * ===================================================================================
  */
-public abstract class BaseViewModel<TViewData extends IViewData, TViewComponent extends IView>
-        implements IViewModel<TViewData, TViewComponent> {
+public abstract class BaseViewModel<TViewData extends IViewData> implements IViewModel<TViewData> {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -30,27 +32,41 @@ public abstract class BaseViewModel<TViewData extends IViewData, TViewComponent 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    protected TViewComponent mViewComponent;
+    @Nullable
+    private Context mContext;
     protected TViewData mViewData;
 
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
     public BaseViewModel() {
-        mViewData = initViewData();
+        this.mViewData = initViewData();
+    }
+
+    public BaseViewModel(@NonNull Context context) {
+        this();
+        this.mContext = context;
     }
 
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
     @Override
-    public void initViewComponent(TViewComponent view) {
-        this.mViewComponent = view;
-    }
-
-    @Override
     public void destroy() {
         mViewData = null;
+        mContext = null;
+    }
+
+    //======================================================
+    //------------------Protected methods-------------------
+    //======================================================
+    @Nullable
+    public Context getContext() {
+        return mContext;
+    }
+
+    public void setContext(@Nullable Context context) {
+        mContext = context;
     }
 }
 
