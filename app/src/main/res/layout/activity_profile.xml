@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <by.mvvmwrapper.view.BindableEditText
+        <by.mvvmwrapper.widget.BindableEditText
             android:id="@+id/vEtName"
             android:hint="Name"
             android:text="@{viewData.name}"
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <by.mvvmwrapper.view.BindableEditText
+            <by.mvvmwrapper.widget.BindableEditText
                 android:id="@+id/vEtSurname"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -42,7 +42,7 @@
                 attr:assetTypeface="@{@string/typeface_good_times}"
                 style="@style/ProfileEditText"/>
 
-            <by.mvvmwrapper.view.BindableEditText
+            <by.mvvmwrapper.widget.BindableEditText
                 android:id="@+id/vEtSurnameCopy"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -52,7 +52,7 @@
                 attr:assetTypeface="@{@string/typeface_good_times}"
                 style="@style/ProfileEditText"/>
 
-            <by.mvvmwrapper.view.BindableEditText
+            <by.mvvmwrapper.widget.BindableEditText
                 android:id="@+id/vEtSurnameCopyAgain"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -63,7 +63,7 @@
                 style="@style/ProfileEditText"/>
         </LinearLayout>
 
-        <by.mvvmwrapper.view.BindableEditText
+        <by.mvvmwrapper.widget.BindableEditText
             android:id="@+id/vEtPhone"
             android:hint="Phone"
             android:inputType="phone"

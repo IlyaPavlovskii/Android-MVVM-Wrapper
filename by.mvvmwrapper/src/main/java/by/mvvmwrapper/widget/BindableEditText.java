@@ -1,4 +1,4 @@
-package by.mvvmwrapper.view;
+package by.mvvmwrapper.widget;
 
 import android.content.Context;
 import android.text.TextUtils;

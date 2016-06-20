@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 
+import by.mvvmwrapper.view.IView;
 import by.mvvmwrapper.viewmodel.IViewModel;
 
 /**
@@ -22,7 +23,7 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * ===================================================================================
  */
 public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
-        extends Activity {
+        extends Activity implements IView {
 
     //======================================================
     //----------------------Constants-----------------------

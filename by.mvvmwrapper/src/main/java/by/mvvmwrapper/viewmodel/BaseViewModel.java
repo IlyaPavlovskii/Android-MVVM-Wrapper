@@ -1,8 +1,8 @@
 package by.mvvmwrapper.viewmodel;
 
-import android.content.ComponentCallbacks;
 import android.databinding.ViewDataBinding;
 
+import by.mvvmwrapper.view.IView;
 import by.mvvmwrapper.viewdata.IViewData;
 
 /**
@@ -19,8 +19,7 @@ import by.mvvmwrapper.viewdata.IViewData;
  * Contains required fields like - {@link IViewData} and {@link ViewDataBinding}<br>
  * ===================================================================================
  */
-public abstract class BaseViewModel<TViewData extends IViewData,
-        TViewComponent extends ComponentCallbacks>
+public abstract class BaseViewModel<TViewData extends IViewData, TViewComponent extends IView>
         implements IViewModel<TViewData, TViewComponent> {
 
     //======================================================

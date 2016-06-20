@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import by.mvvmwrapper.view.IView;
 import by.mvvmwrapper.viewmodel.IViewModel;
 
 /**
@@ -26,7 +27,7 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * ===================================================================================
  */
 public abstract class BaseFragment<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
-        extends Fragment {
+        extends Fragment implements IView {
 
     //======================================================
     //----------------------Constants-----------------------

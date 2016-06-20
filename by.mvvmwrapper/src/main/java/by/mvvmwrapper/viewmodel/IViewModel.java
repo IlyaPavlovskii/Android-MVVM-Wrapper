@@ -2,10 +2,10 @@ package by.mvvmwrapper.viewmodel;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.ComponentCallbacks;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 
+import by.mvvmwrapper.view.IView;
 import by.mvvmwrapper.viewdata.IViewData;
 
 /**
@@ -22,7 +22,7 @@ import by.mvvmwrapper.viewdata.IViewData;
  * {@link ViewDataBinding}(compile time element which receive with android.databinding library)
  * ===================================================================================
  */
-public interface IViewModel<TViewData extends IViewData, TViewComponent extends ComponentCallbacks> {
+public interface IViewModel<TViewData extends IViewData, TViewComponent extends IView> {
 
     //======================================================
     //------------------------Methods-----------------------

@@ -17,7 +17,7 @@ import java.io.File;
 import by.mvvmwrapper.utils.SeekBarChangeAdapter;
 import by.mvvmwrapper.utils.TextWatcherAdapter;
 import by.mvvmwrapper.utils.TypefaceHelper;
-import by.mvvmwrapper.view.BindableEditText;
+import by.mvvmwrapper.widget.BindableEditText;
 import by.mvvmwrapper.wrapper.BindableGeneric;
 
 /**
