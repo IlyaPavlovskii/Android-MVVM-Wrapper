@@ -33,7 +33,7 @@ public abstract class BaseViewModel<TViewData extends IViewData> implements IVie
     //------------------------Fields------------------------
     //======================================================
     @Nullable
-    private Context mContext;
+    protected Context mContext;
     protected TViewData mViewData;
 
     //======================================================
