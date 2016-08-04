@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<template
+    format="4"
+    revision="5"
+    name="MVVM Fragment"
+    minApi="7"
+    minBuildApi="14"
+    description="Creates a new MVVM empty activity">
+
+    <category value="Fragment"/>
+    <formfactor value="Mobile"/>
+
+    <parameter
+        id="viewName"
+        name="View Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        default="Main"
+        help="The name of the fragment class to create"/>
+
+    <parameter
+        id="fragmentClass"
+        name="Fragment Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${viewName}Fragment"
+        default="MainFragment"
+        help="The name of the fragment class to create"/>
+
+    <parameter
+        id="fragmentDir"
+        name="Fragment directory name"
+        type="string"
+        constraints="unique|nonempty"
+        default="fragments"
+        help="View component package directory"/>
+
+    <parameter
+        id="generateLayout"
+        name="Generate Layout File"
+        type="boolean"
+        default="true"
+        help="If true, a layout file will be generated"/>
+
+    <parameter
+        id="layoutName"
+        name="Layout Name"
+        type="string"
+        constraints="layout|unique|nonempty"
+        suggest="fragment_${classToResource(fragmentClass)}"
+        default="activity_main"
+        visibility="generateLayout"
+        help="The name of the layout to create for the fragment"/>
+
+    <parameter
+        id="viewModelClass"
+        name="View Model name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${viewName}ViewModel"
+        default="MainViewModel"
+        help="The name of the ViewModel class of the fragment to create"/>
+    <parameter
+        id="viewModelDir"
+        name="View Model directory name"
+        type="string"
+        constraints="unique|nonempty"
+        default="viewmodel"
+        help="ViewModel component package directory"/>
+    <parameter
+        id="viewDataClass"
+        name="View Data name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${viewName}ViewData"
+        default="MainViewData"
+        help="The name of the ViewData class of the fragment to create"/>
+    <parameter
+        id="viewDataDir"
+        name="View Data directory name"
+        type="string"
+        constraints="unique|nonempty"
+        default="viewdata"
+        help="ViewData component package directory"/>
+    <parameter
+        id="bindingName"
+        name="Binding name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${underscoreToCamelCase(layoutName)}Binding"
+        default="ActivityMainBinding"
+        help="The name of the ViewDataBinding class of the fragment to create"/>
+
+    <parameter
+        id="packageName"
+        name="Package name"
+        type="string"
+        constraints="package"
+        default="com.mycompany.myapp"/>
+
+    <!-- 128x128 thumbnails relative to template.xml -->
+    <thumbs>
+        <!-- default thumbnail is required -->
+        <thumb>template_blank_activity.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl"/>
+    <execute file="recipe.xml.ftl"/>
+
+</template>
