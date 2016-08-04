@@ -6,6 +6,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 
 import by.mvvmwrapper.viewmodel.IViewModel;
 
@@ -14,15 +15,16 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * Created by Pavlovskii Ilya<br>
  * E-mail: pavlovskii_ilya@mail.ru, trane91666@gmail.com<br>
  * Skype: trane9119<br>
- * Date: 06.01.16<br>
- * Time: 19:53<br>
+ * Date: 04.08.16<br>
+ * Time: 13:07<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * Base {@link Activity} realization of view MVVM component<br>
+ * Application base View activity. Describe View model in MVVM architecture.
+ * Extend from {@link Activity}<br>
  * ===================================================================================
  */
-public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
-        extends Activity {
+public abstract class BaseAppCompatActivity<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
+        extends AppCompatActivity {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -61,7 +63,9 @@ public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBindi
     //======================================================
     @LayoutRes
     protected abstract int getLayoutRes();
+
     @NonNull
     protected abstract TViewModel getViewModel();
 
 }
+

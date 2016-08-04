@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import by.mvvmwrapper.view.IView;
 import by.mvvmwrapper.viewmodel.IViewModel;
 
 /**
@@ -23,12 +22,11 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * Time: 0:23<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * Base {@link Fragment} realization of {@link IView} component<br>
+ * Base {@link Fragment} realization of view component<br>
  * ===================================================================================
  */
-public abstract class BaseFragment<TViewModel extends IViewModel,
-        TViewDataBinding extends ViewDataBinding>
-        extends Fragment implements IView {
+public abstract class BaseFragment<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
+        extends Fragment {
 
     //======================================================
     //----------------------Constants-----------------------

@@ -5,7 +5,6 @@ import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import by.mvvmwrapper.view.IView;
 import by.mvvmwrapper.viewdata.IViewData;
 
 /**
@@ -18,7 +17,7 @@ import by.mvvmwrapper.viewdata.IViewData;
  * Project name: MVVMtest<br>
  * ===================================================================================
  * Base {@link IViewModel} realization with communication between
- * {@link IView} and {@link IViewModel}.
+ * view({@link android.app.Activity} or {@link android.app.Fragment}) and {@link IViewModel}.
  * Contains required fields like - {@link IViewData} and {@link ViewDataBinding}<br>
  * ===================================================================================
  */

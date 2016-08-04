@@ -1,11 +1,14 @@
-package by.mvvmwrapper.activity;
+package by.mvvmwrapper.fragments;
 
-import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import by.mvvmwrapper.viewmodel.IViewModel;
 
@@ -14,15 +17,15 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * Created by Pavlovskii Ilya<br>
  * E-mail: pavlovskii_ilya@mail.ru, trane91666@gmail.com<br>
  * Skype: trane9119<br>
- * Date: 06.01.16<br>
- * Time: 19:53<br>
+ * Date: 04.08.16<br>
+ * Time: 13:09<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * Base {@link Activity} realization of view MVVM component<br>
+ * //TODO Add description<br>
  * ===================================================================================
  */
-public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
-        extends Activity {
+public abstract class BaseFragmentSupport<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
+        extends android.support.v4.app.Fragment {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -39,21 +42,38 @@ public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBindi
     //-------------------Override methods-------------------
     //======================================================
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
 
         mViewModel = getViewModel();
         mViewModel.initViewData();
-        mViewModel.bindViewData(mBinding);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
+        return mBinding.getRoot();
     }
 
     @Override
-    protected void onDestroy() {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mViewModel.bindViewData(mBinding);
+
+    }
+
+    @Override
+    public void onDestroy() {
         super.onDestroy();
-        mBinding.unbind();
-        mViewModel.destroy();
+        if (mBinding != null) {
+            mBinding.unbind();
+        }
+        if (mViewModel != null) {
+            mViewModel.destroy();
+        }
         mViewModel = null;
+        mBinding = null;
     }
 
     //======================================================
@@ -61,7 +81,7 @@ public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBindi
     //======================================================
     @LayoutRes
     protected abstract int getLayoutRes();
+
     @NonNull
     protected abstract TViewModel getViewModel();
-
 }
