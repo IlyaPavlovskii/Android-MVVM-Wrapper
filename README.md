@@ -55,6 +55,13 @@ Used for binding custom typeface into ```TextView``` widget
             ...
             attr:fileTypeface="@{model.pathToTypefaceFileOrTypefaceFile}"/>
 ```
- 
+
+## FreeMarker template
+If you doesn't wan't to spend much time for deployment single view into your project, you can use
+[FreeMarker](http://freemarker.org/) template for android.
+Just put the ```..\templates\freemarker\*``` templates into ```..\AndroidStudioFolder\plugins\android\lib\templates\*```
+![How to use template](resources/use_freemarker_template.jpg)
+
+
  
 Created on the basis of [Fabio Collini tutorial](https://medium.com/@fabioCollini/android-data-binding-f9f9d3afc761).
