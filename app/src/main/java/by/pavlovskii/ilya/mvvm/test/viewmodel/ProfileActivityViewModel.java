@@ -57,5 +57,4 @@ public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData>
     public ProfileViewData getViewData() {
         return mViewData;
     }
-
 }

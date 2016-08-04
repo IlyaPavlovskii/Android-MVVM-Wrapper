@@ -84,4 +84,13 @@ public class ProfileViewData implements IViewData {
                 "Status: " + status + ";\n";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

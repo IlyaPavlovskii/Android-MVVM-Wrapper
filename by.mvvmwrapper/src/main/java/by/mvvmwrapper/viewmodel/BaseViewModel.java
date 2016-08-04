@@ -67,5 +67,7 @@ public abstract class BaseViewModel<TViewData extends IViewData> implements IVie
     public void setContext(@Nullable Context context) {
         mContext = context;
     }
+
+
 }
 
