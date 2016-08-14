@@ -4,5 +4,4 @@
     <global id="parentActivityClass" value="" />
     <global id="simpleLayoutName" value="${layoutName}" />
     <global id="excludeMenu" type="boolean" value="true" />
-   
 </globals>

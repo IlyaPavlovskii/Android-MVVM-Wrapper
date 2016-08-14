@@ -1,6 +1,8 @@
 package by.pavlovskii.ilya.mvvm.test.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import by.mvvmwrapper.activity.BaseActivity;
 import by.pavlovskii.ilya.mvvm.test.R;
