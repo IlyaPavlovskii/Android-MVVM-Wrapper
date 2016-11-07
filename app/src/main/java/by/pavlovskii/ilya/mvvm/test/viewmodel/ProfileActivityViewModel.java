@@ -1,10 +1,12 @@
 package by.pavlovskii.ilya.mvvm.test.viewmodel;
 
-import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 
+import javax.inject.Inject;
+
 import by.mvvmwrapper.viewmodel.BaseViewModel;
+import by.pavlovskii.ilya.mvvm.test.dagger.components.DaggerViewDataComponent;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityProfileBinding;
 import by.pavlovskii.ilya.mvvm.test.handlers.ProfileHandler;
 import by.pavlovskii.ilya.mvvm.test.viewdata.ProfileViewData;
@@ -21,32 +23,17 @@ import by.pavlovskii.ilya.mvvm.test.viewdata.ProfileViewData;
  * {@link by.pavlovskii.ilya.mvvm.test.activity.ProfileActivity} ViewModel component<br>
  * ===================================================================================
  */
-public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData>
-        implements ProfileHandler.ProfileHandlerListener {
+public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData> {
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    private ProfileHandler mProfileHandler;
-
-    //======================================================
-    //----------------------Constructor---------------------
-    //======================================================
-    public ProfileActivityViewModel(@NonNull Context context) {
-        super(context);
-    }
+    @Inject
+    ProfileHandler mProfileHandler;
 
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
-    @NonNull
-    @Override
-    public ProfileViewData initViewData() {
-        ProfileViewData viewData = new ProfileViewData();
-        mProfileHandler = new ProfileHandler(this);
-        return viewData;
-    }
-
     @Override
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
         ((ActivityProfileBinding) viewDataBinding).setViewData(mViewData);
@@ -54,7 +41,7 @@ public class ProfileActivityViewModel extends BaseViewModel<ProfileViewData>
     }
 
     @Override
-    public ProfileViewData getViewData() {
-        return mViewData;
+    protected void injectViewData() {
+        DaggerViewDataComponent.create().inject(this);
     }
 }

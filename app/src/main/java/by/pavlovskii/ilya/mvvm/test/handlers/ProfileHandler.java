@@ -1,6 +1,7 @@
 package by.pavlovskii.ilya.mvvm.test.handlers;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 
 import by.pavlovskii.ilya.mvvm.test.viewdata.ProfileViewData;
@@ -45,7 +46,9 @@ public class ProfileHandler {
     public View.OnClickListener onChangeStatusListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Log.d("onClick", "Click: " + (mProfileHandlerListener.getViewData() == null));
             if (mProfileHandlerListener.getViewData() != null) {
+                Log.d("onClick", "Status: " + mProfileHandlerListener.getViewData().status.getValue());
                 mProfileHandlerListener.getViewData().status.set(55);
             }
         }

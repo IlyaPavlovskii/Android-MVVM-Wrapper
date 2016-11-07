@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import by.mvvmwrapper.viewmodel.IViewModel;
 
 /**
@@ -36,6 +38,7 @@ public abstract class BaseFragmentSupport<TViewModel extends IViewModel, TViewDa
     //------------------------Fields------------------------
     //======================================================
     protected TViewDataBinding mBinding;
+    @Inject
     protected TViewModel mViewModel;
 
     //======================================================
@@ -44,9 +47,7 @@ public abstract class BaseFragmentSupport<TViewModel extends IViewModel, TViewDa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mViewModel = getViewModel();
-        mViewModel.initViewData();
+        injectViewModel();
     }
 
     @Nullable
@@ -60,7 +61,6 @@ public abstract class BaseFragmentSupport<TViewModel extends IViewModel, TViewDa
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel.bindViewData(mBinding);
-
     }
 
     @Override
@@ -82,6 +82,5 @@ public abstract class BaseFragmentSupport<TViewModel extends IViewModel, TViewDa
     @LayoutRes
     protected abstract int getLayoutRes();
 
-    @NonNull
-    protected abstract TViewModel getViewModel();
+    protected abstract void injectViewModel();
 }

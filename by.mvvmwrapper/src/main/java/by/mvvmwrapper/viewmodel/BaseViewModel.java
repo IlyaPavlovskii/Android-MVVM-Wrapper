@@ -5,6 +5,8 @@ import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import javax.inject.Inject;
+
 import by.mvvmwrapper.viewdata.IViewData;
 
 /**
@@ -31,20 +33,14 @@ public abstract class BaseViewModel<TViewData extends IViewData> implements IVie
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    @Nullable
-    protected Context mContext;
+    @Inject
     protected TViewData mViewData;
 
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
     public BaseViewModel() {
-        this.mViewData = initViewData();
-    }
-
-    public BaseViewModel(@NonNull Context context) {
-        this();
-        this.mContext = context;
+        injectViewData();
     }
 
     //======================================================
@@ -53,21 +49,12 @@ public abstract class BaseViewModel<TViewData extends IViewData> implements IVie
     @Override
     public void destroy() {
         mViewData = null;
-        mContext = null;
     }
 
     //======================================================
     //------------------Protected methods-------------------
     //======================================================
-    @Nullable
-    public Context getContext() {
-        return mContext;
-    }
-
-    public void setContext(@Nullable Context context) {
-        mContext = context;
-    }
-
+    protected abstract void injectViewData();
 
 }
 

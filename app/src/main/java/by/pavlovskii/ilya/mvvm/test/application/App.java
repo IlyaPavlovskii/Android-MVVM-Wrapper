@@ -2,6 +2,11 @@ package by.pavlovskii.ilya.mvvm.test.application;
 
 import android.app.Application;
 
+import javax.inject.Inject;
+
+import by.pavlovskii.ilya.mvvm.test.dagger.components.ApplicationComponent;
+import by.pavlovskii.ilya.mvvm.test.dagger.components.DaggerApplicationComponent;
+
 /**
  * Create with Android Studio<br>
  * Created by Pavlovskii Ilya<br>
@@ -31,6 +36,7 @@ public class App extends Application {
     //======================================================
     //------------------------Fields------------------------
     //======================================================
+    private static ApplicationComponent sApplicationComponent;
 
     //======================================================
     //---------------------Constructors---------------------
@@ -43,6 +49,9 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        sApplicationComponent = DaggerApplicationComponent
+                .builder()
+                .build();
     }
 
     @Override
@@ -50,26 +59,13 @@ public class App extends Application {
         super.onTerminate();
     }
 
-
-    //======================================================
-    //---------------------Init methods---------------------
-    //======================================================
-
-    //======================================================
-    //------------------------Events------------------------
-    //======================================================
-
-    //======================================================
-    //--------------------Private methods-------------------
-    //======================================================
-
-    //======================================================
-    //-------------------Protected methods------------------
-    //======================================================
-
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
+    public static ApplicationComponent getApplicationComponent() {
+        return sApplicationComponent;
+    }
+
 
     //======================================================
     //-----------------------Listeners----------------------

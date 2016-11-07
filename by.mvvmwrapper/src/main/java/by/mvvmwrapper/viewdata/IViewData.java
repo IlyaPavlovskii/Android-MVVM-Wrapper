@@ -9,7 +9,7 @@ package by.mvvmwrapper.viewdata;
  * Time: 1:11<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * View data signature. Used to bind data to target view.<br>
+ * View data signature. Use to bind data into target view.<br>
  * ===================================================================================
  */
 public interface IViewData {

@@ -25,12 +25,6 @@ public interface IViewModel<TViewData extends IViewData> {
     //------------------------Methods-----------------------
     //======================================================
     /**
-     * Initialize view data binding model
-     */
-    @NonNull
-    TViewData initViewData();
-
-    /**
      * Bind  view data into {@link ViewDataBinding} component
      *
      * @param viewDataBinding binding view element*/

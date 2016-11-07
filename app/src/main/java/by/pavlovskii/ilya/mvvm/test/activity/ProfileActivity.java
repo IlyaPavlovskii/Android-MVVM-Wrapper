@@ -1,11 +1,8 @@
 package by.pavlovskii.ilya.mvvm.test.activity;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.view.View;
-
 import by.mvvmwrapper.activity.BaseActivity;
 import by.pavlovskii.ilya.mvvm.test.R;
+import by.pavlovskii.ilya.mvvm.test.dagger.components.DaggerViewModelComponent;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityProfileBinding;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.ProfileActivityViewModel;
 /**
@@ -35,10 +32,9 @@ public class ProfileActivity extends BaseActivity<ProfileActivityViewModel, Acti
         return R.layout.activity_profile;
     }
 
-    @NonNull
     @Override
-    protected ProfileActivityViewModel getViewModel() {
-        return new ProfileActivityViewModel(this);
+    protected void injectViewModel() {
+        DaggerViewModelComponent.create().inject(this);
     }
 
 }

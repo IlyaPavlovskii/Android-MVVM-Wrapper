@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 
+import javax.inject.Inject;
+
 import by.mvvmwrapper.viewmodel.IViewModel;
 
 /**
@@ -33,6 +35,7 @@ public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBindi
     //------------------------Fields------------------------
     //======================================================
     protected TViewDataBinding mBinding;
+    @Inject
     protected TViewModel mViewModel;
 
     //======================================================
@@ -43,9 +46,11 @@ public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBindi
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
 
-        mViewModel = getViewModel();
-        mViewModel.initViewData();
-        mViewModel.bindViewData(mBinding);
+        injectViewModel();
+        if (mViewModel != null) {
+            mViewModel.bindViewData(mBinding);
+        }
+
     }
 
     @Override
@@ -61,7 +66,7 @@ public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBindi
     //======================================================
     @LayoutRes
     protected abstract int getLayoutRes();
-    @NonNull
-    protected abstract TViewModel getViewModel();
+
+    protected abstract void injectViewModel();
 
 }

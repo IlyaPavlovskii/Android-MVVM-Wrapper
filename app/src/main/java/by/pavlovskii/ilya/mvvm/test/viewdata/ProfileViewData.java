@@ -1,6 +1,7 @@
 package by.pavlovskii.ilya.mvvm.test.viewdata;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
