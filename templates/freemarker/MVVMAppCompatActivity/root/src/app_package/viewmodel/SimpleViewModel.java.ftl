@@ -3,7 +3,6 @@ package ${packageName}.${viewModelDir};
 import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
-
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 import ${packageName}.databinding.${bindingName};
 import ${packageName}.${viewDataDir}.${viewDataClass};
@@ -17,17 +16,15 @@ public class ${viewModelClass} extends BaseViewModel<${viewDataClass}> {
     //======================================================
     //----------------------Constructor---------------------
     //======================================================
-    public ${viewModelClass}(@NonNull Context context) {
-        super(context);
+    public ${viewModelClass}() {
+        super();
     }
 
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
-    @NonNull
     @Override
-    public ${viewDataClass} initViewData() {
-        return new ${viewDataClass}();
+    public void injectViewData() {
     }
 
     @Override

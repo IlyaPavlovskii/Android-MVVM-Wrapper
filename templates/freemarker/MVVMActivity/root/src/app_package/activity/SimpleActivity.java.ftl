@@ -7,7 +7,6 @@ import by.mvvmwrapper.activity.BaseActivity;
 import ${packageName}.R;
 import ${packageName}.databinding.${bindingName};
 import ${packageName}.${viewModelDir}.${viewModelClass};
-import android.support.annotation.NonNull;
 import android.os.Bundle;
 
 public class ${activityClass} extends BaseActivity< ${viewModelClass}, ${bindingName} > {
@@ -24,9 +23,8 @@ public class ${activityClass} extends BaseActivity< ${viewModelClass}, ${binding
         </#if>
     }
 
-    @NonNull
     @Override
-    protected ${viewModelClass} getViewModel() {
-        return new ${viewModelClass}(this);
+    protected void injectViewModel() {
     }
+
 }
