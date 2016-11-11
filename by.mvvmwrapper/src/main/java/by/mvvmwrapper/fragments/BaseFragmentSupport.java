@@ -1,5 +1,6 @@
 package by.mvvmwrapper.fragments;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * Time: 13:09<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * //TODO Add description<br>
+ * Base {@link android.support.v4.app.Fragment} realization of view component<br>
  * ===================================================================================
  */
 public abstract class BaseFragmentSupport<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
@@ -64,6 +65,54 @@ public abstract class BaseFragmentSupport<TViewModel extends IViewModel, TViewDa
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if (mViewModel != null) {
+            mViewModel.onPause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mViewModel != null) {
+            mViewModel.onResume();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mViewModel != null) {
+            mViewModel.onStart();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mViewModel != null) {
+            mViewModel.onStop();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mViewModel != null) {
+            mViewModel.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (mViewModel != null) {
+            mViewModel.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mBinding != null) {
@@ -72,8 +121,8 @@ public abstract class BaseFragmentSupport<TViewModel extends IViewModel, TViewDa
         if (mViewModel != null) {
             mViewModel.destroy();
         }
-        mViewModel = null;
         mBinding = null;
+        mViewModel = null;
     }
 
     //======================================================

@@ -1,6 +1,7 @@
 package by.mvvmwrapper.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -54,10 +55,63 @@ public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBindi
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if (mViewModel != null) {
+            mViewModel.onPause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mViewModel != null) {
+            mViewModel.onResume();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mViewModel != null) {
+            mViewModel.onStart();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mViewModel != null) {
+            mViewModel.onStop();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mViewModel != null) {
+            mViewModel.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (mViewModel != null) {
+            mViewModel.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        mBinding.unbind();
-        mViewModel.destroy();
+        if (mBinding != null) {
+            mBinding.unbind();
+        }
+        if (mViewModel != null) {
+            mViewModel.destroy();
+        }
+        mBinding = null;
         mViewModel = null;
     }
 

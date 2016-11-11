@@ -1,5 +1,6 @@
 package by.mvvmwrapper.viewmodel;
 
+import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 
@@ -33,6 +34,18 @@ public interface IViewModel<TViewData extends IViewData> {
     /**
      * Destroy View callabck*/
     void destroy();
+
+    void onActivityResult(int requestCode, int resultCode, Intent data);
+
+    void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults);
+
+    void onPause();
+
+    void onResume();
+
+    void onStop();
+
+    void onStart();
 
 }
 

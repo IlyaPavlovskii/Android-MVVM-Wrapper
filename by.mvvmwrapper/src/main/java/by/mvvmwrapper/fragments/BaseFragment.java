@@ -1,6 +1,7 @@
 package by.mvvmwrapper.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -68,6 +69,54 @@ public abstract class BaseFragment<TViewModel extends IViewModel, TViewDataBindi
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if (mViewModel != null) {
+            mViewModel.onPause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mViewModel != null) {
+            mViewModel.onResume();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mViewModel != null) {
+            mViewModel.onStart();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mViewModel != null) {
+            mViewModel.onStop();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mViewModel != null) {
+            mViewModel.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (mViewModel != null) {
+            mViewModel.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mBinding != null) {
@@ -76,8 +125,8 @@ public abstract class BaseFragment<TViewModel extends IViewModel, TViewDataBindi
         if (mViewModel != null) {
             mViewModel.destroy();
         }
-        mViewModel = null;
         mBinding = null;
+        mViewModel = null;
     }
 
     //======================================================
