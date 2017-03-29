@@ -4,7 +4,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.2"
     dataBinding{
         enabled = true
     }
@@ -25,20 +25,45 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:recyclerview-v7:25.2.0'
     compile 'joda-time:joda-time:2.9.1'
-    compile 'com.android.support:design:25.0.0'
+    compile 'com.android.support:design:25.2.0'
     compile 'com.google.dagger:dagger:2.2'
     apt 'com.google.dagger:dagger-compiler:2.2'
+
+    // Google
+    compile 'com.google.android.gms:play-services-auth:10.2.0'
+
+    // Firebase
+    compile 'com.google.firebase:firebase-database:9.8.0'
+    compile 'com.google.firebase:firebase-auth:9.8.0'
+    compile 'com.google.firebase:firebase-config:9.8.0'
+    compile 'com.google.android.gms:play-services-appinvite:10.2.0'
+    compile 'com.google.firebase:firebase-messaging:9.8.0'
+    compile 'com.google.android.gms:play-services-ads:10.2.0'
+    //compile 'com.google.firebase:firebase-appindexing:9.8.0'
+    compile 'com.google.firebase:firebase-crash:9.8.0'
+    compile 'com.google.firebase:firebase-analytics:9.8.0'
+
+    // Firebase UI
+    compile 'com.firebaseui:firebase-ui-database:0.4.0'
 
     compile project(':by.mvvmwrapper')
 
     retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.0.6'
 }
+
+// ADD THIS AT THE BOTTOM
+apply plugin: 'com.google.gms.google-services'

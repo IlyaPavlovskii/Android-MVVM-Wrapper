@@ -1,6 +1,7 @@
 package by.pavlovskii.ilya.mvvm.test.application;
 
 import android.app.Application;
+import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -16,31 +17,19 @@ import by.pavlovskii.ilya.mvvm.test.dagger.components.DaggerApplicationComponent
  * Time: 17:17<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * //TODO Add description<br>
+ * Application main class<br>
  * ===================================================================================
  */
 public class App extends Application {
 
     //======================================================
-    //----------------------Interfaces----------------------
-    //======================================================
-
-    //======================================================
     //----------------------Constants-----------------------
     //======================================================
-
-    //======================================================
-    //---------------------View components------------------
-    //======================================================
-
+    private static final String TAG = App.class.getSimpleName();
     //======================================================
     //------------------------Fields------------------------
     //======================================================
     private static ApplicationComponent sApplicationComponent;
-
-    //======================================================
-    //---------------------Constructors---------------------
-    //======================================================
 
     //======================================================
     //-------------------Override methods-------------------
@@ -49,6 +38,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG, "onCreate");
         sApplicationComponent = DaggerApplicationComponent
                 .builder()
                 .build();
@@ -57,6 +47,7 @@ public class App extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
+        Log.d(TAG, "onTerminate");
     }
 
     //======================================================
@@ -65,7 +56,6 @@ public class App extends Application {
     public static ApplicationComponent getApplicationComponent() {
         return sApplicationComponent;
     }
-
 
     //======================================================
     //-----------------------Listeners----------------------

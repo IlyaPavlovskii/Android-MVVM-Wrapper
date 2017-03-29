@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "600673931979",
+    "firebase_url": "https://testandroid-a724c.firebaseio.com",
+    "project_id": "testandroid-a724c",
+    "storage_bucket": "testandroid-a724c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600673931979:android:0faf39e6fec30ef1",
+        "android_client_info": {
+          "package_name": "by.pavlovskii.ilya.mvvm.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "600673931979-dqdq3b1e24ijbrbohvehgbnobfo9uqq7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9qLiBmT6j8PjiJZyjl5hVIlk408uphGc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

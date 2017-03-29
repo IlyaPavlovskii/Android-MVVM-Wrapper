@@ -1,8 +1,4 @@
 /app/build
-/gradle.properties
-/gradlew.bat
-/gradlew
-/gradle
 /.idea
 *.iml
 .gradle

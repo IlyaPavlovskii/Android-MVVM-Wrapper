@@ -4,6 +4,9 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
+
 import by.pavlovskii.ilya.mvvm.test.viewdata.ProfileViewData;
 
 /**
@@ -41,6 +44,16 @@ public class ProfileHandler {
     }
 
     //======================================================
+    //--------------------Private methods-------------------
+    //======================================================
+    private void sendFirebaseMessage() {
+        RemoteMessage remoteMessage = new RemoteMessage.Builder("my android message")
+                .setMessageType("type")
+                .build();
+        FirebaseMessaging.getInstance().send( remoteMessage );
+    }
+
+    //======================================================
     //-----------------------Listeners----------------------
     //======================================================
     public View.OnClickListener onChangeStatusListener = new View.OnClickListener() {
@@ -50,7 +63,9 @@ public class ProfileHandler {
             if (mProfileHandlerListener.getViewData() != null) {
                 Log.d("onClick", "Status: " + mProfileHandlerListener.getViewData().status.getValue());
                 mProfileHandlerListener.getViewData().status.set(55);
+                sendFirebaseMessage();
             }
         }
+
     };
 }
