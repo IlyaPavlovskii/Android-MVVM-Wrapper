@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
@@ -40,10 +41,11 @@ dependencies {
     compile "com.android.support:design:${rootProject.supportVersion}"
     compile 'joda-time:joda-time:2.9.1'
 
-    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
-    testAnnotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
-    compile "com.google.dagger:dagger:${rootProject.daggerVersion}"
-    testCompile "com.google.dagger:dagger:${rootProject.daggerVersion}"
+    annotationProcessor group: 'com.google.dagger', name: 'dagger-compiler', version: "${rootProject.daggerVersion}"
+    compile group: 'com.google.dagger', name: 'dagger', version: "${rootProject.daggerVersion}"
+    compile group: 'com.google.dagger', name: 'dagger-android', version: "${rootProject.daggerVersion}"
+    testCompile group: 'com.google.dagger', name: 'dagger', version: "${rootProject.daggerVersion}"
+    testAnnotationProcessor group: 'com.google.dagger', name: 'dagger-compiler', version: "${rootProject.daggerVersion}"
 
     // Google
     compile 'com.google.android.gms:play-services-auth:10.2.0'

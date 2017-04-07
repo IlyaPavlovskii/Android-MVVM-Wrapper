@@ -3,6 +3,7 @@ package by.pavlovskii.ilya.mvvm.test.dagger.components;
 import by.pavlovskii.ilya.mvvm.test.activity.ProfileActivity;
 import by.pavlovskii.ilya.mvvm.test.dagger.modules.ViewModelModule;
 import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Create with Android Studio<br>
@@ -17,7 +18,7 @@ import dagger.Component;
  * {@link by.mvvmwrapper.viewdata.IViewData}<br>
  * ===================================================================================<br>
  */
-@Component(modules = {ViewModelModule.class})
+@Subcomponent(modules = {ViewModelModule.class})
 public interface ViewModelComponent {
 
     //======================================================
