@@ -10,7 +10,7 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
+        versionCode 2
         versionName "1.5"
     }
 
@@ -24,6 +24,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
 }
 
 dependencies {
@@ -31,10 +35,13 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "com.android.support:appcompat-v7:${rootProject.supportVersion}"
 
-    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
-    testAnnotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
-    compile "com.google.dagger:dagger:${rootProject.daggerVersion}"
-    testCompile "com.google.dagger:dagger:${rootProject.daggerVersion}"
+    annotationProcessor group: 'com.google.dagger', name: 'dagger-compiler', version: "${rootProject.daggerVersion}"
+    compile group: 'com.google.dagger', name: 'dagger', version: "${rootProject.daggerVersion}"
+    compile group: 'com.google.dagger', name: 'dagger-android', version: "${rootProject.daggerVersion}"
+    testCompile group: 'com.google.dagger', name: 'dagger', version: "${rootProject.daggerVersion}"
+    testAnnotationProcessor group: 'com.google.dagger', name: 'dagger-compiler', version: "${rootProject.daggerVersion}"
+    compile group: 'com.google.errorprone', name: 'error_prone_annotations', version: '2.0.19'
 
-    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.5.0'
+    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.5.1'
+
 }

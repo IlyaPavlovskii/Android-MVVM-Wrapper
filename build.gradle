@@ -9,8 +9,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.0'
         classpath 'com.google.gms:google-services:3.0.0'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.4'
         classpath "net.ltgt.gradle:gradle-apt-plugin:0.5"
+        classpath 'me.tatarka:gradle-retrolambda:3.6.0'
     }
 }
 
@@ -24,6 +24,9 @@ ext {
 
     retrofitVersion = "2.1.0"
     supportVersion = "25.2.0"
+
+    googlePlayVersion = "10.2.0"
+    firebaseVersion = "10.2.0"
 
     daggerVersion = '2.10'
 }
@@ -40,4 +43,19 @@ repositories {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+
+static def getJavaVersion(Integer v) {
+    def sout = new StringBuffer()
+    def proc = "/usr/libexec/java_home -v 1.$v".execute()
+    proc.consumeProcessOutput(sout, new StringBuffer())
+    proc.waitForOrKill(1000)
+    return sout.toString().replace("\n", "").replace("\r", "")
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xmaxerrs" << "500" // or whatever number you want
+    }
 }

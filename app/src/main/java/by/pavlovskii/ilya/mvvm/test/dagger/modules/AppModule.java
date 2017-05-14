@@ -1,6 +1,7 @@
 package by.pavlovskii.ilya.mvvm.test.dagger.modules;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
 import javax.inject.Singleton;
@@ -24,26 +25,19 @@ import dagger.Provides;
 public class AppModule {
 
     //======================================================
-    //------------------------Fields------------------------
-    //======================================================
-    @NonNull
-    private Context mContext;
-
-    //======================================================
     //---------------------Constructors---------------------
     //======================================================
-    public AppModule(@NonNull Context context) {
-        mContext = context;
+    public AppModule() {
     }
 
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
-    @Singleton
-    @Provides
     @NonNull
-    public Context provideContext() {
-        return mContext;
+    @Provides
+    @Singleton
+    public Resources provideResources(@NonNull Context context) {
+        return context.getResources();
     }
 
 }

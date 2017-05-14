@@ -1,12 +1,14 @@
 package by.pavlovskii.ilya.mvvm.test.application;
 
+import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
 import javax.inject.Inject;
 
-import by.pavlovskii.ilya.mvvm.test.dagger.components.ApplicationComponent;
-import by.pavlovskii.ilya.mvvm.test.dagger.components.DaggerApplicationComponent;
+import dagger.android.DaggerFragment_MembersInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasDispatchingActivityInjector;
 
 /**
  * Create with Android Studio<br>
@@ -20,16 +22,18 @@ import by.pavlovskii.ilya.mvvm.test.dagger.components.DaggerApplicationComponent
  * Application main class<br>
  * ===================================================================================
  */
-public class App extends Application {
+public class App extends Application implements HasDispatchingActivityInjector {
 
     //======================================================
     //----------------------Constants-----------------------
     //======================================================
     private static final String TAG = App.class.getSimpleName();
+
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    private static ApplicationComponent sApplicationComponent;
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
 
     //======================================================
     //-------------------Override methods-------------------
@@ -39,9 +43,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate");
-        sApplicationComponent = DaggerApplicationComponent
-                .builder()
-                .build();
+        //DaggerAppComponent.create().inject(this);
     }
 
     @Override
@@ -50,12 +52,14 @@ public class App extends Application {
         Log.d(TAG, "onTerminate");
     }
 
+    @Override
+    public DispatchingAndroidInjector<Activity> activityInjector() {
+        return dispatchingActivityInjector;
+    }
+
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
-    public static ApplicationComponent getApplicationComponent() {
-        return sApplicationComponent;
-    }
 
     //======================================================
     //-----------------------Listeners----------------------

@@ -122,9 +122,12 @@ public class BindingAdapterHelper {
         if (bindableBoolean == null) {
             return;
         }
-        CompoundButton.OnCheckedChangeListener listener = (buttonView, isChecked) -> {
-            if (isChecked != bindableBoolean.getValue()) {
-                bindableBoolean.set(isChecked);
+        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked != bindableBoolean.getValue()) {
+                    bindableBoolean.set(isChecked);
+                }
             }
         };
         checkBox.setOnCheckedChangeListener(listener);
