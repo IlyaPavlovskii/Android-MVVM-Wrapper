@@ -1,5 +1,6 @@
 package by.pavlovskii.ilya.mvvm.test.dagger.modules;
 
+import by.mvvmwrapper.dagger.scope.ActivityScope;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.ProfileActivityViewModel;
 import dagger.Module;
 import dagger.Provides;
@@ -23,6 +24,7 @@ public class ViewModelModule {
     //---------------------Public methods-------------------
     //======================================================
     @Provides
+    @ActivityScope
     public ProfileActivityViewModel provideProfileActivityViewModel() {
         return new ProfileActivityViewModel();
     }

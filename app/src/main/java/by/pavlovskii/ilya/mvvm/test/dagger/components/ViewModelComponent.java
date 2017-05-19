@@ -1,5 +1,6 @@
 package by.pavlovskii.ilya.mvvm.test.dagger.components;
 
+import by.mvvmwrapper.dagger.scope.ActivityScope;
 import by.pavlovskii.ilya.mvvm.test.activity.ProfileActivity;
 import by.pavlovskii.ilya.mvvm.test.dagger.modules.ViewModelModule;
 import dagger.Component;
@@ -18,7 +19,8 @@ import dagger.Subcomponent;
  * {@link by.mvvmwrapper.viewdata.IViewData}<br>
  * ===================================================================================<br>
  */
-@Subcomponent(modules = {ViewModelModule.class})
+@ActivityScope
+@Component(modules = {ViewModelModule.class})
 public interface ViewModelComponent {
 
     //======================================================

@@ -88,8 +88,8 @@ public class BindingAdapterHelper {
      * @param view target {@link BindableEditText} component
      * @param bindableString target text*/
     @BindingAdapter({ATTR_TAG + ":binding"})
-    public static void bindEditText(@NonNull BindableEditText view,
-                                    @Nullable final BindableGeneric<String> bindableString) {
+    public static void bindBindableEditText(@NonNull BindableEditText view,
+                                            @Nullable final BindableGeneric<String> bindableString) {
         if (bindableString == null) {
             return;
         }
@@ -101,7 +101,6 @@ public class BindingAdapterHelper {
             TextWatcherAdapter watcher = new TextWatcherAdapter() {
                 @Override
                 public void afterTextChanged(Editable s) {
-                    view.acquire();
                     bindableString.set(s.toString());
                 }
             };

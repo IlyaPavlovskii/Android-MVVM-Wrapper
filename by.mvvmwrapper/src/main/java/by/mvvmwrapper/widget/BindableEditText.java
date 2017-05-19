@@ -3,6 +3,7 @@ package by.mvvmwrapper.widget;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.EditText;
 
 /**
@@ -17,12 +18,11 @@ import android.widget.EditText;
  * EditText with function to link 2 or more view component to one data<br>
  * ===================================================================================
  */
-public class BindableEditText extends EditText {
+public class BindableEditText extends android.support.v7.widget.AppCompatEditText {
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    private boolean mAcquireFlag;
 
     //======================================================
     //---------------------Constructors---------------------
@@ -44,20 +44,10 @@ public class BindableEditText extends EditText {
     //======================================================
     @Override
     public void setText(CharSequence text, BufferType type) {
-        if (!mAcquireFlag) {
-            super.setText(text, type);
-            if (hasFocus() && !TextUtils.isEmpty(text)) {
-                setSelection(text.length());
-            }
+        super.setText(text, type);
+        if (text != null) {
+            setSelection(text.length());
         }
-        mAcquireFlag = false;
-    }
-
-    //======================================================
-    //--------------------Public methods--------------------
-    //======================================================
-    public void acquire() {
-        mAcquireFlag = true;
     }
 
 }

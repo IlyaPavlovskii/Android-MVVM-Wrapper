@@ -61,9 +61,8 @@ public class ProfileHandler {
         public void onClick(View v) {
             Log.d("onClick", "Click: " + (mProfileHandlerListener.getViewData() == null));
             if (mProfileHandlerListener.getViewData() != null) {
-                Log.d("onClick", "Status: " + mProfileHandlerListener.getViewData().status.getValue());
-                mProfileHandlerListener.getViewData().status.set(55);
-                sendFirebaseMessage();
+                mProfileHandlerListener.getViewData().name.set("123");
+                mProfileHandlerListener.getViewData().surname.set("");
             }
         }
 
