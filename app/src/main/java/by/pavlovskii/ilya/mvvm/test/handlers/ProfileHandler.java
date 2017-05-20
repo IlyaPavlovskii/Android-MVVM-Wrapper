@@ -44,16 +44,6 @@ public class ProfileHandler {
     }
 
     //======================================================
-    //--------------------Private methods-------------------
-    //======================================================
-    private void sendFirebaseMessage() {
-        RemoteMessage remoteMessage = new RemoteMessage.Builder("my android message")
-                .setMessageType("type")
-                .build();
-        FirebaseMessaging.getInstance().send( remoteMessage );
-    }
-
-    //======================================================
     //-----------------------Listeners----------------------
     //======================================================
     public View.OnClickListener onChangeStatusListener = new View.OnClickListener() {
