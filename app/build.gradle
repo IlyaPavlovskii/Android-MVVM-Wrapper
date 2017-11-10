@@ -1,6 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
-
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -12,8 +10,8 @@ android {
         applicationId "by.pavlovskii.ilya.mvvm.test"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.2"
+        versionCode 2
+        versionName "2.0"
     }
     buildTypes {
         release {
@@ -36,42 +34,36 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url myMavenRepoReadUrl
+        credentials {
+            username 'myMavenRepo'
+            password myMavenRepoReadPassword
+        }
+    }
+    google()
+}
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:${rootProject.supportVersion}"
-    compile "com.android.support:recyclerview-v7:${rootProject.supportVersion}"
-    compile "com.android.support:design:${rootProject.supportVersion}"
-    compile 'joda-time:joda-time:2.9.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation "com.android.support:appcompat-v7:${rootProject.supportVersion}"
+    implementation "com.android.support:recyclerview-v7:${rootProject.supportVersion}"
+    implementation "com.android.support:design:${rootProject.supportVersion}"
+    implementation 'joda-time:joda-time:2.9.9'
 
     annotationProcessor group: 'com.google.dagger', name: 'dagger-compiler', version: "${rootProject.daggerVersion}"
-    compile group: 'com.google.dagger', name: 'dagger', version: "${rootProject.daggerVersion}"
-    compile group: 'com.google.dagger', name: 'dagger-android', version: "${rootProject.daggerVersion}"
-    testCompile group: 'com.google.dagger', name: 'dagger', version: "${rootProject.daggerVersion}"
+    implementation group: 'com.google.dagger', name: 'dagger', version: "${rootProject.daggerVersion}"
+    implementation group: 'com.google.dagger', name: 'dagger-android', version: "${rootProject.daggerVersion}"
+    testImplementation group: 'com.google.dagger', name: 'dagger', version: "${rootProject.daggerVersion}"
     testAnnotationProcessor group: 'com.google.dagger', name: 'dagger-compiler', version: "${rootProject.daggerVersion}"
 
-    // Google
-    compile 'com.google.android.gms:play-services-auth:10.2.0'
-    compile 'com.google.android.gms:play-services-maps:10.2.0'
-    compile 'com.google.android.gms:play-services-places:10.2.0'
-    compile 'com.google.android.gms:play-services-gcm:10.2.0'
-    compile 'com.google.android.gms:play-services-analytics:10.2.0'
-    compile 'com.google.android.gms:play-services-location:10.2.0'
-
-    // Firebase
-    compile 'com.google.firebase:firebase-ads:10.2.0'
-    compile 'com.google.firebase:firebase-analytics:10.2.0'
-    compile 'com.google.firebase:firebase-appindexing:10.2.0'
-    compile 'com.google.firebase:firebase-messaging:10.2.0'
-    compile 'com.google.firebase:firebase-core:10.2.0'
-    compile 'com.google.firebase:firebase-auth:10.2.0'
-    compile 'com.google.firebase:firebase-database:10.2.0'
-    compile 'com.google.firebase:firebase-storage:10.2.0'
-    compile 'com.firebaseui:firebase-ui-database:1.0.1'
+    implementation 'by.ilya.pavlovskii.anibutton:anibutton:1.5'
+    implementation 'com.github.IlyaPavlovskii:Cicerone:v1.3.3'
 
     compile project(':by.mvvmwrapper')
 
-    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.5.0'
 }
 
 // ADD THIS AT THE BOTTOM

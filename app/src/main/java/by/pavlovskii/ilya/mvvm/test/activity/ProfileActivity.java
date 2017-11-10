@@ -57,20 +57,7 @@ public class ProfileActivity extends BaseAppCompatActivity<ProfileActivityViewMo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .requestEmail()
-//                .build();
-//        mGoogleApiClient = new GoogleApiClient.Builder(this)
-//                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-//                .build();
-//
-//        // Initialize FirebaseAuth
-//        mFirebaseAuth = FirebaseAuth.getInstance();
-//        if( !getSharedPreferences("sp", MODE_PRIVATE).getBoolean("is_init", false) ){
-//            signIn();
-//        }
+
     }
 
     private void handleFirebaseAuthResult(AuthResult authResult) {

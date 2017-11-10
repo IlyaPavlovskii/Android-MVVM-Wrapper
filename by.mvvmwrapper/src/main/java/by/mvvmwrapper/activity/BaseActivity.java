@@ -7,10 +7,14 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
-import javax.inject.Inject;
+import java.util.List;
 
-import by.mvvmwrapper.viewmodel.IViewModel;
+import by.mvvmwrapper.interfaces.components.OnLifecycleListener;
+import by.mvvmwrapper.interfaces.components.OnRequestPermissionListener;
+import by.mvvmwrapper.interfaces.components.OnSaveRestoreInstanceListener;
+import by.mvvmwrapper.viewmodel.ViewModel;
 
 /**
  * Create with Android Studio<br>
@@ -24,7 +28,7 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * Base {@link Activity} realization of view MVVM component<br>
  * ===================================================================================
  */
-public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
+public abstract class BaseActivity<TViewModel extends ViewModel, TViewDataBinding extends ViewDataBinding>
         extends Activity {
 
     //======================================================
@@ -35,9 +39,19 @@ public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBindi
     //======================================================
     //------------------------Fields------------------------
     //======================================================
+    @NonNull
     protected TViewDataBinding mBinding;
-    @Inject
+    @NonNull
     protected TViewModel mViewModel;
+
+    //======================================================
+    //-------------------Abstract methods-------------------
+    //======================================================
+    @LayoutRes
+    protected abstract int getLayoutRes();
+
+    @NonNull
+    protected abstract TViewModel initViewModel();
 
     //======================================================
     //-------------------Override methods-------------------
@@ -46,81 +60,96 @@ public abstract class BaseActivity<TViewModel extends IViewModel, TViewDataBindi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
+        mViewModel = initViewModel();
 
-        injectViewModel();
-        if (mViewModel != null) {
-            mViewModel.bindViewData(mBinding);
+        if (mBinding == null) {
+            throw new NullPointerException("ViewDataBinding must be initialized");
+        }
+        if (mViewModel == null) {
+            throw new NullPointerException("ViewModel component must be initialized");
         }
 
+        mViewModel.bindViewData(mBinding);
+        if (mViewModel instanceof OnLifecycleListener) {
+            ((OnLifecycleListener) mViewModel).onCreate(savedInstanceState);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (mViewModel != null) {
-            mViewModel.onPause();
+        if (mViewModel instanceof OnLifecycleListener) {
+            ((OnLifecycleListener) mViewModel).onPause();
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mViewModel != null) {
-            mViewModel.onResume();
+        if (mViewModel instanceof OnLifecycleListener) {
+            ((OnLifecycleListener) mViewModel).onResume();
         }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (mViewModel != null) {
-            mViewModel.onStart();
+        if (mViewModel instanceof OnLifecycleListener) {
+            ((OnLifecycleListener) mViewModel).onStart();
         }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (mViewModel != null) {
-            mViewModel.onStop();
+        if (mViewModel instanceof OnLifecycleListener) {
+            ((OnLifecycleListener) mViewModel).onStop();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mViewModel instanceof OnSaveRestoreInstanceListener) {
+            ((OnSaveRestoreInstanceListener) mViewModel).onSaveInstanceState(outState);
+        }
+    }
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (mViewModel instanceof OnSaveRestoreInstanceListener) {
+            ((OnSaveRestoreInstanceListener) mViewModel).onRestoreInstanceState(savedInstanceState);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (mViewModel != null) {
-            mViewModel.onActivityResult(requestCode, resultCode, data);
+        if (mViewModel instanceof OnLifecycleListener) {
+            ((OnLifecycleListener) mViewModel).onActivityResult(requestCode, resultCode, data);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (mViewModel != null) {
-            mViewModel.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (mViewModel instanceof OnRequestPermissionListener) {
+            ((OnRequestPermissionListener) mViewModel).onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mBinding != null) {
-            mBinding.unbind();
+        if (mViewModel instanceof OnLifecycleListener) {
+            ((OnLifecycleListener) mViewModel).onDestroy();
         }
-        if (mViewModel != null) {
-            mViewModel.destroy();
-        }
+        mBinding.unbind();
+        mViewModel.destroy();
         mBinding = null;
         mViewModel = null;
     }
-
-    //======================================================
-    //-------------------Abstract methods-------------------
-    //======================================================
-    @LayoutRes
-    protected abstract int getLayoutRes();
-
-    protected abstract void injectViewModel();
 
 }

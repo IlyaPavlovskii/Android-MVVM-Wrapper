@@ -1,12 +1,11 @@
 package by.pavlovskii.ilya.mvvm.test.viewdata;
 
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import by.mvvmwrapper.viewdata.IViewData;
+import by.mvvmwrapper.viewdata.ViewData;
 import by.mvvmwrapper.wrapper.BindableGeneric;
 
 /**
@@ -21,7 +20,7 @@ import by.mvvmwrapper.wrapper.BindableGeneric;
  * //TODO Add description<br>
  * ===================================================================================
  */
-public class ProfileViewData implements IViewData {
+public class ProfileViewData implements ViewData {
 
     //======================================================
     //------------------------Fields------------------------

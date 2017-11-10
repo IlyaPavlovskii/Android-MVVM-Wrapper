@@ -1,10 +1,11 @@
 package by.pavlovskii.ilya.mvvm.test.dagger.components;
 
 import by.mvvmwrapper.dagger.scope.ActivityScope;
+import by.mvvmwrapper.viewdata.ViewData;
+import by.mvvmwrapper.viewmodel.ViewModel;
 import by.pavlovskii.ilya.mvvm.test.activity.ProfileActivity;
 import by.pavlovskii.ilya.mvvm.test.dagger.modules.ViewModelModule;
 import dagger.Component;
-import dagger.Subcomponent;
 
 /**
  * Create with Android Studio<br>
@@ -15,8 +16,8 @@ import dagger.Subcomponent;
  * Time: 16:53<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
- * {@link by.mvvmwrapper.viewmodel.IViewModel} component which resolve dependencies with<br>
- * {@link by.mvvmwrapper.viewdata.IViewData}<br>
+ * {@link ViewModel} component which resolve dependencies with<br>
+ * {@link ViewData}<br>
  * ===================================================================================<br>
  */
 @ActivityScope

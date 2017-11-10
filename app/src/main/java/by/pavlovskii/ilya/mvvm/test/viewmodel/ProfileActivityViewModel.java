@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
-import by.mvvmwrapper.viewmodel.BaseViewModel;
 import by.pavlovskii.ilya.mvvm.test.dagger.components.DaggerViewDataComponent;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityProfileBinding;
 import by.pavlovskii.ilya.mvvm.test.handlers.ProfileHandler;

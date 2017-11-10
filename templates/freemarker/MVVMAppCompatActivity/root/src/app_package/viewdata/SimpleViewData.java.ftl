@@ -2,7 +2,7 @@ package ${packageName}.${viewDataDir};
 
 import android.support.annotation.Nullable;
 
-import by.mvvmwrapper.viewdata.IViewData;
+import by.mvvmwrapper.viewdata.ViewData;
 import by.mvvmwrapper.wrapper.BindableGeneric;
 
 public class ${viewDataClass} implements IViewData {
