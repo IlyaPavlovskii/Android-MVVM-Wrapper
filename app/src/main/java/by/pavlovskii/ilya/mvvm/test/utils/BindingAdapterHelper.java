@@ -9,8 +9,7 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
-import by.pavlovskii.ilya.mvvm.test.adapters.ProfileAdapter;
-import by.pavlovskii.ilya.mvvm.test.viewdata.ProfileViewData;
+import by.pavlovskii.ilya.mvvm.test.adapters.DemoAdapter;
 
 /**
  * Create with Android Studio<br>
@@ -39,14 +38,19 @@ public class BindingAdapterHelper {
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
-    @BindingAdapter({"attr:adapter"})
-    public static void bindAdapter(@NonNull RecyclerView recyclerView,
-                                   @Nullable List<ProfileViewData> list) {
-        if (list != null) {
-            Context context = recyclerView.getContext();
+    @BindingAdapter({"attr:demoAdapter"})
+    public static void demoAdapter(@NonNull RecyclerView recyclerView, @Nullable List<String> list) {
+        if (list == null) {
+            return;
+        }
+        Context context = recyclerView.getContext();
+        if (recyclerView.getAdapter() == null) {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new ProfileAdapter(context, list));
+            recyclerView.setAdapter(new DemoAdapter(context, list));
+        } else if (recyclerView.getAdapter() instanceof DemoAdapter) {
+            ((DemoAdapter) recyclerView.getAdapter()).setList(list);
+            recyclerView.getAdapter().notifyDataSetChanged();
         }
     }
 

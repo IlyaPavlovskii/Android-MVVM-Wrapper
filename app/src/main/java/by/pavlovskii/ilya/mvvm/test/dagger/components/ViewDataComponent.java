@@ -2,7 +2,6 @@ package by.pavlovskii.ilya.mvvm.test.dagger.components;
 
 import by.mvvmwrapper.dagger.scope.ViewModelScope;
 import by.pavlovskii.ilya.mvvm.test.dagger.modules.ViewDataModule;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.ProfileActivityViewModel;
 import dagger.Component;
 
 /**
@@ -24,6 +23,5 @@ public interface ViewDataComponent {
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
-    void inject(ProfileActivityViewModel viewModel);
 
 }
