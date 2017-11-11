@@ -1,5 +1,6 @@
 package by.mvvmwrapper.fragments;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -7,12 +8,14 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
+import by.mvvmwrapper.exceptions.ExceptionHandler;
+import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
 import by.mvvmwrapper.interfaces.components.OnLifecycleListener;
 import by.mvvmwrapper.interfaces.components.OnRequestPermissionListener;
 import by.mvvmwrapper.interfaces.components.OnSaveRestoreInstanceListener;
@@ -31,7 +34,8 @@ import by.mvvmwrapper.viewmodel.ViewModel;
  * ===================================================================================
  */
 public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDataBinding extends ViewDataBinding>
-        extends android.support.v4.app.Fragment implements OnRequestPermissionListener {
+        extends android.support.v4.app.Fragment
+        implements ExceptionHandler {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -45,6 +49,8 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
     protected TViewDataBinding mBinding;
     @NonNull
     protected TViewModel mViewModel;
+    @NonNull
+    protected ExceptionHandlerChain mExceptionHandlerChain;
 
     //======================================================
     //-------------------Abstract methods-------------------
@@ -56,11 +62,44 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
     protected abstract TViewModel initViewModel();
 
     //======================================================
+    //-------------------Protected methods------------------
+    //======================================================
+    @NonNull
+    protected ExceptionHandlerChain initExceptionHandlerChain() {
+        return new ExceptionHandlerChain();
+    }
+
+    protected void addExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.addHandler(exceptionHandler);
+    }
+
+    protected void addExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void addExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.removeHandler(exceptionHandler);
+    }
+
+    protected void removeExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+    //======================================================
     //-------------------Override methods-------------------
     //======================================================
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mExceptionHandlerChain = initExceptionHandlerChain();
         mViewModel = initViewModel();
         if (mViewModel == null) {
             throw new NullPointerException("ViewModel component must be initialized");
@@ -138,6 +177,7 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (mViewModel instanceof OnRequestPermissionListener) {
             ((OnRequestPermissionListener) mViewModel).onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -149,6 +189,25 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
         if (mViewModel instanceof OnSaveRestoreInstanceListener) {
             ((OnSaveRestoreInstanceListener) mViewModel).onSaveInstanceState(outState);
         }
+    }
+
+    @Override
+    public boolean handleException(@Nullable Throwable throwable) {
+        boolean handled = mExceptionHandlerChain.handleException(throwable);
+        if (!handled) {
+            // Delegate exception handling to parent fragment
+            android.support.v4.app.Fragment parentFragment = getParentFragment();
+            if (parentFragment instanceof ExceptionHandler) {
+                handled = ((ExceptionHandler) parentFragment).handleException(throwable);
+            }
+        }
+        if (!handled) {
+            // Delegate exception handling to parent activity
+            if (getActivity() instanceof ExceptionHandler) {
+                handled = ((ExceptionHandler) getActivity()).handleException(throwable);
+            }
+        }
+        return handled;
     }
 
     @Override

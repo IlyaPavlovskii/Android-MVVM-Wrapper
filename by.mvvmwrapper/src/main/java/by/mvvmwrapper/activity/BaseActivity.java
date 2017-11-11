@@ -7,10 +7,12 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 
+import by.mvvmwrapper.exceptions.ExceptionHandler;
+import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
 import by.mvvmwrapper.interfaces.components.OnLifecycleListener;
 import by.mvvmwrapper.interfaces.components.OnRequestPermissionListener;
 import by.mvvmwrapper.interfaces.components.OnSaveRestoreInstanceListener;
@@ -29,7 +31,8 @@ import by.mvvmwrapper.viewmodel.ViewModel;
  * ===================================================================================
  */
 public abstract class BaseActivity<TViewModel extends ViewModel, TViewDataBinding extends ViewDataBinding>
-        extends Activity {
+        extends Activity
+        implements ExceptionHandler {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -43,6 +46,8 @@ public abstract class BaseActivity<TViewModel extends ViewModel, TViewDataBindin
     protected TViewDataBinding mBinding;
     @NonNull
     protected TViewModel mViewModel;
+    @NonNull
+    protected ExceptionHandlerChain mExceptionHandlerChain;
 
     //======================================================
     //-------------------Abstract methods-------------------
@@ -54,11 +59,45 @@ public abstract class BaseActivity<TViewModel extends ViewModel, TViewDataBindin
     protected abstract TViewModel initViewModel();
 
     //======================================================
+    //-------------------Protected methods------------------
+    //======================================================
+    @NonNull
+    protected ExceptionHandlerChain initExceptionHandlerChain() {
+        return new ExceptionHandlerChain();
+    }
+
+    protected void addExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.addHandler(exceptionHandler);
+    }
+
+    protected void addExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void addExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.removeHandler(exceptionHandler);
+    }
+
+    protected void removeExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+
+    //======================================================
     //-------------------Override methods-------------------
     //======================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mExceptionHandlerChain = initExceptionHandlerChain();
         mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
         mViewModel = initViewModel();
 
@@ -138,6 +177,11 @@ public abstract class BaseActivity<TViewModel extends ViewModel, TViewDataBindin
         if (mViewModel instanceof OnRequestPermissionListener) {
             ((OnRequestPermissionListener) mViewModel).onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    @Override
+    public boolean handleException(@Nullable Throwable throwable) {
+        return mExceptionHandlerChain.handleException(throwable);
     }
 
     @Override

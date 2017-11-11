@@ -39,7 +39,7 @@ public class DemoAdapter extends BindRecyclerViewAdapter<String, AdapterDemoItem
 
     private class DemoViewHolder extends ViewHolder<String, AdapterDemoItemBinding, DemoViewData> {
 
-        public DemoViewHolder(AdapterDemoItemBinding adapterDemoItemBinding) {
+        DemoViewHolder(AdapterDemoItemBinding adapterDemoItemBinding) {
             super(adapterDemoItemBinding);
             adapterDemoItemBinding.setModel(mViewData);
         }

@@ -7,11 +7,14 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 
+import by.mvvmwrapper.exceptions.ExceptionHandler;
+import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
 import by.mvvmwrapper.interfaces.components.OnLifecycleListener;
 import by.mvvmwrapper.interfaces.components.OnRequestPermissionListener;
 import by.mvvmwrapper.interfaces.components.OnSaveRestoreInstanceListener;
@@ -31,7 +34,8 @@ import by.mvvmwrapper.viewmodel.ViewModel;
  * ===================================================================================
  */
 public abstract class BaseAppCompatActivity<TViewModel extends ViewModel, TViewDataBinding extends ViewDataBinding>
-        extends AppCompatActivity {
+        extends AppCompatActivity
+        implements ExceptionHandler {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -46,6 +50,9 @@ public abstract class BaseAppCompatActivity<TViewModel extends ViewModel, TViewD
     @NonNull
     protected TViewModel mViewModel;
 
+    @NonNull
+    protected ExceptionHandlerChain mExceptionHandlerChain;
+
     //======================================================
     //-------------------Abstract methods-------------------
     //======================================================
@@ -56,11 +63,44 @@ public abstract class BaseAppCompatActivity<TViewModel extends ViewModel, TViewD
     protected abstract TViewModel initViewModel();
 
     //======================================================
+    //-------------------Protected methods------------------
+    //======================================================
+    @NonNull
+    protected ExceptionHandlerChain initExceptionHandlerChain() {
+        return new ExceptionHandlerChain();
+    }
+
+    protected void addExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.addHandler(exceptionHandler);
+    }
+
+    protected void addExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void addExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.removeHandler(exceptionHandler);
+    }
+
+    protected void removeExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+    //======================================================
     //-------------------Override methods-------------------
     //======================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mExceptionHandlerChain = initExceptionHandlerChain();
         mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
         mViewModel = initViewModel();
 
@@ -145,9 +185,7 @@ public abstract class BaseAppCompatActivity<TViewModel extends ViewModel, TViewD
             List<Fragment> fragments = getSupportFragmentManager().getFragments();
             if (fragments != null && !fragments.isEmpty()) {
                 for (Fragment fragment : fragments) {
-                    if (fragment instanceof OnRequestPermissionListener) {
-                        ((OnRequestPermissionListener) fragment).onRequestPermissionsResult(requestCode, permissions, grantResults);
-                    }
+                    fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 }
             }
         }
@@ -164,6 +202,11 @@ public abstract class BaseAppCompatActivity<TViewModel extends ViewModel, TViewD
         mViewModel.destroy();
         mBinding = null;
         mViewModel = null;
+    }
+
+    @Override
+    public boolean handleException(@Nullable Throwable throwable) {
+        return mExceptionHandlerChain.handleException(throwable);
     }
 }
 
