@@ -40,7 +40,7 @@ dependencies {
     implementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
     testImplementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
 
-    implementation 'com.afollestad.material-dialogs:commons:0.9.1.0'
+    implementation "com.afollestad.material-dialogs:commons:${rootProject.materialDialogVersion}"
 
     implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"
     implementation "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"

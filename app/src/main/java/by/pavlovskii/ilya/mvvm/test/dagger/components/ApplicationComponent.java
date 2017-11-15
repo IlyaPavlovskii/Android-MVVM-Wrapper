@@ -2,8 +2,12 @@ package by.pavlovskii.ilya.mvvm.test.dagger.components;
 
 import javax.inject.Singleton;
 
+import by.pavlovskii.ilya.mvvm.test.activity.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.application.App;
 import by.pavlovskii.ilya.mvvm.test.dagger.modules.AppModule;
+import by.pavlovskii.ilya.mvvm.test.dagger.modules.FactoryModule;
+import by.pavlovskii.ilya.mvvm.test.dagger.modules.RouterModule;
+import by.pavlovskii.ilya.mvvm.test.viewmodel.MainViewModel;
 import dagger.Component;
 
 /**
@@ -15,15 +19,19 @@ import dagger.Component;
  * Time: 16:50<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
- * //TODO Add description<br>
- * ===================================================================================<br>
  */
 @Singleton
-@Component(modules = AppModule.class)
+@Component(modules = {
+        AppModule.class,
+        RouterModule.class,
+        FactoryModule.class
+})
 public interface ApplicationComponent {
 
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
     void inject(App app);
+
+    void inject(MainActivity mainActivity);
 }

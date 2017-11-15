@@ -15,4 +15,14 @@ import by.mvvmwrapper.interfaces.ViewActionCallback;
  * ===================================================================================<br>
  */
 public interface MainViewActionCallback extends ViewActionCallback {
+
+    void newRootScreen(String key, Object... data);
+
+    void replaceScreen(String key, Object... data);
+
+    void showSystemMessage(String message);
+
+    void navigateTo(String key, Object... data);
+
+    void exit();
 }

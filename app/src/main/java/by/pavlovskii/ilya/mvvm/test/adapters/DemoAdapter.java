@@ -2,12 +2,14 @@ package by.pavlovskii.ilya.mvvm.test.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 
 import by.mvvmwrapper.adapter.BindRecyclerViewAdapter;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.AdapterDemoItemBinding;
+import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 import by.pavlovskii.ilya.mvvm.test.viewdata.DemoViewData;
 
 /**
@@ -20,9 +22,16 @@ import by.pavlovskii.ilya.mvvm.test.viewdata.DemoViewData;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-public class DemoAdapter extends BindRecyclerViewAdapter<String, AdapterDemoItemBinding, DemoViewData> {
+public class DemoAdapter extends BindRecyclerViewAdapter<DemoActivity, AdapterDemoItemBinding, DemoViewData> {
 
-    public DemoAdapter(@NonNull Context context, @NonNull List<String> list) {
+    public interface OnDemoAdapterListener {
+        void onActivityClick(@Nullable DemoActivity key);
+    }
+
+    @Nullable
+    private OnDemoAdapterListener mOnDemoAdapterListener;
+
+    public DemoAdapter(@NonNull Context context, @NonNull List<DemoActivity> list) {
         super(context, list);
     }
 
@@ -33,20 +42,32 @@ public class DemoAdapter extends BindRecyclerViewAdapter<String, AdapterDemoItem
 
     @NonNull
     @Override
-    protected ViewHolder<String, AdapterDemoItemBinding, DemoViewData> createViewHolder(AdapterDemoItemBinding binding) {
+    protected ViewHolder<DemoActivity, AdapterDemoItemBinding, DemoViewData> createViewHolder(AdapterDemoItemBinding binding) {
         return new DemoViewHolder(binding);
     }
 
-    private class DemoViewHolder extends ViewHolder<String, AdapterDemoItemBinding, DemoViewData> {
+    public void setOnDemoAdapterListener(@Nullable OnDemoAdapterListener onDemoAdapterListener) {
+        mOnDemoAdapterListener = onDemoAdapterListener;
+    }
+
+    private class DemoViewHolder extends ViewHolder<DemoActivity, AdapterDemoItemBinding, DemoViewData> {
+
+        private DemoActivity mDemoActivity;
 
         DemoViewHolder(AdapterDemoItemBinding adapterDemoItemBinding) {
             super(adapterDemoItemBinding);
             adapterDemoItemBinding.setModel(mViewData);
+            adapterDemoItemBinding.setOnClickListener(view -> {
+                if (mOnDemoAdapterListener != null) {
+                    mOnDemoAdapterListener.onActivityClick(mDemoActivity);
+                }
+            });
         }
 
         @Override
-        protected void convertToViewData(String item, DemoViewData viewData) {
-            viewData.title.set(item);
+        protected void convertToViewData(DemoActivity item, DemoViewData viewData) {
+            mDemoActivity = item;
+            viewData.title.set(item.getCommand() + ":" + item.getScreen());
         }
 
         @Override

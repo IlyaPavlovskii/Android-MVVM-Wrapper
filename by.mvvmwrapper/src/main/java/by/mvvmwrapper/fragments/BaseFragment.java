@@ -1,5 +1,6 @@
 package by.mvvmwrapper.fragments;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -12,10 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import java.util.List;
 
+import by.mvvmwrapper.R;
 import by.mvvmwrapper.exceptions.ExceptionHandler;
 import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
+import by.mvvmwrapper.interfaces.DialogActionsDelegate;
 import by.mvvmwrapper.interfaces.components.OnLifecycleListener;
 import by.mvvmwrapper.interfaces.components.OnRequestPermissionListener;
 import by.mvvmwrapper.interfaces.components.OnSaveRestoreInstanceListener;
@@ -35,7 +40,7 @@ import by.mvvmwrapper.viewmodel.ViewModel;
  */
 public abstract class BaseFragment<TViewModel extends ViewModel, TViewDataBinding extends ViewDataBinding>
         extends Fragment
-        implements ExceptionHandler {
+        implements ExceptionHandler, DialogActionsDelegate {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -51,6 +56,8 @@ public abstract class BaseFragment<TViewModel extends ViewModel, TViewDataBindin
     protected TViewModel mViewModel;
     @NonNull
     protected ExceptionHandlerChain mExceptionHandlerChain;
+
+    private Dialog mProgressDialog;
 
     //======================================================
     //-------------------Abstract methods-------------------
@@ -211,6 +218,42 @@ public abstract class BaseFragment<TViewModel extends ViewModel, TViewDataBindin
             }
         }
         return handled;
+    }
+
+    @NonNull
+    @Override
+    public Dialog getProgressDialog() {
+        if (getActivity() instanceof DialogActionsDelegate) {
+            return ((DialogActionsDelegate) getActivity()).getProgressDialog();
+        }
+        if (mProgressDialog == null) {
+            mProgressDialog = getAlertDialogBuilder()
+                    .progress(true, 0)
+                    .build();
+        }
+        return mProgressDialog;
+    }
+
+    @Override
+    public void showErrorDialog(@Nullable String message) {
+        if (getActivity() instanceof DialogActionsDelegate) {
+            ((DialogActionsDelegate) getActivity()).showErrorDialog(message);
+        } else {
+            getAlertDialogBuilder()
+                    .title(R.string.error)
+                    .title(message)
+                    .build()
+                    .show();
+        }
+    }
+
+    @NonNull
+    @Override
+    public MaterialDialog.Builder getAlertDialogBuilder() {
+        if (getActivity() instanceof DialogActionsDelegate) {
+            return ((DialogActionsDelegate) getActivity()).getAlertDialogBuilder();
+        }
+        return new MaterialDialog.Builder(getActivity());
     }
 
     @Override

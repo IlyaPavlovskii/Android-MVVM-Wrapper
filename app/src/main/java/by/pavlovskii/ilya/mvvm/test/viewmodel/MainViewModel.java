@@ -4,12 +4,15 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import java.util.Arrays;
-
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.interfaces.MainViewActionCallback;
+import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
+import by.pavlovskii.ilya.mvvm.test.storage.Constants;
+import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
 import by.pavlovskii.ilya.mvvm.test.viewdata.MainViewData;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Create with Android Studio<br>
@@ -25,19 +28,55 @@ import by.pavlovskii.ilya.mvvm.test.viewdata.MainViewData;
  */
 public class MainViewModel extends SimpleViewModelImpl<MainViewData, MainViewActionCallback> {
 
+    DemoActivityFactory mDemoActivityFactory;
+
     public MainViewModel(@NonNull MainViewData viewData, @NonNull MainViewActionCallback actionCallback) {
         super(viewData, actionCallback);
+        mDemoActivityFactory = new DemoActivityFactory();
     }
 
     @Override
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
         ((ActivityMainBinding) viewDataBinding).setModel(mViewData);
+        ((ActivityMainBinding) viewDataBinding).setDemoAdapterListener(this::doNavigation);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String[] array = {"Demo 1", "Demo 2", "Demo 3", "Demo 4", "Demo 5"};
-        mViewData.demoList.addAll(Arrays.asList(array));
+
+        initDemoList();
     }
+
+    private void doNavigation(DemoActivity item) {
+        switch (item.getCommand()) {
+            case Constants.Command.NAVIGATE_TO:
+                mActionCallback.navigateTo(item.getScreen());
+                break;
+            case Constants.Command.REPLACE:
+                mActionCallback.replaceScreen(item.getScreen());
+                break;
+            case Constants.Command.NEW_ROOT_SCREEN:
+                mActionCallback.newRootScreen(item.getScreen());
+                break;
+            case Constants.Command.SHOW_SYSTEM_MESSAGE:
+                mActionCallback.showSystemMessage(item.getScreen());
+                break;
+            case Constants.Command.EXIT:
+                mActionCallback.exit();
+                break;
+        }
+    }
+
+    private void initDemoList() {
+        mDemoActivityFactory.generateDemoActities()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(list -> {
+                    mViewData.demoList.clear();
+                    mViewData.demoList.addAll(list);
+                }, throwable -> mActionCallback.onFailure(throwable));
+    }
+
+
 }

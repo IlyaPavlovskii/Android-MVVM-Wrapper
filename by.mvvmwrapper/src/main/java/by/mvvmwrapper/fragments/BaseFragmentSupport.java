@@ -1,6 +1,6 @@
 package by.mvvmwrapper.fragments;
 
-import android.app.Fragment;
+import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -12,10 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import java.util.List;
 
 import by.mvvmwrapper.exceptions.ExceptionHandler;
 import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
+import by.mvvmwrapper.interfaces.DialogActionsDelegate;
 import by.mvvmwrapper.interfaces.components.OnLifecycleListener;
 import by.mvvmwrapper.interfaces.components.OnRequestPermissionListener;
 import by.mvvmwrapper.interfaces.components.OnSaveRestoreInstanceListener;
@@ -35,7 +38,7 @@ import by.mvvmwrapper.viewmodel.ViewModel;
  */
 public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDataBinding extends ViewDataBinding>
         extends android.support.v4.app.Fragment
-        implements ExceptionHandler {
+        implements ExceptionHandler, DialogActionsDelegate {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -52,12 +55,13 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
     @NonNull
     protected ExceptionHandlerChain mExceptionHandlerChain;
 
+    private Dialog mProgressDialog;
+
     //======================================================
     //-------------------Abstract methods-------------------
     //======================================================
     @LayoutRes
     protected abstract int getLayoutRes();
-
     @NonNull
     protected abstract TViewModel initViewModel();
 
@@ -111,7 +115,7 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
         if (mBinding == null) {
             throw new NullPointerException("ViewDataBinding must be initialized");
@@ -121,7 +125,7 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
 
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel.bindViewData(mBinding);
     }
@@ -208,6 +212,36 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
             }
         }
         return handled;
+    }
+
+    @NonNull
+    @Override
+    public Dialog getProgressDialog() {
+        if (getActivity() instanceof DialogActionsDelegate) {
+            return ((DialogActionsDelegate) getActivity()).getProgressDialog();
+        }
+        if (mProgressDialog == null) {
+            mProgressDialog = getAlertDialogBuilder()
+                    .progress(true, 0)
+                    .build();
+        }
+        return mProgressDialog;
+    }
+
+    @Override
+    public void showErrorDialog(@Nullable String message) {
+        if (getActivity() instanceof DialogActionsDelegate) {
+            ((DialogActionsDelegate) getActivity()).showErrorDialog(message);
+        }
+    }
+
+    @NonNull
+    @Override
+    public MaterialDialog.Builder getAlertDialogBuilder() {
+        if (getActivity() instanceof DialogActionsDelegate) {
+            return ((DialogActionsDelegate) getActivity()).getAlertDialogBuilder();
+        }
+        return new MaterialDialog.Builder(getActivity());
     }
 
     @Override

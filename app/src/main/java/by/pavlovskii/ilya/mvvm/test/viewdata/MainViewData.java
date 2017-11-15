@@ -3,6 +3,7 @@ package by.pavlovskii.ilya.mvvm.test.viewdata;
 import android.databinding.ObservableArrayList;
 
 import by.mvvmwrapper.viewdata.SimpleViewData;
+import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 
 /**
  * Create with Android Studio<br>
@@ -18,7 +19,7 @@ import by.mvvmwrapper.viewdata.SimpleViewData;
  */
 public class MainViewData extends SimpleViewData {
 
-    public ObservableArrayList<String> demoList = new ObservableArrayList<>();
+    public ObservableArrayList<DemoActivity> demoList = new ObservableArrayList<>();
 
     @Override
     public void destroy() {

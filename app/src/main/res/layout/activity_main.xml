@@ -8,11 +8,16 @@
         <variable
             name="model"
             type="by.pavlovskii.ilya.mvvm.test.viewdata.MainViewData"/>
+
+        <variable
+            name="demoAdapterListener"
+            type="by.pavlovskii.ilya.mvvm.test.adapters.DemoAdapter.OnDemoAdapterListener"/>
     </data>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        attr:demoAdapter="@{model.demoList}"/>
+        attr:demoAdapter="@{model.demoList}"
+        attr:demoAdapterListener="@{demoAdapterListener}"/>
 
 </layout>

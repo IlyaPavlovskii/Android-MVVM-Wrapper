@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.List;
 
 import by.pavlovskii.ilya.mvvm.test.adapters.DemoAdapter;
+import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 
 /**
  * Create with Android Studio<br>
@@ -39,7 +40,7 @@ public class BindingAdapterHelper {
     //---------------------Public methods-------------------
     //======================================================
     @BindingAdapter({"attr:demoAdapter"})
-    public static void demoAdapter(@NonNull RecyclerView recyclerView, @Nullable List<String> list) {
+    public static void demoAdapter(@NonNull RecyclerView recyclerView, @Nullable List<DemoActivity> list) {
         if (list == null) {
             return;
         }
@@ -51,6 +52,13 @@ public class BindingAdapterHelper {
         } else if (recyclerView.getAdapter() instanceof DemoAdapter) {
             ((DemoAdapter) recyclerView.getAdapter()).setList(list);
             recyclerView.getAdapter().notifyDataSetChanged();
+        }
+    }
+
+    @BindingAdapter({"attr:demoAdapterListener"})
+    public static void demoAdapter(@NonNull RecyclerView recyclerView, @Nullable DemoAdapter.OnDemoAdapterListener listener) {
+        if (recyclerView.getAdapter() instanceof DemoAdapter) {
+            ((DemoAdapter) recyclerView.getAdapter()).setOnDemoAdapterListener(listener);
         }
     }
 

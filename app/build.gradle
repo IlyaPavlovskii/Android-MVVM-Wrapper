@@ -48,6 +48,7 @@ repositories {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
+
     implementation "com.android.support:appcompat-v7:${rootProject.supportVersion}"
     implementation "com.android.support:recyclerview-v7:${rootProject.supportVersion}"
     implementation "com.android.support:design:${rootProject.supportVersion}"
@@ -59,10 +60,14 @@ dependencies {
     testImplementation group: 'com.google.dagger', name: 'dagger', version: "${rootProject.daggerVersion}"
     testAnnotationProcessor group: 'com.google.dagger', name: 'dagger-compiler', version: "${rootProject.daggerVersion}"
 
-    implementation 'by.ilya.pavlovskii.anibutton:anibutton:1.5'
-    implementation 'com.github.IlyaPavlovskii:Cicerone:v1.3.3'
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"
+    implementation "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"
 
-    compile project(':by.mvvmwrapper')
+    implementation "com.afollestad.material-dialogs:commons:${rootProject.materialDialogVersion}"
+    implementation 'by.ilya.pavlovskii.anibutton:anibutton:1.5'
+    implementation 'com.github.IlyaPavlovskii:Cicerone:v1.5.2'
+
+    implementation project(':by.mvvmwrapper')
 
 }
 
