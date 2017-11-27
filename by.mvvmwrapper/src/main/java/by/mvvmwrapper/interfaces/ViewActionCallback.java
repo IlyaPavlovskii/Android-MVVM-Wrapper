@@ -1,6 +1,6 @@
 package by.mvvmwrapper.interfaces;
 
-import by.mvvmwrapper.viewmodel.ViewModel;
+import by.mvvmwrapper.viewmodel.IViewModel;
 
 /**
  * Create with Android Studio<br>
@@ -11,7 +11,7 @@ import by.mvvmwrapper.viewmodel.ViewModel;
  * Time: 12:48<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * Action callback from {@link ViewModel} to View<br>
+ * Action callback from {@link IViewModel} to View<br>
  * ===================================================================================
  */
 public interface ViewActionCallback extends FailureCallback {

@@ -1,6 +1,7 @@
 package by.pavlovskii.ilya.mvvm.test.models;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * Create with Android Studio<br>
@@ -19,14 +20,14 @@ public class DemoActivity {
 
     @NonNull
     private final String mCommand;
-    @NonNull
+    @Nullable
     private final String mScreen;
 
-    public static DemoActivity create(@NonNull String command, @NonNull String screen) {
+    public static DemoActivity create(@NonNull String command, @Nullable String screen) {
         return new DemoActivity(command, screen);
     }
 
-    public DemoActivity(@NonNull String command, @NonNull String screen) {
+    public DemoActivity(@NonNull String command, @Nullable String screen) {
         mCommand = command;
         mScreen = screen;
     }
@@ -36,7 +37,7 @@ public class DemoActivity {
         return mCommand;
     }
 
-    @NonNull
+    @Nullable
     public String getScreen() {
         return mScreen;
     }

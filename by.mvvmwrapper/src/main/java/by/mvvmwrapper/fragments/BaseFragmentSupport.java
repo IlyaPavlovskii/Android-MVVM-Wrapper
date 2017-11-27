@@ -14,15 +14,9 @@ import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import java.util.List;
-
-import by.mvvmwrapper.exceptions.ExceptionHandler;
 import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
 import by.mvvmwrapper.interfaces.DialogActionsDelegate;
-import by.mvvmwrapper.interfaces.components.OnLifecycleListener;
-import by.mvvmwrapper.interfaces.components.OnRequestPermissionListener;
-import by.mvvmwrapper.interfaces.components.OnSaveRestoreInstanceListener;
-import by.mvvmwrapper.viewmodel.ViewModel;
+import by.mvvmwrapper.viewmodel.BaseViewModel;
 
 /**
  * Create with Android Studio<br>
@@ -36,9 +30,9 @@ import by.mvvmwrapper.viewmodel.ViewModel;
  * Base {@link android.support.v4.app.Fragment} realization of view component<br>
  * ===================================================================================
  */
-public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDataBinding extends ViewDataBinding>
+public abstract class BaseFragmentSupport<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
         extends android.support.v4.app.Fragment
-        implements ExceptionHandler, DialogActionsDelegate {
+        implements DialogActionsDelegate {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -52,8 +46,6 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
     protected TViewDataBinding mBinding;
     @NonNull
     protected TViewModel mViewModel;
-    @NonNull
-    protected ExceptionHandlerChain mExceptionHandlerChain;
 
     private Dialog mProgressDialog;
 
@@ -73,44 +65,17 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
         return new ExceptionHandlerChain();
     }
 
-    protected void addExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
-        mExceptionHandlerChain.addHandler(exceptionHandler);
-    }
-
-    protected void addExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
-        mExceptionHandlerChain.addHandlers(exceptionHandlers);
-    }
-
-    protected void addExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
-        mExceptionHandlerChain.addHandlers(exceptionHandlers);
-    }
-
-    protected void removeExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
-        mExceptionHandlerChain.removeHandler(exceptionHandler);
-    }
-
-    protected void removeExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
-        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
-    }
-
-    protected void removeExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
-        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
-    }
-
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mExceptionHandlerChain = initExceptionHandlerChain();
         mViewModel = initViewModel();
         if (mViewModel == null) {
-            throw new NullPointerException("ViewModel component must be initialized");
+            throw new NullPointerException("IViewModel component must be initialized");
         }
-        if (mViewModel instanceof OnLifecycleListener) {
-            ((OnLifecycleListener) mViewModel).onCreate(savedInstanceState);
-        }
+        mViewModel.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -134,84 +99,49 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
     @Override
     public void onPause() {
         super.onPause();
-        if (mViewModel instanceof OnLifecycleListener) {
-            ((OnLifecycleListener) mViewModel).onPause();
-        }
+        mViewModel.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (mViewModel instanceof OnLifecycleListener) {
-            ((OnLifecycleListener) mViewModel).onResume();
-        }
+        mViewModel.onResume();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (mViewModel instanceof OnLifecycleListener) {
-            ((OnLifecycleListener) mViewModel).onStart();
-        }
+        mViewModel.onStart();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mViewModel instanceof OnLifecycleListener) {
-            ((OnLifecycleListener) mViewModel).onStop();
-        }
+        mViewModel.onStop();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (mViewModel instanceof OnLifecycleListener) {
-            ((OnLifecycleListener) mViewModel).onActivityResult(requestCode, resultCode, data);
-        }
+        mViewModel.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if (mViewModel instanceof OnSaveRestoreInstanceListener) {
-            ((OnSaveRestoreInstanceListener) mViewModel).onRestoreInstanceState(savedInstanceState);
-        }
+        mViewModel.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (mViewModel instanceof OnRequestPermissionListener) {
-            ((OnRequestPermissionListener) mViewModel).onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+        mViewModel.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (mViewModel instanceof OnSaveRestoreInstanceListener) {
-            ((OnSaveRestoreInstanceListener) mViewModel).onSaveInstanceState(outState);
-        }
-    }
-
-    @Override
-    public boolean handleException(@Nullable Throwable throwable) {
-        boolean handled = mExceptionHandlerChain.handleException(throwable);
-        if (!handled) {
-            // Delegate exception handling to parent fragment
-            android.support.v4.app.Fragment parentFragment = getParentFragment();
-            if (parentFragment instanceof ExceptionHandler) {
-                handled = ((ExceptionHandler) parentFragment).handleException(throwable);
-            }
-        }
-        if (!handled) {
-            // Delegate exception handling to parent activity
-            if (getActivity() instanceof ExceptionHandler) {
-                handled = ((ExceptionHandler) getActivity()).handleException(throwable);
-            }
-        }
-        return handled;
+        mViewModel.onSaveInstanceState(outState);
     }
 
     @NonNull
@@ -247,12 +177,8 @@ public abstract class BaseFragmentSupport<TViewModel extends ViewModel, TViewDat
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mViewModel instanceof OnLifecycleListener) {
-            ((OnLifecycleListener) mViewModel).onDestroy();
-        }
+        mViewModel.onDestroy();
         mBinding.unbind();
-        mViewModel.destroy();
-        mBinding = null;
-        mViewModel = null;
+        mViewModel.onDestroy();
     }
 }

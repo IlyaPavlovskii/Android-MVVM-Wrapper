@@ -29,5 +29,6 @@ public class Constants {
         public static final String REPLACE = "replace";
         public static final String SHOW_SYSTEM_MESSAGE = "show_system_message";
         public static final String EXIT = "exit";
+        public static final String THROW_EXCEPTION = "exception";
     }
 }

@@ -1,20 +1,21 @@
 package by.pavlovskii.ilya.mvvm.test.activity;
 
-import android.app.Dialog;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.pm.ActivityInfo;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import com.afollestad.materialdialogs.MaterialDialog;
+import android.util.Log;
 
 import javax.inject.Inject;
 
-import by.mvvmwrapper.activity.BaseAppCompatActivity;
 import by.mvvmwrapper.activity.BaseDialogAppCompatActivity;
 import by.mvvmwrapper.interfaces.DialogActionsDelegate;
-import by.mvvmwrapper.viewmodel.ViewModel;
+import by.mvvmwrapper.viewmodel.BaseViewModel;
 import by.pavlovskii.ilya.mvvm.test.R;
+import dagger.android.AndroidInjection;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.Router;
@@ -32,7 +33,7 @@ import ru.terrakok.cicerone.android.navigator.ISystemMessageNavigator;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-public abstract class BaseActivity<TViewModel extends ViewModel, TViewDataBinding extends ViewDataBinding>
+public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
         extends BaseDialogAppCompatActivity<TViewModel, TViewDataBinding>
         implements ISystemMessageActions, DialogActionsDelegate {
 
@@ -41,12 +42,26 @@ public abstract class BaseActivity<TViewModel extends ViewModel, TViewDataBindin
     @Inject
     NavigatorHolder mNavigatorHolder;
 
+    @Inject
+    ViewModelProvider.Factory mViewModelFactory;
+    @Inject
+    protected Class<TViewModel> mViewModelClass;
+
     private Navigator mNavigator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         mNavigator = initNavigator();
+    }
+
+    @NonNull
+    @Override
+    protected TViewModel initViewModel() {
+        return ViewModelProviders
+                .of(this, mViewModelFactory)
+                .get(mViewModelClass);
     }
 
     @Override

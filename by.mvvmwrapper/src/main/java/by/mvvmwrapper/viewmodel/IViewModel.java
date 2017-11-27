@@ -14,12 +14,12 @@ import by.mvvmwrapper.viewdata.ViewData;
  * Time: 19:21<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * Base ViewModel(form MVVM pattern) description<br>
+ * Base IViewModel(form MVVM pattern) description<br>
  * Contains generic fields with {@link ViewData} (view data binding model) and
  * {@link ViewDataBinding}(compile time element which receive with android.databinding library)
  * ===================================================================================
  */
-public interface ViewModel {
+public interface IViewModel {
 
     //======================================================
     //------------------------Methods-----------------------
@@ -30,11 +30,6 @@ public interface ViewModel {
      * @param viewDataBinding binding view element
      * */
     void bindViewData(@NonNull ViewDataBinding viewDataBinding);
-
-    /**
-     * Destroy view model components and release memory
-     * */
-    void destroy();
 
 }
 

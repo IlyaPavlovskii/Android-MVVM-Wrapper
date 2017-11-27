@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.dagger.modules;
+package by.pavlovskii.ilya.mvvm.test.di.modules;
 
 import android.support.annotation.NonNull;
 

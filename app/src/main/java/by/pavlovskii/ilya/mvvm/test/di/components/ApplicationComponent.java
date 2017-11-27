@@ -1,15 +1,16 @@
-package by.pavlovskii.ilya.mvvm.test.dagger.components;
+package by.pavlovskii.ilya.mvvm.test.di.components;
 
-import android.content.Context;
+import android.app.Application;
 
 import javax.inject.Singleton;
 
 import by.pavlovskii.ilya.mvvm.test.application.App;
-import by.pavlovskii.ilya.mvvm.test.dagger.modules.AppModule;
-import by.pavlovskii.ilya.mvvm.test.dagger.modules.NavigatorModule;
-import by.pavlovskii.ilya.mvvm.test.dagger.modules.RouterModule;
+import by.pavlovskii.ilya.mvvm.test.di.modules.AppModule;
+import by.pavlovskii.ilya.mvvm.test.di.modules.NavigatorModule;
+import by.pavlovskii.ilya.mvvm.test.di.modules.RouterModule;
 import dagger.BindsInstance;
 import dagger.Component;
+import dagger.android.support.AndroidSupportInjectionModule;
 
 /**
  * Create with Android Studio<br>
@@ -23,6 +24,7 @@ import dagger.Component;
  */
 @Singleton
 @Component(modules = {
+        AndroidSupportInjectionModule.class,
         AppModule.class,
         RouterModule.class,
         NavigatorModule.class
@@ -31,8 +33,9 @@ public interface ApplicationComponent {
 
     @Component.Builder
     interface Builder {
+
         @BindsInstance
-        Builder context(Context context);
+        Builder application(Application application);
 
         ApplicationComponent build();
     }

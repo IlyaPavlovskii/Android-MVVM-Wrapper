@@ -1,16 +1,10 @@
-package by.pavlovskii.ilya.mvvm.test.dagger.modules;
-
-import javax.inject.Singleton;
+package by.pavlovskii.ilya.mvvm.test.di.modules;
 
 import by.mvvmwrapper.dagger.scope.ActivityScope;
 import by.pavlovskii.ilya.mvvm.test.activity.MainActivity;
-import by.pavlovskii.ilya.mvvm.test.dagger.modules.activity.MainActivityModule;
-import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
-import dagger.Binds;
+import by.pavlovskii.ilya.mvvm.test.di.modules.activity.MainActivityModule;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import dagger.android.support.AndroidSupportInjectionModule;
-import ru.terrakok.cicerone.Navigator;
 
 /**
  * Create with Android Studio<br>
@@ -24,7 +18,7 @@ import ru.terrakok.cicerone.Navigator;
  * Application module<br>
  * ===================================================================================<br>
  */
-@Module(includes = {AndroidSupportInjectionModule.class})
+@Module(includes = ViewModelModule.class)
 public interface AppModule {
 
     //======================================================

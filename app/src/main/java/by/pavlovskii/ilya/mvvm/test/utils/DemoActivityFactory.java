@@ -35,6 +35,7 @@ public class DemoActivityFactory {
                     list.add(DemoActivity.create(Constants.Command.SHOW_SYSTEM_MESSAGE, Constants.ActivityKeys.MAIN));
                     list.add(DemoActivity.create(Constants.Command.NAVIGATE_TO, Constants.ActivityKeys.MAIN));
                     list.add(DemoActivity.create(Constants.Command.EXIT, null));
+                    list.add(DemoActivity.create(Constants.Command.THROW_EXCEPTION, null));
                 })
                 .map(list -> list);
     }

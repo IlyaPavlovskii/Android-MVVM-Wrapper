@@ -21,10 +21,11 @@ ext {
     minSdkVersion = 15
     targetSdkVersion = 26
 
-    supportVersion = "27.0.0"
+    supportVersion = "27.0.1"
     daggerVersion = '2.11'
 
     googlePlayVersion = '11.6.0'
+    androidArchVersion = '1.0.0'
 
     rxJavaVersion = '2.1.6'
     rxAndroidVersion = '2.0.1'

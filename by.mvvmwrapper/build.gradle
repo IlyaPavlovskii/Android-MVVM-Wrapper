@@ -40,6 +40,10 @@ dependencies {
     implementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
     testImplementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
 
+    api "android.arch.lifecycle:extensions:${rootProject.androidArchVersion}"
+    api "android.arch.lifecycle:reactivestreams:${rootProject.androidArchVersion}"
+    testImplementation "android.arch.core:core-testing:${rootProject.androidArchVersion}"
+
     implementation "com.afollestad.material-dialogs:commons:${rootProject.materialDialogVersion}"
 
     implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"

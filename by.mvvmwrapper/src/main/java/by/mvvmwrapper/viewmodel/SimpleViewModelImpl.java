@@ -1,10 +1,12 @@
 package by.mvvmwrapper.viewmodel;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import by.mvvmwrapper.interfaces.ViewActionCallback;
+import java.util.List;
+
+import by.mvvmwrapper.exceptions.ExceptionHandler;
+import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
 import by.mvvmwrapper.viewdata.ViewData;
 
 /**
@@ -19,8 +21,8 @@ import by.mvvmwrapper.viewdata.ViewData;
  * {@link SimpleViewModel} implementation<br>
  * ===================================================================================
  */
-public abstract class SimpleViewModelImpl<TViewData extends ViewData, TViewActionCallback extends ViewActionCallback>
-        implements SimpleViewModel {
+public abstract class SimpleViewModelImpl<TViewData extends ViewData>
+        extends BaseViewModel implements ExceptionHandler {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -33,26 +35,26 @@ public abstract class SimpleViewModelImpl<TViewData extends ViewData, TViewActio
     @NonNull
     protected TViewData mViewData;
     @NonNull
-    protected TViewActionCallback mActionCallback;
+    protected ExceptionHandlerChain mExceptionHandlerChain;
 
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
-    public SimpleViewModelImpl(@NonNull TViewActionCallback actionCallback) {
-        this.mActionCallback = actionCallback;
+    public SimpleViewModelImpl() {
+        super();
     }
 
-    public SimpleViewModelImpl(@NonNull TViewData viewData, @NonNull TViewActionCallback actionCallback) {
+    public SimpleViewModelImpl(@NonNull TViewData viewData) {
         mViewData = viewData;
-        mActionCallback = actionCallback;
         if (mViewData == null) {
             throw new NullPointerException("ViewData must not be null");
         }
-        if (mActionCallback == null) {
-            throw new NullPointerException("ViewActionCallback must not be null");
-        }
+        mExceptionHandlerChain = initExceptionHandlerChain();
     }
 
+    //======================================================
+    //-------------------- Public methods ------------------
+    //======================================================
     public void setViewData(@NonNull TViewData viewData) {
         mViewData = viewData;
         if (mViewData == null) {
@@ -60,69 +62,50 @@ public abstract class SimpleViewModelImpl<TViewData extends ViewData, TViewActio
         }
     }
 
-    public void setActionCallback(@NonNull TViewActionCallback actionCallback) {
-        mActionCallback = actionCallback;
-        if (mActionCallback == null) {
-            throw new NullPointerException("ViewActionCallback must not be null");
-        }
+    //======================================================
+    //-------------------Protected methods------------------
+    //======================================================
+    @NonNull
+    protected ExceptionHandlerChain initExceptionHandlerChain() {
+        return new ExceptionHandlerChain();
+    }
+
+    protected void addExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.addHandler(exceptionHandler);
+    }
+
+    protected void addExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void addExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.removeHandler(exceptionHandler);
+    }
+
+    protected void removeExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
     }
 
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
     @Override
-    public void destroy() {
+    protected void onCleared() {
+        super.onCleared();
         mViewData.destroy();
-        mViewData = null;
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
-    @Override
-    public void onPause() {
-
-    }
-
-    @Override
-    public void onResume() {
-
-    }
-
-    @Override
-    public void onStop() {
-
-    }
-
-    @Override
-    public void onStart() {
-
-    }
-
-    @Override
-    public void onDestroy() {
-
+    public boolean handleException(@Nullable Throwable throwable) {
+        return mExceptionHandlerChain.handleException(throwable);
     }
 
 }

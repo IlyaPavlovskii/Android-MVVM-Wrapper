@@ -16,7 +16,7 @@ import by.mvvmwrapper.interfaces.components.OnSaveRestoreInstanceListener;
  * Simple view model model interface<br>
  * ===================================================================================
  */
-public interface SimpleViewModel extends ViewModel, OnLifecycleListener,
+public interface SimpleViewModel extends IViewModel, OnLifecycleListener,
         OnRequestPermissionListener, OnSaveRestoreInstanceListener {
 
 }

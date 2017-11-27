@@ -58,7 +58,7 @@ dependencies {
     implementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
     annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
     //Dagger-Android
-    compile "com.google.dagger:dagger-android:${rootProject.daggerVersion}"
+    implementation "com.google.dagger:dagger-android:${rootProject.daggerVersion}"
     annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.daggerVersion}"
     //Если мы собираемся использовать support библиотеку
     compile "com.google.dagger:dagger-android-support:${rootProject.daggerVersion}"

@@ -3,20 +3,20 @@ package by.pavlovskii.ilya.mvvm.test.viewmodel;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-import by.mvvmwrapper.dagger.scope.ActivityScope;
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
-import by.pavlovskii.ilya.mvvm.test.activity.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
-import by.pavlovskii.ilya.mvvm.test.interfaces.MainViewActionCallback;
 import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
 import by.pavlovskii.ilya.mvvm.test.viewdata.MainViewData;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -28,19 +28,24 @@ import io.reactivex.schedulers.Schedulers;
  * Date: 10.11.2017<br>
  * Time: 17:32<br>
  * Project name: MVVMtest<br>
- * ===================================================================================
+ * ===================================================================================<br>
  * {@link by.pavlovskii.ilya.mvvm.test.activity.MainActivity} view model component<br>
- * ===================================================================================
+ * ===================================================================================<br>
  */
-@ActivityScope
-public class MainViewModel extends SimpleViewModelImpl<MainViewData, MainViewActionCallback> {
+public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
 
     private DemoActivityFactory mDemoActivityFactory;
 
+    @Nullable
+    private ObservableEmitter<DemoActivity> mNavigateToEmitter;
+
+//    public MainViewModel() {
+//        super();
+//    }
+
     @Inject
-    public MainViewModel(@NonNull MainViewData viewData, @NonNull MainActivity mainActivity,
-                         @NonNull DemoActivityFactory demoActivityFactory) {
-        super(viewData, mainActivity);
+    public MainViewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
+        super(viewData);
         Log.d(TAG, "constructor");
         mDemoActivityFactory = demoActivityFactory;
     }
@@ -54,27 +59,26 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData, MainViewAct
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initDemoList();
     }
 
-    private void doNavigation(DemoActivity item) {
-        switch (item.getCommand()) {
-            case Constants.Command.NAVIGATE_TO:
-                mActionCallback.navigateTo(item.getScreen());
-                break;
-            case Constants.Command.REPLACE:
-                mActionCallback.replaceScreen(item.getScreen());
-                break;
-            case Constants.Command.NEW_ROOT_SCREEN:
-                mActionCallback.newRootScreen(item.getScreen());
-                break;
-            case Constants.Command.SHOW_SYSTEM_MESSAGE:
-                mActionCallback.showSystemMessage(item.getScreen());
-                break;
-            case Constants.Command.EXIT:
-                mActionCallback.exit();
-                break;
+    // ===================================================================================
+    // -------------------------------- Pubic methods ------------------------------------
+    // ===================================================================================
+    public Observable<DemoActivity> navigateToScreen() {
+        return Observable.create(e -> mNavigateToEmitter = e);
+    }
+
+    // ===================================================================================
+    // ------------------------------- Private methods -----------------------------------
+    // ===================================================================================
+    private void doNavigation(@NonNull DemoActivity item) {
+        if (mNavigateToEmitter != null) {
+            if (TextUtils.equals(Constants.Command.THROW_EXCEPTION, item.getCommand())) {
+                mNavigateToEmitter.onError(new RuntimeException("Synthetic exception"));
+            } else {
+                mNavigateToEmitter.onNext(item);
+            }
         }
     }
 
@@ -85,8 +89,7 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData, MainViewAct
                 .subscribe(list -> {
                     mViewData.demoList.clear();
                     mViewData.demoList.addAll(list);
-                }, throwable -> mActionCallback.onFailure(throwable));
+                }, this::handleException);
     }
-
 
 }

@@ -10,7 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import by.mvvmwrapper.R;
 import by.mvvmwrapper.interfaces.DialogActionsDelegate;
-import by.mvvmwrapper.viewmodel.ViewModel;
+import by.mvvmwrapper.viewmodel.BaseViewModel;
 
 /**
  * Create with Android Studio<br>
@@ -24,7 +24,7 @@ import by.mvvmwrapper.viewmodel.ViewModel;
  * {@link BaseAppCompatActivity} extension with {@link DialogActionsDelegate} implementation<br>
  * ===================================================================================<br>
  */
-public abstract class BaseDialogAppCompatActivity<TViewModel extends ViewModel, TViewDataBinding extends ViewDataBinding>
+public abstract class BaseDialogAppCompatActivity<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
         extends BaseAppCompatActivity<TViewModel, TViewDataBinding>
         implements DialogActionsDelegate {
 

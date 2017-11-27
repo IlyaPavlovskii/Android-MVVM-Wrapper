@@ -1,15 +1,18 @@
 package by.pavlovskii.ilya.mvvm.test.activity;
 
-import android.os.Bundle;
+import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
-import by.pavlovskii.ilya.mvvm.test.interfaces.MainViewActionCallback;
+import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.MainViewModel;
-import dagger.android.AndroidInjection;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import ru.terrakok.cicerone.Navigator;
 
 /**
@@ -24,29 +27,28 @@ import ru.terrakok.cicerone.Navigator;
  * Default activity implementation based on MVVM framework<br>
  * ===================================================================================<br>
  */
-public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding>
-        implements MainViewActionCallback {
+public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> {
 
-    @Inject
-    MainViewModel mMainViewModel;
     @Inject
     Navigator mNavigator;
 
+    private final CompositeDisposable mDisposable = new CompositeDisposable();
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
-        super.onCreate(savedInstanceState);
+    protected void onStart() {
+        super.onStart();
+        mDisposable.addAll(navigateToDisposable());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mDisposable.clear();
     }
 
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
-    }
-
-    @NonNull
-    @Override
-    protected MainViewModel initViewModel() {
-        return mMainViewModel;
     }
 
     @Override
@@ -57,34 +59,30 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     //===================================================================================
     //---------------------------------View action callback------------------------------
     //===================================================================================
-    @Override
-    public void newRootScreen(String key, Object... data) {
-        mRouter.newRootScreen(key, data);
-    }
-
-    @Override
-    public void replaceScreen(String key, Object... data) {
-        mRouter.replaceScreen(key, data);
-    }
-
-    @Override
-    public void showSystemMessage(String message) {
-        mRouter.showSystemMessage(message);
-    }
-
-    @Override
-    public void navigateTo(String key, Object... data) {
-        mRouter.navigateTo(key, data);
-    }
-
-    @Override
-    public void exit() {
-        mRouter.exit();
-    }
-
-    @Override
-    public void onFailure(Throwable throwable) {
-        handleException(throwable);
+    private Disposable navigateToDisposable() {
+        return initViewModel()
+                .navigateToScreen()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(demoActivity -> {
+                    switch (demoActivity.getCommand()) {
+                        case Constants.Command.NAVIGATE_TO:
+                            mRouter.navigateTo(demoActivity.getScreen());
+                            break;
+                        case Constants.Command.REPLACE:
+                            mRouter.replaceScreen(demoActivity.getScreen());
+                            break;
+                        case Constants.Command.NEW_ROOT_SCREEN:
+                            mRouter.newRootScreen(demoActivity.getScreen());
+                            break;
+                        case Constants.Command.SHOW_SYSTEM_MESSAGE:
+                            mRouter.showSystemMessage(demoActivity.getScreen());
+                            break;
+                        case Constants.Command.EXIT:
+                            mRouter.exit();
+                            break;
+                    }
+                }, throwable -> initViewModel().handleException(throwable));
     }
 
 }

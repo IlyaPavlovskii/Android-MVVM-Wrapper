@@ -6,7 +6,8 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
-import by.pavlovskii.ilya.mvvm.test.dagger.components.DaggerApplicationComponent;
+import by.pavlovskii.ilya.mvvm.test.di.Injector;
+import by.pavlovskii.ilya.mvvm.test.di.components.DaggerApplicationComponent;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
@@ -44,11 +45,7 @@ public class App extends Application implements HasActivityInjector {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate");
-        DaggerApplicationComponent
-                .builder()
-                .context(this)
-                .build()
-                .inject(this);
+        Injector.init(this);
     }
 
     @Override
