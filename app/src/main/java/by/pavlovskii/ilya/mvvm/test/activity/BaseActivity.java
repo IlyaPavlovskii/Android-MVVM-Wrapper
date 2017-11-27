@@ -44,9 +44,6 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
 
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
-    @Inject
-    protected Class<TViewModel> mViewModelClass;
-
     private Navigator mNavigator;
 
     @Override
@@ -61,7 +58,7 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
     protected TViewModel initViewModel() {
         return ViewModelProviders
                 .of(this, mViewModelFactory)
-                .get(mViewModelClass);
+                .get(getViewModelClass());
     }
 
     @Override
@@ -109,5 +106,7 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
     protected Navigator initNavigator() {
         return null;
     }
+
+    protected abstract Class<TViewModel> getViewModelClass();
 
 }

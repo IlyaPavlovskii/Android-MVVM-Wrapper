@@ -4,10 +4,8 @@ import android.support.annotation.NonNull;
 
 import by.mvvmwrapper.dagger.scope.ActivityScope;
 import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.MainViewModel;
 import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 import ru.terrakok.cicerone.Navigator;
 
 /**
@@ -21,16 +19,10 @@ import ru.terrakok.cicerone.Navigator;
  * ===================================================================================<br>
  */
 @Module
-public abstract class MainActivityModule {
+public interface MainActivityModule {
 
     @Binds
     @ActivityScope
-    abstract Navigator provideNavigator(@NonNull MainNavigator navigator);
-
-    @Provides
-    @ActivityScope
-    static Class<MainViewModel> provideClass() {
-        return MainViewModel.class;
-    }
+    Navigator navigator(@NonNull MainNavigator navigator);
 
 }

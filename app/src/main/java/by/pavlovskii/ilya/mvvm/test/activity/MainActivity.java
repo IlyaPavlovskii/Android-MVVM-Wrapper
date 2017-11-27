@@ -1,8 +1,5 @@
 package by.pavlovskii.ilya.mvvm.test.activity;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.support.annotation.NonNull;
-
 import javax.inject.Inject;
 
 import by.pavlovskii.ilya.mvvm.test.R;
@@ -44,6 +41,11 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     protected void onStop() {
         super.onStop();
         mDisposable.clear();
+    }
+
+    @Override
+    protected Class<MainViewModel> getViewModelClass() {
+        return MainViewModel.class;
     }
 
     @Override

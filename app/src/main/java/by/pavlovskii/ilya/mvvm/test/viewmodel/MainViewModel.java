@@ -39,10 +39,6 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
     @Nullable
     private ObservableEmitter<DemoActivity> mNavigateToEmitter;
 
-//    public MainViewModel() {
-//        super();
-//    }
-
     @Inject
     public MainViewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
         super(viewData);
