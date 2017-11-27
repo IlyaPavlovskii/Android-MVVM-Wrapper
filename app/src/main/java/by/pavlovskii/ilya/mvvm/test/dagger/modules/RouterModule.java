@@ -28,22 +28,22 @@ public class RouterModule {
     //---------------------Public methods-------------------
     //======================================================
     @NonNull
-    @Singleton
     @Provides
+    @Singleton
     public Cicerone<Router> getCicerone() {
         return Cicerone.create();
     }
 
     @NonNull
-    @Singleton
     @Provides
+    @Singleton
     public NavigatorHolder getNavigatorHolder(Cicerone<Router> cicerone) {
         return cicerone.getNavigatorHolder();
     }
 
     @NonNull
-    @Singleton
     @Provides
+    @Singleton
     public Router getRouter(Cicerone<Router> cicerone) {
         return cicerone.getRouter();
     }

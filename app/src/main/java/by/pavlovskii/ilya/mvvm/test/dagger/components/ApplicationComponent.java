@@ -1,13 +1,14 @@
 package by.pavlovskii.ilya.mvvm.test.dagger.components;
 
+import android.content.Context;
+
 import javax.inject.Singleton;
 
-import by.pavlovskii.ilya.mvvm.test.activity.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.application.App;
 import by.pavlovskii.ilya.mvvm.test.dagger.modules.AppModule;
-import by.pavlovskii.ilya.mvvm.test.dagger.modules.FactoryModule;
+import by.pavlovskii.ilya.mvvm.test.dagger.modules.NavigatorModule;
 import by.pavlovskii.ilya.mvvm.test.dagger.modules.RouterModule;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.MainViewModel;
+import dagger.BindsInstance;
 import dagger.Component;
 
 /**
@@ -24,14 +25,17 @@ import dagger.Component;
 @Component(modules = {
         AppModule.class,
         RouterModule.class,
-        FactoryModule.class
+        NavigatorModule.class
 })
 public interface ApplicationComponent {
 
-    //======================================================
-    //---------------------Public methods-------------------
-    //======================================================
-    void inject(App app);
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        Builder context(Context context);
 
-    void inject(MainActivity mainActivity);
+        ApplicationComponent build();
+    }
+
+    void inject(App app);
 }

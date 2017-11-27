@@ -3,13 +3,13 @@ package by.pavlovskii.ilya.mvvm.test.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import javax.inject.Inject;
+
 import by.pavlovskii.ilya.mvvm.test.R;
-import by.pavlovskii.ilya.mvvm.test.application.App;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.interfaces.MainViewActionCallback;
-import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
-import by.pavlovskii.ilya.mvvm.test.viewdata.MainViewData;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.MainViewModel;
+import dagger.android.AndroidInjection;
 import ru.terrakok.cicerone.Navigator;
 
 /**
@@ -27,11 +27,15 @@ import ru.terrakok.cicerone.Navigator;
 public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding>
         implements MainViewActionCallback {
 
+    @Inject
+    MainViewModel mMainViewModel;
+    @Inject
+    Navigator mNavigator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
-        App.getApplicationComponent()
-                .inject(this);
     }
 
     @Override
@@ -42,13 +46,12 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     @NonNull
     @Override
     protected MainViewModel initViewModel() {
-        MainViewData viewData = new MainViewData();
-        return new MainViewModel(viewData, this);
+        return mMainViewModel;
     }
 
     @Override
     protected Navigator initNavigator() {
-        return new MainNavigator();
+        return mNavigator;
     }
 
     //===================================================================================

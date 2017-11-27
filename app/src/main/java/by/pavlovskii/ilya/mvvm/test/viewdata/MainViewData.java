@@ -2,6 +2,8 @@ package by.pavlovskii.ilya.mvvm.test.viewdata;
 
 import android.databinding.ObservableArrayList;
 
+import javax.inject.Inject;
+
 import by.mvvmwrapper.viewdata.SimpleViewData;
 import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 
@@ -20,6 +22,10 @@ import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 public class MainViewData extends SimpleViewData {
 
     public ObservableArrayList<DemoActivity> demoList = new ObservableArrayList<>();
+
+    @Inject
+    public MainViewData() {
+    }
 
     @Override
     public void destroy() {

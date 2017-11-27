@@ -1,12 +1,16 @@
 package by.pavlovskii.ilya.mvvm.test.dagger.modules;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-
 import javax.inject.Singleton;
 
+import by.mvvmwrapper.dagger.scope.ActivityScope;
+import by.pavlovskii.ilya.mvvm.test.activity.MainActivity;
+import by.pavlovskii.ilya.mvvm.test.dagger.modules.activity.MainActivityModule;
+import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
+import dagger.android.ContributesAndroidInjector;
+import dagger.android.support.AndroidSupportInjectionModule;
+import ru.terrakok.cicerone.Navigator;
 
 /**
  * Create with Android Studio<br>
@@ -20,31 +24,15 @@ import dagger.Provides;
  * Application module<br>
  * ===================================================================================<br>
  */
-@Module
-public class AppModule {
+@Module(includes = {AndroidSupportInjectionModule.class})
+public interface AppModule {
 
     //======================================================
-    //------------------------Fields------------------------
+    //----------------------Methods-------------------------
     //======================================================
-    @NonNull
-    private Context mContext;
-
-    //======================================================
-    //---------------------Constructors---------------------
-    //======================================================
-    public AppModule(@NonNull Context context) {
-        mContext = context;
-    }
-
-    //======================================================
-    //---------------------Public methods-------------------
-    //======================================================
-    @Singleton
-    @Provides
-    @NonNull
-    public Context provideContext() {
-        return mContext;
-    }
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {MainActivityModule.class})
+    MainActivity mainActivityInjector();
 
 
 }

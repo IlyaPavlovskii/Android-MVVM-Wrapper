@@ -3,8 +3,14 @@ package by.pavlovskii.ilya.mvvm.test.viewmodel;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import by.mvvmwrapper.dagger.scope.ActivityScope;
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
+import by.pavlovskii.ilya.mvvm.test.activity.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.interfaces.MainViewActionCallback;
 import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
@@ -26,13 +32,17 @@ import io.reactivex.schedulers.Schedulers;
  * {@link by.pavlovskii.ilya.mvvm.test.activity.MainActivity} view model component<br>
  * ===================================================================================
  */
+@ActivityScope
 public class MainViewModel extends SimpleViewModelImpl<MainViewData, MainViewActionCallback> {
 
-    DemoActivityFactory mDemoActivityFactory;
+    private DemoActivityFactory mDemoActivityFactory;
 
-    public MainViewModel(@NonNull MainViewData viewData, @NonNull MainViewActionCallback actionCallback) {
-        super(viewData, actionCallback);
-        mDemoActivityFactory = new DemoActivityFactory();
+    @Inject
+    public MainViewModel(@NonNull MainViewData viewData, @NonNull MainActivity mainActivity,
+                         @NonNull DemoActivityFactory demoActivityFactory) {
+        super(viewData, mainActivity);
+        Log.d(TAG, "constructor");
+        mDemoActivityFactory = demoActivityFactory;
     }
 
     @Override

@@ -1,6 +1,9 @@
 package by.pavlovskii.ilya.mvvm.test.navigator;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
+
+import javax.inject.Inject;
 
 import by.pavlovskii.ilya.mvvm.test.activity.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
@@ -20,6 +23,11 @@ import ru.terrakok.cicerone.android.navigator.FragmentActivityNavigatorImpl;
  * ===================================================================================<br>
  */
 public class MainNavigator extends FragmentActivityNavigatorImpl {
+
+    public MainNavigator() {
+        Log.d("MainNavigator", "constructor");
+    }
+
     @Nullable
     @Override
     protected ISupportFragmentContainer getSupportFragmentContainer(String screenKey, Object... transitionData) {

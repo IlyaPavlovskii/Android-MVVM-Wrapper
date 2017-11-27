@@ -1,12 +1,15 @@
 package by.pavlovskii.ilya.mvvm.test.application;
 
+import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
 import javax.inject.Inject;
 
-import by.pavlovskii.ilya.mvvm.test.dagger.components.ApplicationComponent;
 import by.pavlovskii.ilya.mvvm.test.dagger.components.DaggerApplicationComponent;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 
 /**
  * Create with Android Studio<br>
@@ -20,16 +23,18 @@ import by.pavlovskii.ilya.mvvm.test.dagger.components.DaggerApplicationComponent
  * Application main class<br>
  * ===================================================================================
  */
-public class App extends Application {
+public class App extends Application implements HasActivityInjector {
 
     //======================================================
     //----------------------Constants-----------------------
     //======================================================
     private static final String TAG = App.class.getSimpleName();
+
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    private static ApplicationComponent sApplicationComponent;
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     //======================================================
     //-------------------Override methods-------------------
@@ -39,9 +44,11 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate");
-        sApplicationComponent = DaggerApplicationComponent
+        DaggerApplicationComponent
                 .builder()
-                .build();
+                .context(this)
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -50,12 +57,14 @@ public class App extends Application {
         Log.d(TAG, "onTerminate");
     }
 
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingAndroidInjector;
+    }
+
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
-    public static ApplicationComponent getApplicationComponent() {
-        return sApplicationComponent;
-    }
 
     //======================================================
     //-----------------------Listeners----------------------

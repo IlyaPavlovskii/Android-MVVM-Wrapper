@@ -3,6 +3,8 @@ package by.pavlovskii.ilya.mvvm.test.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import io.reactivex.Single;
@@ -20,6 +22,10 @@ import io.reactivex.Single;
  * ===================================================================================<br>
  */
 public class DemoActivityFactory {
+
+    @Inject
+    public DemoActivityFactory() {
+    }
 
     public Single<List<DemoActivity>> generateDemoActities() {
         return Single.just(new ArrayList<DemoActivity>())
