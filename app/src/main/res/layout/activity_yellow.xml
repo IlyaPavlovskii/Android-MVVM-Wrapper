@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="by.pavlovskii.ilya.mvvm.test.viewdata.YellowViewData"/>
+
+        <variable
+            name="onYellowClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="onRootClickListener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffff00">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.text, default=Ywllos}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OPEN YELLOW"
+            android:onClick="@{onYellowClickListener}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open root"
+            android:onClick="@{onRootClickListener}"/>
+
+    </LinearLayout>
+</layout>

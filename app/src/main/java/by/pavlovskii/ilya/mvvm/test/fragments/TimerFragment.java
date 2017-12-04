@@ -21,9 +21,6 @@ import by.pavlovskii.ilya.mvvm.test.viewmodel.TimerViewModel;
  */
 public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBinding> {
 
-    @Inject
-    IViewModel mViewModel;
-
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_timer;
@@ -32,6 +29,11 @@ public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBin
     @NonNull
     @Override
     protected TimerViewModel initViewModel() {
-        return (TimerViewModel) mViewModel;
+        return mViewModel;
+    }
+
+    @Override
+    protected Class<TimerViewModel> getViewModelClass() {
+        return TimerViewModel.class;
     }
 }

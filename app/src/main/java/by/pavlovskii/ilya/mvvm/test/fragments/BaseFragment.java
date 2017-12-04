@@ -1,6 +1,9 @@
 package by.pavlovskii.ilya.mvvm.test.fragments;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.ViewDataBinding;
+import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
@@ -26,4 +29,17 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
     //======================================================
     @Inject
     protected Router mRouter;
+
+    @Inject
+    ViewModelProvider.Factory mViewModelFactory;
+
+    @NonNull
+    @Override
+    protected TViewModel initViewModel() {
+        return ViewModelProviders
+                .of(this, mViewModelFactory)
+                .get(getViewModelClass());
+    }
+
+    protected abstract Class<TViewModel> getViewModelClass();
 }

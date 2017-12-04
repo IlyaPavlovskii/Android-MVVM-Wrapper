@@ -68,7 +68,7 @@ dependencies {
 
     implementation "com.afollestad.material-dialogs:commons:${rootProject.materialDialogVersion}"
     implementation 'by.ilya.pavlovskii.anibutton:anibutton:1.5'
-    implementation 'com.github.IlyaPavlovskii:Cicerone:v1.5.2'
+    implementation 'com.github.IlyaPavlovskii:Cicerone:v2.2.0'
 
     implementation project(':by.mvvmwrapper')
 

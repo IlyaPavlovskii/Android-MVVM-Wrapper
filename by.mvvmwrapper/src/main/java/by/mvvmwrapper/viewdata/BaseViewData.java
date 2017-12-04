@@ -13,6 +13,9 @@ package by.mvvmwrapper.viewdata;
  * ===================================================================================
  */
 public class BaseViewData implements ViewData {
+
+    protected String TAG = this.getClass().getSimpleName();
+
     @Override
     public void destroy() {
 

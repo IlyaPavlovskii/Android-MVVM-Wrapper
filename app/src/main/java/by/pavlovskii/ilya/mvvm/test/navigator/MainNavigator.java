@@ -1,16 +1,21 @@
 package by.pavlovskii.ilya.mvvm.test.navigator;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import javax.inject.Inject;
 
 import by.pavlovskii.ilya.mvvm.test.activity.MainActivity;
+import by.pavlovskii.ilya.mvvm.test.activity.YellowActivity;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import ru.terrakok.cicerone.android.container.ActivityContainerImpl;
 import ru.terrakok.cicerone.android.container.IActivityContainer;
 import ru.terrakok.cicerone.android.container.ISupportFragmentContainer;
 import ru.terrakok.cicerone.android.navigator.FragmentActivityNavigatorImpl;
+import ru.terrakok.cicerone.commands.BackTo;
+import ru.terrakok.cicerone.commands.Replace;
 
 /**
  * Create with Android Studio<br>
@@ -40,7 +45,34 @@ public class MainNavigator extends FragmentActivityNavigatorImpl {
         switch (commandKey) {
             case Constants.ActivityKeys.MAIN:
                 return ActivityContainerImpl.create(getActivity(), MainActivity.class);
+            case Constants.ActivityKeys.YELLOW:
+                return ActivityContainerImpl.create(getActivity(), YellowActivity.class);
         }
         return null;
+    }
+
+    @Override
+    protected void backToActivity(BackTo command) {
+        //super.backToActivity(command);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getActivity().startActivity(intent);
+//        if(getActivity()!= null) {
+//            IActivityContainer container = getActivityContainer( command.getScreenKey(), command.getTransitionData());
+//            if( container != null  ){
+//                Intent intent = container.getIntent();
+//                intent.setAction("backToFrom:"+getActivity().getLocalClassName());
+//                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                getActivity().startActivity(intent);
+//                //getActivity().finish();
+//            }
+//        }
+    }
+
+    @Override
+    protected void replace(@NonNull Replace command) {
+        super.replace(command);
     }
 }

@@ -2,7 +2,9 @@ package by.pavlovskii.ilya.mvvm.test.di.modules;
 
 import by.mvvmwrapper.dagger.scope.ActivityScope;
 import by.pavlovskii.ilya.mvvm.test.activity.MainActivity;
+import by.pavlovskii.ilya.mvvm.test.activity.YellowActivity;
 import by.pavlovskii.ilya.mvvm.test.di.modules.activity.MainActivityModule;
+import by.pavlovskii.ilya.mvvm.test.di.modules.activity.YellowActivityModule;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -28,5 +30,8 @@ public interface AppModule {
     @ContributesAndroidInjector(modules = {MainActivityModule.class})
     MainActivity mainActivityInjector();
 
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {YellowActivityModule.class})
+    YellowActivity yellowActivityInjector();
 
 }

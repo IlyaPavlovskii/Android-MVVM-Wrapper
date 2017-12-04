@@ -1,13 +1,10 @@
 package by.pavlovskii.ilya.mvvm.test.activity;
 
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.pm.ActivityInfo;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -44,6 +41,7 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
 
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
+
     private Navigator mNavigator;
 
     @Override
