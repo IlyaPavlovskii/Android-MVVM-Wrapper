@@ -1,6 +1,7 @@
 package by.mvvmwrapper.fragments;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -69,13 +70,18 @@ public abstract class BaseFragmentSupport<TViewModel extends BaseViewModel, TVie
     //-------------------Override methods-------------------
     //======================================================
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mViewModel.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
         mViewModel = initViewModel();
         if (mViewModel == null) {
             throw new NullPointerException("IViewModel component must be initialized");
         }
-        mViewModel.onCreate(savedInstanceState);
     }
 
     @Nullable

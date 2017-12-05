@@ -1,11 +1,17 @@
 package by.pavlovskii.ilya.mvvm.test.activity;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+
 import javax.inject.Inject;
 
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.MainViewModel;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -24,12 +30,23 @@ import ru.terrakok.cicerone.Navigator;
  * Default activity implementation based on MVVM framework<br>
  * ===================================================================================<br>
  */
-public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> {
+public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> implements HasSupportFragmentInjector {
 
+    @Inject
+    DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
     Navigator mNavigator;
 
     private final CompositeDisposable mDisposable = new CompositeDisposable();
+
+    // ===========
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mRouter.replaceScreen(Constants.FragmentKeys.TIMER);
+    }
 
     @Override
     protected void onStart() {
@@ -56,6 +73,11 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     @Override
     protected Navigator initNavigator() {
         return mNavigator;
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return mFragmentInjector;
     }
 
     //===================================================================================

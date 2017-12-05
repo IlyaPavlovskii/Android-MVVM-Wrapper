@@ -1,10 +1,7 @@
 package by.pavlovskii.ilya.mvvm.test.fragments;
 
-import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
-import javax.inject.Inject;
-
-import by.mvvmwrapper.viewmodel.IViewModel;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.FragmentTimerBinding;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.TimerViewModel;
@@ -26,14 +23,12 @@ public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBin
         return R.layout.fragment_timer;
     }
 
-    @NonNull
-    @Override
-    protected TimerViewModel initViewModel() {
-        return mViewModel;
-    }
-
     @Override
     protected Class<TimerViewModel> getViewModelClass() {
         return TimerViewModel.class;
+    }
+
+    public static Fragment newInstance() {
+        return new TimerFragment();
     }
 }

@@ -2,6 +2,7 @@ package by.pavlovskii.ilya.mvvm.test.fragments;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 
 import by.mvvmwrapper.fragments.BaseFragmentSupport;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
+import dagger.android.support.AndroidSupportInjection;
 import ru.terrakok.cicerone.Router;
 
 /**
@@ -32,6 +34,12 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
 
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
+
+    @Override
+    public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
+        super.onAttach(context);
+    }
 
     @NonNull
     @Override

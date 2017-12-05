@@ -14,10 +14,22 @@
             type="by.pavlovskii.ilya.mvvm.test.adapters.DemoAdapter.OnDemoAdapterListener"/>
     </data>
 
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        attr:demoAdapter="@{model.demoList}"
-        attr:demoAdapterListener="@{demoAdapterListener}"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            attr:demoAdapter="@{model.demoList}"
+            attr:demoAdapterListener="@{demoAdapterListener}"/>
+
+        <FrameLayout
+            android:id="@+id/vFlContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
 
 </layout>

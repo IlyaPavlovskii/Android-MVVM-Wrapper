@@ -7,12 +7,16 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
+import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.activity.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.activity.YellowActivity;
+import by.pavlovskii.ilya.mvvm.test.fragments.TimerFragment;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import ru.terrakok.cicerone.android.container.ActivityContainerImpl;
+import ru.terrakok.cicerone.android.container.FragmentContainerImpl;
 import ru.terrakok.cicerone.android.container.IActivityContainer;
 import ru.terrakok.cicerone.android.container.ISupportFragmentContainer;
+import ru.terrakok.cicerone.android.container.SupportFragmentContainerImpl;
 import ru.terrakok.cicerone.android.navigator.FragmentActivityNavigatorImpl;
 import ru.terrakok.cicerone.commands.BackTo;
 import ru.terrakok.cicerone.commands.Replace;
@@ -36,6 +40,10 @@ public class MainNavigator extends FragmentActivityNavigatorImpl {
     @Nullable
     @Override
     protected ISupportFragmentContainer getSupportFragmentContainer(String screenKey, Object... transitionData) {
+        switch (screenKey) {
+            case Constants.FragmentKeys.TIMER:
+                return SupportFragmentContainerImpl.create(R.id.vFlContainer, TimerFragment.newInstance());
+        }
         return null;
     }
 
@@ -49,26 +57,6 @@ public class MainNavigator extends FragmentActivityNavigatorImpl {
                 return ActivityContainerImpl.create(getActivity(), YellowActivity.class);
         }
         return null;
-    }
-
-    @Override
-    protected void backToActivity(BackTo command) {
-        //super.backToActivity(command);
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        getActivity().startActivity(intent);
-//        if(getActivity()!= null) {
-//            IActivityContainer container = getActivityContainer( command.getScreenKey(), command.getTransitionData());
-//            if( container != null  ){
-//                Intent intent = container.getIntent();
-//                intent.setAction("backToFrom:"+getActivity().getLocalClassName());
-//                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                getActivity().startActivity(intent);
-//                //getActivity().finish();
-//            }
-//        }
     }
 
     @Override

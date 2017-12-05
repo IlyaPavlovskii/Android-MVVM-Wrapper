@@ -53,8 +53,8 @@ public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
     }
 
     private Disposable timer() {
-        return Observable.timer(1, TimeUnit.SECONDS)
-                .map(instant -> ISODateTimeFormat.basicTTime().print(instant))
+        return Observable.interval(1, TimeUnit.SECONDS)
+                .map(instant -> ISODateTimeFormat.basicTimeNoMillis().print(instant))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(text -> mViewData.time.set(text), this::handleException);

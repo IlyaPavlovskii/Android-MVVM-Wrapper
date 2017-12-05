@@ -21,6 +21,7 @@ public class Constants {
     }
 
     public static class FragmentKeys extends ru.terrakok.cicerone.Constants.FragmentKeys {
+        public static final String TIMER = PREFIX + "timer";
     }
 
     public static class Command {
