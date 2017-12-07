@@ -55,13 +55,12 @@ dependencies {
     implementation 'joda-time:joda-time:2.9.9'
 
     //Dagger 2
-    implementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
     annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
-    //Dagger-Android
-    implementation "com.google.dagger:dagger-android:${rootProject.daggerVersion}"
     annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.daggerVersion}"
-    //Если мы собираемся использовать support библиотеку
-    compile "com.google.dagger:dagger-android-support:${rootProject.daggerVersion}"
+
+    implementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
+    implementation "com.google.dagger:dagger-android:${rootProject.daggerVersion}"
+    implementation "com.google.dagger:dagger-android-support:${rootProject.daggerVersion}"
 
     implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"
     implementation "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"

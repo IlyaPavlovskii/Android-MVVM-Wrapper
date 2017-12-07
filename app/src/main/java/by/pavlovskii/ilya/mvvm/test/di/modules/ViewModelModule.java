@@ -40,10 +40,10 @@ public abstract class ViewModelModule {
     @ViewModelKey(YellowViewModel.class)
     abstract ViewModel bindYellowViewModel(YellowViewModel viewModel);
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(TimerViewModel.class)
-    abstract ViewModel bindTimerViewModel(TimerViewModel viewModel);
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(TimerViewModel.class)
+//    abstract ViewModel bindTimerViewModel(TimerViewModel viewModel);
 
     @Binds
     @Singleton

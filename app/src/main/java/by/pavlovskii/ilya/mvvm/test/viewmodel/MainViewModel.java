@@ -1,5 +1,6 @@
 package by.pavlovskii.ilya.mvvm.test.viewmodel;
 
+import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
 import by.pavlovskii.ilya.mvvm.test.viewdata.MainViewData;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -36,6 +38,9 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
 
     private DemoActivityFactory mDemoActivityFactory;
 
+    @Inject
+    Context mContext;
+
     @Nullable
     private ObservableEmitter<DemoActivity> mNavigateToEmitter;
 
@@ -44,12 +49,14 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
         super(viewData);
         Log.d(TAG, "constructor");
         mDemoActivityFactory = demoActivityFactory;
+        mContext.getCacheDir();
     }
 
     @Override
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
         ((ActivityMainBinding) viewDataBinding).setModel(mViewData);
         ((ActivityMainBinding) viewDataBinding).setDemoAdapterListener(this::doNavigation);
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package by.pavlovskii.ilya.mvvm.test.di.components;
 
 import android.app.Application;
+import android.content.Context;
 
 import javax.inject.Singleton;
 
@@ -41,4 +42,7 @@ public interface ApplicationComponent {
     }
 
     void inject(App app);
+
+    //    App getApp();
+    Context getContext();
 }
