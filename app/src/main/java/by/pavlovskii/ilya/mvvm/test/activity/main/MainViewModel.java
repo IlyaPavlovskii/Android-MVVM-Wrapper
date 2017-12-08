@@ -1,6 +1,5 @@
-package by.pavlovskii.ilya.mvvm.test.viewmodel;
+package by.pavlovskii.ilya.mvvm.test.activity.main;
 
-import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,17 +7,15 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
-import javax.inject.Inject;
+import org.joda.time.format.ISODateTimeFormat;
 
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
-import by.pavlovskii.ilya.mvvm.test.viewdata.MainViewData;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -31,33 +28,29 @@ import io.reactivex.schedulers.Schedulers;
  * Time: 17:32<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
- * {@link by.pavlovskii.ilya.mvvm.test.activity.MainActivity} view model component<br>
+ * {@link MainActivity} view model component<br>
  * ===================================================================================<br>
  */
 public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
 
     private DemoActivityFactory mDemoActivityFactory;
 
-    @Inject
-    Context mContext;
-
     @Nullable
     private ObservableEmitter<DemoActivity> mNavigateToEmitter;
 
-    @Inject
     public MainViewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
         super(viewData);
         Log.d(TAG, "constructor");
         mDemoActivityFactory = demoActivityFactory;
-        mContext.getCacheDir();
     }
 
     @Override
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
+        Log.d(TAG, "bind: " + hashCode());
         ((ActivityMainBinding) viewDataBinding).setModel(mViewData);
         ((ActivityMainBinding) viewDataBinding).setDemoAdapterListener(this::doNavigation);
-
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +64,14 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
     public Observable<DemoActivity> navigateToScreen() {
         return Observable.create(e -> mNavigateToEmitter = e);
     }
+
+    public void updateInfo() {
+        long time = System.currentTimeMillis();
+        mViewData.info.set("Info updated at: " + ISODateTimeFormat
+                .basicTime()
+                .print(time));
+    }
+
 
     // ===================================================================================
     // ------------------------------- Private methods -----------------------------------

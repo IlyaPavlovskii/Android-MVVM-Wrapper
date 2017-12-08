@@ -1,10 +1,12 @@
-package by.pavlovskii.ilya.mvvm.test.viewdata;
+package by.pavlovskii.ilya.mvvm.test.activity.main;
 
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
 
 import javax.inject.Inject;
 
 import by.mvvmwrapper.viewdata.SimpleViewData;
+import by.pavlovskii.ilya.mvvm.test.activity.main.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 
 /**
@@ -16,14 +18,14 @@ import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
  * Time: 17:33<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
- * {@link by.pavlovskii.ilya.mvvm.test.activity.MainActivity} view data component implementation<br>
+ * {@link MainActivity} view data component implementation<br>
  * ===================================================================================
  */
 public class MainViewData extends SimpleViewData {
 
     public ObservableArrayList<DemoActivity> demoList = new ObservableArrayList<>();
+    public ObservableField<String> info = new ObservableField<>("");
 
-    @Inject
     public MainViewData() {
     }
 

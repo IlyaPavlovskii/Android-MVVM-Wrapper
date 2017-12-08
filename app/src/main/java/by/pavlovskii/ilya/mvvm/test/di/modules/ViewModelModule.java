@@ -5,12 +5,11 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import javax.inject.Singleton;
 
-import by.mvvmwrapper.viewmodel.IViewModel;
+import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
+import by.pavlovskii.ilya.mvvm.test.activity.yellow.YellowViewModel;
 import by.pavlovskii.ilya.mvvm.test.di.ViewModelKey;
+import by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerViewModel;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.AppViewModelFactory;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.MainViewModel;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.TimerViewModel;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.YellowViewModel;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
@@ -20,11 +19,11 @@ import dagger.multibindings.IntoMap;
  * Created by Pavlovskii Ilya<br>
  * E-mail: pavlovskii_ilya@mail.ru, trane91666@gmail.com<br>
  * Skype: trane9119<br>
- * Date: 07.11.16<br>
- * Time: 16:43<br>
+ * Date: 08.12.2017<br>
+ * Time: 3:33<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
- * {@link IViewModel} module<br>
+ * //TODO Add description<br>
  * ===================================================================================<br>
  */
 @Module
@@ -40,10 +39,10 @@ public abstract class ViewModelModule {
     @ViewModelKey(YellowViewModel.class)
     abstract ViewModel bindYellowViewModel(YellowViewModel viewModel);
 
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(TimerViewModel.class)
-//    abstract ViewModel bindTimerViewModel(TimerViewModel viewModel);
+    @Binds
+    @IntoMap
+    @ViewModelKey(TimerViewModel.class)
+    abstract ViewModel bindTimerViewModel(TimerViewModel viewModel);
 
     @Binds
     @Singleton

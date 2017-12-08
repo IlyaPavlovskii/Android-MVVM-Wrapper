@@ -1,10 +1,18 @@
-package by.pavlovskii.ilya.mvvm.test.fragments;
+package by.pavlovskii.ilya.mvvm.test.fragments.timer;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.FragmentTimerBinding;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.TimerViewModel;
+import by.pavlovskii.ilya.mvvm.test.fragments.BaseFragment;
 
 /**
  * Create with Android Studio<br>
@@ -18,9 +26,24 @@ import by.pavlovskii.ilya.mvvm.test.viewmodel.TimerViewModel;
  */
 public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBinding> {
 
+    @Inject
+    @Named("TimerViewModelProvider.Factory")
+    ViewModelProvider.Factory mViewModelFactory;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mBinding.setOnUpdateInfoClickListener(v -> mViewModel.updateInfo());
+    }
+
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_timer;
+    }
+
+    @Override
+    protected ViewModelProvider.Factory getViewModelFactory() {
+        return mViewModelFactory;
     }
 
     @Override

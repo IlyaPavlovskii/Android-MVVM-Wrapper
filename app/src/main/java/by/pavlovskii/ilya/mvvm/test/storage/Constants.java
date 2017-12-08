@@ -15,7 +15,6 @@ package by.pavlovskii.ilya.mvvm.test.storage;
 public class Constants {
 
     public static class ActivityKeys extends ru.terrakok.cicerone.Constants.ActivityKeys {
-        public static final String TWO_WAY_BINDING = PREFIX + "two_way_binding";
         public static final String MAIN = PREFIX + "main";
         public static final String YELLOW = PREFIX + "yellow";
     }

@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.viewdata;
+package by.pavlovskii.ilya.mvvm.test.fragments.timer;
 
 import android.databinding.ObservableField;
 
@@ -20,7 +20,6 @@ public class TimerViewData extends SimpleViewData {
 
     public ObservableField<String> time = new ObservableField<>("");
 
-    @Inject
     public TimerViewData() {
     }
 }

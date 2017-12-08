@@ -1,14 +1,26 @@
-package by.pavlovskii.ilya.mvvm.test.activity;
+package by.pavlovskii.ilya.mvvm.test.activity.main;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Provider;
 
 import by.pavlovskii.ilya.mvvm.test.R;
+import by.pavlovskii.ilya.mvvm.test.activity.BaseActivity;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.MainViewModel;
+import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
+import dagger.Provides;
+import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
@@ -37,16 +49,29 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     @Inject
     Navigator mNavigator;
 
+    @Inject
+    ViewModelProvider.Factory mViewModelProviderFactory;
+
     private final CompositeDisposable mDisposable = new CompositeDisposable();
 
     // ===========
+    @Override
+    protected ViewModelProvider.Factory getViewModelFactory() {
+        return mViewModelProviderFactory;
+    }
 
+    @Override
+    protected Class<MainViewModel> getViewModelClass() {
+        return MainViewModel.class;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRouter.replaceScreen(Constants.FragmentKeys.TIMER);
+        mRouter.replaceScreen(Constants.FragmentKeys.TIMER, 1);
     }
+
 
     @Override
     protected void onStart() {
@@ -58,11 +83,6 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     protected void onStop() {
         super.onStop();
         mDisposable.clear();
-    }
-
-    @Override
-    protected Class<MainViewModel> getViewModelClass() {
-        return MainViewModel.class;
     }
 
     @Override

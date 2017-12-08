@@ -32,9 +32,6 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
     @Inject
     protected Router mRouter;
 
-    @Inject
-    ViewModelProvider.Factory mViewModelFactory;
-
     @Override
     public void onAttach(Context context) {
         AndroidSupportInjection.inject(this);
@@ -45,9 +42,11 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
     @Override
     protected TViewModel initViewModel() {
         return ViewModelProviders
-                .of(this, mViewModelFactory)
+                .of(this, getViewModelFactory())
                 .get(getViewModelClass());
     }
+
+    protected abstract ViewModelProvider.Factory getViewModelFactory();
 
     protected abstract Class<TViewModel> getViewModelClass();
 }

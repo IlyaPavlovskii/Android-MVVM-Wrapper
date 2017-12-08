@@ -1,24 +1,19 @@
 package by.pavlovskii.ilya.mvvm.test.navigator;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import javax.inject.Inject;
-
 import by.pavlovskii.ilya.mvvm.test.R;
-import by.pavlovskii.ilya.mvvm.test.activity.MainActivity;
-import by.pavlovskii.ilya.mvvm.test.activity.YellowActivity;
-import by.pavlovskii.ilya.mvvm.test.fragments.TimerFragment;
+import by.pavlovskii.ilya.mvvm.test.activity.main.MainActivity;
+import by.pavlovskii.ilya.mvvm.test.activity.yellow.YellowActivity;
+import by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerFragment;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import ru.terrakok.cicerone.android.container.ActivityContainerImpl;
-import ru.terrakok.cicerone.android.container.FragmentContainerImpl;
 import ru.terrakok.cicerone.android.container.IActivityContainer;
 import ru.terrakok.cicerone.android.container.ISupportFragmentContainer;
 import ru.terrakok.cicerone.android.container.SupportFragmentContainerImpl;
 import ru.terrakok.cicerone.android.navigator.FragmentActivityNavigatorImpl;
-import ru.terrakok.cicerone.commands.BackTo;
 import ru.terrakok.cicerone.commands.Replace;
 
 /**
@@ -42,7 +37,11 @@ public class MainNavigator extends FragmentActivityNavigatorImpl {
     protected ISupportFragmentContainer getSupportFragmentContainer(String screenKey, Object... transitionData) {
         switch (screenKey) {
             case Constants.FragmentKeys.TIMER:
-                return SupportFragmentContainerImpl.create(R.id.vFlContainer, TimerFragment.newInstance());
+                if (isEmptyData(transitionData)) {
+                    return SupportFragmentContainerImpl.create(R.id.vFlContainer, TimerFragment.newInstance());
+                } else {
+                    return SupportFragmentContainerImpl.create(R.id.vFlContainer1, TimerFragment.newInstance());
+                }
         }
         return null;
     }

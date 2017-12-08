@@ -5,7 +5,11 @@
 
         <variable
             name="model"
-            type="by.pavlovskii.ilya.mvvm.test.viewdata.TimerViewData"/>
+            type="by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerViewData"/>
+
+        <variable
+            name="onUpdateInfoClickListener"
+            type="android.view.View.OnClickListener"/>
     </data>
 
     <RelativeLayout
@@ -17,6 +21,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{model.time, default=10_00}"/>
+
+        <Button
+            android:text="UPDATE INFO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{onUpdateInfoClickListener}"/>
 
     </RelativeLayout>
 

@@ -1,7 +1,8 @@
-package by.pavlovskii.ilya.mvvm.test.viewmodel;
+package by.pavlovskii.ilya.mvvm.test.fragments.timer;
 
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import org.joda.time.format.ISODateTimeFormat;
 
@@ -11,7 +12,7 @@ import javax.inject.Inject;
 
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.FragmentTimerBinding;
-import by.pavlovskii.ilya.mvvm.test.viewdata.TimerViewData;
+import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -27,21 +28,24 @@ import io.reactivex.schedulers.Schedulers;
  * Time: 8:51<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
- * {@link by.pavlovskii.ilya.mvvm.test.fragments.TimerFragment} view model<br>
+ * {@link TimerFragment} view model<br>
  * ===================================================================================<br>
  */
 public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
 
+    //private final MainViewModel mMainViewModel;
     private final CompositeDisposable mDisposable = new CompositeDisposable();
 
-    @Inject
     public TimerViewModel(@NonNull TimerViewData viewData) {
         super(viewData);
+        Log.d(TAG, "constructor");
+        //this.mMainViewModel = mainViewModel;
         mDisposable.add(timer());
     }
 
     @Override
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
+        Log.d(TAG, "bind" + hashCode());
         ((FragmentTimerBinding) viewDataBinding).setModel(mViewData);
     }
 
@@ -58,5 +62,9 @@ public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(text -> mViewData.time.set(text), this::handleException);
+    }
+
+    public void updateInfo() {
+        //mMainViewModel.updateInfo();
     }
 }
