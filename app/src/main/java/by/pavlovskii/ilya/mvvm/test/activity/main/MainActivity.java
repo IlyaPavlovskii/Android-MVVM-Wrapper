@@ -48,7 +48,6 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
     Navigator mNavigator;
-
     @Inject
     ViewModelProvider.Factory mViewModelProviderFactory;
 
@@ -68,8 +67,8 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mRouter.replaceScreen(Constants.FragmentKeys.TIMER);
-//        mRouter.replaceScreen(Constants.FragmentKeys.TIMER, 1);
+        mRouter.replaceScreen(Constants.FragmentKeys.TIMER);
+        mRouter.replaceScreen(Constants.FragmentKeys.TIMER, 1);
     }
 
 

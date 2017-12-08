@@ -26,10 +26,6 @@ import ru.terrakok.cicerone.Navigator;
 @Module(subcomponents = TimerSubComponent.class)
 public abstract class MainViewModelModule {
 
-    @Binds
-    @ActivityScope
-    abstract Navigator navigator(@NonNull MainNavigator navigator);
-
     @Provides
     @ActivityScope
     static MainViewData viewData() {
