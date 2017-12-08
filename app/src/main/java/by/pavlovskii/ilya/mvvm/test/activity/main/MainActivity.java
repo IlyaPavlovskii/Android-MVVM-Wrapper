@@ -68,8 +68,8 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRouter.replaceScreen(Constants.FragmentKeys.TIMER);
-        mRouter.replaceScreen(Constants.FragmentKeys.TIMER, 1);
+//        mRouter.replaceScreen(Constants.FragmentKeys.TIMER);
+//        mRouter.replaceScreen(Constants.FragmentKeys.TIMER, 1);
     }
 
 

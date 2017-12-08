@@ -1,20 +1,14 @@
 package by.pavlovskii.ilya.mvvm.test.activity.main;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import by.mvvmwrapper.dagger.scope.ActivityScope;
+import by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerSubComponent;
 import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
 import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.AppViewModelFactory;
+import by.pavlovskii.ilya.mvvm.test.viewmodel.SubcomponentViewModelFactory;
 import dagger.Binds;
-import dagger.Lazy;
 import dagger.Module;
 import dagger.Provides;
 import ru.terrakok.cicerone.Navigator;
@@ -29,7 +23,7 @@ import ru.terrakok.cicerone.Navigator;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-@Module
+@Module(subcomponents = TimerSubComponent.class)
 public abstract class MainViewModelModule {
 
     @Binds
@@ -44,28 +38,12 @@ public abstract class MainViewModelModule {
 
     @Provides
     @ActivityScope
-    static MainViewModel viewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
+    static MainViewModel viewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory,
+                                   @NonNull SubcomponentViewModelFactory factory,
+                                   @NonNull TimerSubComponent.Builder builder) {
         Log.d("MainViewModel", "provide");
+        factory.addCreator(builder);
         return new MainViewModel(viewData, demoActivityFactory);
     }
-
-////    @Provides
-////    @Named("MainViewModelProvider.Factory")
-////    static ViewModelProvider.Factory factory(@NonNull Lazy<MainViewModel> viewModel,
-////                                             @NonNull AppViewModelFactory factory) {
-////        factory.
-////        return factory;
-//////        return new ViewModelProvider.Factory() {
-//////            @NonNull
-//////            @Override
-//////            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-//////                if (modelClass.isAssignableFrom(viewModel.get().getClass())) {
-//////                    return (T) viewModel.get();
-//////                }
-//////                return null;
-//////            }
-//////        };
-//    }
-
 
 }

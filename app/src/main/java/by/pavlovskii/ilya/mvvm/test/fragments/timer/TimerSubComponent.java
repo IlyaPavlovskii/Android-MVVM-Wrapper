@@ -1,6 +1,6 @@
-package by.pavlovskii.ilya.mvvm.test.activity.main;
+package by.pavlovskii.ilya.mvvm.test.fragments.timer;
 
-import by.mvvmwrapper.dagger.scope.ActivityScope;
+import by.mvvmwrapper.dagger.scope.FragmentScope;
 import dagger.Subcomponent;
 
 /**
@@ -9,19 +9,18 @@ import dagger.Subcomponent;
  * E-mail: pavlovskii_ilya@mail.ru, trane91666@gmail.com<br>
  * Skype: trane9119<br>
  * Date: 08.12.2017<br>
- * Time: 14:40<br>
+ * Time: 17:13<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-@ActivityScope
-@Subcomponent(modules = MainViewModelModule.class)
-public interface MainSubComponent {
+@FragmentScope
+@Subcomponent(modules = TimerViewModelModule.class)
+public interface TimerSubComponent {
 
     @Subcomponent.Builder
     interface Builder {
-        MainSubComponent build();
+        TimerSubComponent build();
     }
 
-    MainViewModel viewModel();
-
+    TimerViewModel viewModel();
 }

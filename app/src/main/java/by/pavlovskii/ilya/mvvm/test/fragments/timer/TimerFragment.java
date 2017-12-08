@@ -27,8 +27,13 @@ import by.pavlovskii.ilya.mvvm.test.fragments.BaseFragment;
 public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBinding> {
 
     @Inject
-    @Named("TimerViewModelProvider.Factory")
     ViewModelProvider.Factory mViewModelFactory;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

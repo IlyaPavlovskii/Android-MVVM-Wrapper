@@ -3,15 +3,17 @@ package by.pavlovskii.ilya.mvvm.test.viewmodel;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
 import javax.inject.Singleton;
 
 import by.pavlovskii.ilya.mvvm.test.activity.main.MainSubComponent;
 import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
+import by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerSubComponent;
+import by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerViewModel;
 
 /**
  * Create with Android Studio<br>
@@ -26,30 +28,39 @@ import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
 @Singleton
 public class SubcomponentViewModelFactory implements ViewModelProvider.Factory {
 
-    private static final String TAG = "SubcomponentViewModelFactory";
+    static final String TAG = SubcomponentViewModelFactory.class.getSimpleName();
     //private final Map<Class, Callable<? extends ViewModel>> creators = new HashMap<>();
     private final Map<Class, Object> creators = new HashMap<>();
 
-    public SubcomponentViewModelFactory(MainSubComponent.Builder builder) {
-        // View models cannot be injected directly because they won't be bound to the owner's
-        // view model scope.
+    public SubcomponentViewModelFactory(MainSubComponent.Builder mainBuilder) {
+        creators.put(MainViewModel.class, mainBuilder);
+    }
 
-        creators.put(MainViewModel.class, builder);
-        //creators.put(ProjectListViewModel.class, () -> viewModelSubComponent.projectListViewModel());
+    public void addCreator(TimerSubComponent.Builder timerBuilder) {
+        creators.put(TimerViewModel.class, timerBuilder);
     }
 
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         //Callable<? extends ViewModel> creator = creators.get(modelClass);
-
+        Log.d(TAG, "create: " + modelClass);
         Object object = creators.get(modelClass);
         try {
-            return (T) ((MainSubComponent.Builder) object).build().viewModel();
+            if (modelClass.isAssignableFrom(MainViewModel.class)) {
+                return (T) ((MainSubComponent.Builder) object)
+                        .build()
+                        .viewModel();
+            } else if (modelClass.isAssignableFrom(TimerViewModel.class)) {
+                return (T) ((TimerSubComponent.Builder) object)
+                        .build()
+                        .viewModel();
+            }
         } catch (Throwable t) {
             return null;
         }
+        return null;
+    }
 
-//        Log.d(TAG, "create: " + modelClass);
 //        if (creator == null) {
 //            for (Map.Entry<Class, Callable<? extends ViewModel>> entry : creators.entrySet()) {
 //                if (modelClass.isAssignableFrom(entry.getKey())) {
@@ -66,8 +77,6 @@ public class SubcomponentViewModelFactory implements ViewModelProvider.Factory {
 //        } catch (Exception e) {
 //            throw new RuntimeException(e);
 //        }
-    }
-
 //    @Override
 //    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
 //        Callable<? extends ViewModel> creator = creators.get(modelClass);
