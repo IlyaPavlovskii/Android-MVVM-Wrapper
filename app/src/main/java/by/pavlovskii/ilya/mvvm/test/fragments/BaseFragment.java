@@ -4,7 +4,10 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -36,6 +39,12 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
     public void onAttach(Context context) {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "onActivityCreated");
     }
 
     @NonNull
