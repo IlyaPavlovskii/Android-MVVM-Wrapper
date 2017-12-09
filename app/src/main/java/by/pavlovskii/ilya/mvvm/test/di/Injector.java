@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import by.pavlovskii.ilya.mvvm.test.application.App;
+import by.pavlovskii.ilya.mvvm.test.di.components.ApplicationComponent;
 import by.pavlovskii.ilya.mvvm.test.di.components.DaggerApplicationComponent;
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
@@ -27,49 +28,52 @@ public class Injector {
     private Injector() {
     }
 
+    private static ApplicationComponent sApplicationComponent;
+
     public static void init(App app) {
-        DaggerApplicationComponent.builder()
+        sApplicationComponent = DaggerApplicationComponent.builder()
                 .application(app)
-                .build()
-                .inject(app);
-        app.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                handleActivity(activity);
-            }
-
-            @Override
-            public void onActivityStarted(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityResumed(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityPaused(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityStopped(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-            }
-
-            @Override
-            public void onActivityDestroyed(Activity activity) {
-
-            }
-        });
+                .build();
+        sApplicationComponent.inject(app);
     }
 
+
+    //        app.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+//            @Override
+//            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+//                handleActivity(activity);
+//            }
+//
+//            @Override
+//            public void onActivityStarted(Activity activity) {
+//
+//            }
+//
+//            @Override
+//            public void onActivityResumed(Activity activity) {
+//
+//            }
+//
+//            @Override
+//            public void onActivityPaused(Activity activity) {
+//
+//            }
+//
+//            @Override
+//            public void onActivityStopped(Activity activity) {
+//
+//            }
+//
+//            @Override
+//            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+//
+//            }
+//
+//            @Override
+//            public void onActivityDestroyed(Activity activity) {
+//
+//            }
+//        });
     private static void handleActivity(Activity activity) {
         if (activity instanceof HasSupportFragmentInjector) {
             AndroidInjection.inject(activity);
@@ -87,5 +91,9 @@ public class Injector {
                                 }
                             }, true);
         }
+    }
+
+    public static ApplicationComponent getApplicationComponent() {
+        return sApplicationComponent;
     }
 }

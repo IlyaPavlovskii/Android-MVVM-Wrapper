@@ -4,14 +4,14 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import by.mvvmwrapper.dagger.scope.ActivityScope;
-import by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerSubComponent;
-import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
+import by.pavlovskii.ilya.mvvm.test.di.scopes.ViewModelScope;
+import by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerFragmentProvider;
 import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.SubcomponentViewModelFactory;
-import dagger.Binds;
+import by.pavlovskii.ilya.mvvm.test.viewmodel.LazyViewModelProviderFactory;
+import dagger.Lazy;
 import dagger.Module;
 import dagger.Provides;
-import ru.terrakok.cicerone.Navigator;
+import dagger.android.ContributesAndroidInjector;
 
 /**
  * Create with Android Studio<br>
@@ -23,23 +23,31 @@ import ru.terrakok.cicerone.Navigator;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-@Module(subcomponents = TimerSubComponent.class)
+@Module
+@ViewModelScope
 public abstract class MainViewModelModule {
 
     @Provides
-    @ActivityScope
+    @ViewModelScope
     static MainViewData viewData() {
         return new MainViewData();
     }
 
     @Provides
-    @ActivityScope
-    static MainViewModel viewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory,
-                                   @NonNull SubcomponentViewModelFactory factory,
-                                   @NonNull TimerSubComponent.Builder builder) {
+    @ViewModelScope
+    static MainViewModel viewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
         Log.d("MainViewModel", "provide");
-        factory.addCreator(builder);
         return new MainViewModel(viewData, demoActivityFactory);
     }
+
+    @Provides
+    @ViewModelScope
+    static LazyViewModelProviderFactory<MainViewModel> viewModelProviderFactory(@NonNull Lazy<MainViewModel> lazy) {
+        return new LazyViewModelProviderFactory<>(lazy);
+    }
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {MainActivityModule.class})
+    abstract MainActivity mainActivityInjector();
 
 }

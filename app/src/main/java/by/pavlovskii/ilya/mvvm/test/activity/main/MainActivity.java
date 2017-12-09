@@ -1,26 +1,18 @@
 package by.pavlovskii.ilya.mvvm.test.activity.main;
 
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Provider;
 
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.activity.BaseActivity;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
+import by.pavlovskii.ilya.mvvm.test.di.Injector;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
-import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
-import dagger.Provides;
-import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
@@ -48,15 +40,20 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
     Navigator mNavigator;
+    //    @Inject
+//    MainViewModel mMainViewModel;
     @Inject
-    ViewModelProvider.Factory mViewModelProviderFactory;
+    ViewModelProvider.Factory mFactory;
 
     private final CompositeDisposable mDisposable = new CompositeDisposable();
 
     // ===========
+    @NonNull
     @Override
-    protected ViewModelProvider.Factory getViewModelFactory() {
-        return mViewModelProviderFactory;
+    protected MainViewModel initViewModel() {
+        return ViewModelProviders
+                .of(this, mFactory)
+                .get(MainViewModel.class);
     }
 
     @Override
@@ -66,13 +63,18 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Injector.getApplicationComponent()
+                .mainViewModelSubComponentBuilder()
+                .build()
+                .mainActivitySubComponent()
+                .build()
+                .inject(this);
         super.onCreate(savedInstanceState);
-        if( savedInstanceState == null ){
-            Log.d(TAG, "Create fragments");
-            mRouter.replaceScreen(Constants.FragmentKeys.TIMER);
-            mRouter.replaceScreen(Constants.FragmentKeys.TIMER, 1);
-        }
-
+//        if( savedInstanceState == null ){
+//            Log.d(TAG, "Create fragments");
+//            mRouter.replaceScreen(Constants.FragmentKeys.TIMER);
+//            mRouter.replaceScreen(Constants.FragmentKeys.TIMER, 1);
+//        }
     }
 
 

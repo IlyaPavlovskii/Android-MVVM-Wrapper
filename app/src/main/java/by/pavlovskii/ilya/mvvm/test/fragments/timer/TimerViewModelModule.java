@@ -3,7 +3,6 @@ package by.pavlovskii.ilya.mvvm.test.fragments.timer;
 import android.support.annotation.NonNull;
 
 import by.mvvmwrapper.dagger.scope.FragmentScope;
-import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
 import dagger.Module;
 import dagger.Provides;
 
@@ -31,8 +30,8 @@ public interface TimerViewModelModule {
 
     @Provides
     @FragmentScope
-    static TimerViewModel viewModel(@NonNull TimerViewData viewData, @NonNull MainViewModel mainViewModel) {
-        return new TimerViewModel(viewData, mainViewModel);
+    static TimerViewModel viewModel(@NonNull TimerViewData viewData) {
+        return new TimerViewModel(viewData);
     }
 
 }

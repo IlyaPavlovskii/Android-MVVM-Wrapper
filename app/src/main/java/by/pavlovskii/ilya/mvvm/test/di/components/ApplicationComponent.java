@@ -5,7 +5,7 @@ import android.content.Context;
 
 import javax.inject.Singleton;
 
-import by.pavlovskii.ilya.mvvm.test.activity.main.MainSubComponent;
+import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModelSubComponent;
 import by.pavlovskii.ilya.mvvm.test.application.App;
 import by.pavlovskii.ilya.mvvm.test.di.modules.AppModule;
 import by.pavlovskii.ilya.mvvm.test.di.modules.NavigatorModule;
@@ -45,4 +45,6 @@ public interface ApplicationComponent {
     void inject(App app);
 
     Context getContext();
+
+    MainViewModelSubComponent.Builder mainViewModelSubComponentBuilder();
 }

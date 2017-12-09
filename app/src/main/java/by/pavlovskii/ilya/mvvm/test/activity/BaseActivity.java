@@ -1,7 +1,5 @@
 package by.pavlovskii.ilya.mvvm.test.activity;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +10,7 @@ import by.mvvmwrapper.activity.BaseDialogAppCompatActivity;
 import by.mvvmwrapper.interfaces.DialogActionsDelegate;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 import by.pavlovskii.ilya.mvvm.test.R;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.SubcomponentViewModelFactory;
+import by.pavlovskii.ilya.mvvm.test.di.Injector;
 import dagger.android.AndroidInjection;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
@@ -44,20 +42,10 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
+        //AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         mNavigator = initNavigator();
     }
-
-    @NonNull
-    @Override
-    protected TViewModel initViewModel() {
-        return ViewModelProviders
-                .of(this, getViewModelFactory())
-                .get(getViewModelClass());
-    }
-
-    protected abstract ViewModelProvider.Factory getViewModelFactory();
 
     @Override
     protected void onResume() {

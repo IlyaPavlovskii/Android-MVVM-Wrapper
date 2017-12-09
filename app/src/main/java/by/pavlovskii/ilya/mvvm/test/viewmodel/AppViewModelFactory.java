@@ -20,11 +20,10 @@ import javax.inject.Singleton;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-@Singleton
 public final class AppViewModelFactory implements ViewModelProvider.Factory {
     private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
 
-    @Inject
+
     public AppViewModelFactory(Map<Class<? extends ViewModel>, Provider<ViewModel>> creators) {
         this.creators = creators;
     }
