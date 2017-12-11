@@ -4,6 +4,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.activity.main.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.activity.yellow.YellowActivity;
@@ -26,8 +29,10 @@ import ru.terrakok.cicerone.commands.Replace;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
+@Singleton
 public class MainNavigator extends FragmentActivityNavigatorImpl {
 
+    @Inject
     public MainNavigator() {
         Log.d("MainNavigator", "constructor");
     }

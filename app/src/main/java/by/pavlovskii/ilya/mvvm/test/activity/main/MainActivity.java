@@ -1,9 +1,5 @@
 package by.pavlovskii.ilya.mvvm.test.activity.main;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import javax.inject.Inject;
@@ -11,8 +7,8 @@ import javax.inject.Inject;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.activity.BaseActivity;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
-import by.pavlovskii.ilya.mvvm.test.di.Injector;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
+import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
@@ -40,44 +36,10 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
     Navigator mNavigator;
-    //    @Inject
-//    MainViewModel mMainViewModel;
-    @Inject
-    ViewModelProvider.Factory mFactory;
 
     private final CompositeDisposable mDisposable = new CompositeDisposable();
 
     // ===========
-    @NonNull
-    @Override
-    protected MainViewModel initViewModel() {
-        return ViewModelProviders
-                .of(this, mFactory)
-                .get(MainViewModel.class);
-    }
-
-    @Override
-    protected Class<MainViewModel> getViewModelClass() {
-        return MainViewModel.class;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Injector.getApplicationComponent()
-                .mainViewModelSubComponentBuilder()
-                .build()
-                .mainActivitySubComponent()
-                .build()
-                .inject(this);
-        super.onCreate(savedInstanceState);
-//        if( savedInstanceState == null ){
-//            Log.d(TAG, "Create fragments");
-//            mRouter.replaceScreen(Constants.FragmentKeys.TIMER);
-//            mRouter.replaceScreen(Constants.FragmentKeys.TIMER, 1);
-//        }
-    }
-
-
     @Override
     protected void onStart() {
         super.onStart();

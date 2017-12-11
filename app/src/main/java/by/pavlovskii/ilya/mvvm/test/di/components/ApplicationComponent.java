@@ -5,10 +5,8 @@ import android.content.Context;
 
 import javax.inject.Singleton;
 
-import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModelSubComponent;
 import by.pavlovskii.ilya.mvvm.test.application.App;
 import by.pavlovskii.ilya.mvvm.test.di.modules.AppModule;
-import by.pavlovskii.ilya.mvvm.test.di.modules.NavigatorModule;
 import by.pavlovskii.ilya.mvvm.test.di.modules.RouterModule;
 import dagger.BindsInstance;
 import dagger.Component;
@@ -28,8 +26,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
         AndroidSupportInjectionModule.class,
         AppModule.class,
-        RouterModule.class,
-        NavigatorModule.class
+        RouterModule.class
 })
 public interface ApplicationComponent {
 
@@ -46,5 +43,4 @@ public interface ApplicationComponent {
 
     Context getContext();
 
-    MainViewModelSubComponent.Builder mainViewModelSubComponentBuilder();
 }

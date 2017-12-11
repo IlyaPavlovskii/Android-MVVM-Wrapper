@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import by.mvvmwrapper.dagger.scope.ActivityScope;
+import by.mvvmwrapper.viewmodel.BaseViewModel;
+import dagger.Binds;
 import dagger.Lazy;
 import dagger.Module;
 import dagger.Provides;
@@ -35,6 +37,11 @@ public abstract class YellowActivityModule {
         Log.d("YellowViewModel", "provide");
         return new YellowViewModel(viewData);
     }
+
+    @Binds
+    @ActivityScope
+    abstract ViewModel vm(@NonNull YellowViewModel vm);
+
 
     @Provides
     @ActivityScope

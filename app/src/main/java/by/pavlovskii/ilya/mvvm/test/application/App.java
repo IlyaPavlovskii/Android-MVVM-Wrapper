@@ -7,7 +7,6 @@ import android.util.Log;
 import javax.inject.Inject;
 
 import by.pavlovskii.ilya.mvvm.test.di.Injector;
-import by.pavlovskii.ilya.mvvm.test.di.components.DaggerApplicationComponent;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
@@ -31,7 +30,7 @@ public class App extends Application implements HasActivityInjector {
     //======================================================
     private static final String TAG = App.class.getSimpleName();
 
-    //===================================`===================
+    //======================================================
     //------------------------Fields------------------------
     //======================================================
     @Inject

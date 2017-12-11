@@ -1,9 +1,6 @@
 package by.pavlovskii.ilya.mvvm.test.activity.yellow;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
-
-import javax.inject.Inject;
 
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.activity.BaseActivity;
@@ -33,9 +30,4 @@ public class YellowActivity extends BaseActivity<YellowViewModel, ActivityYellow
         return null;
     }
 
-
-    @Override
-    protected Class<YellowViewModel> getViewModelClass() {
-        return YellowViewModel.class;
-    }
 }

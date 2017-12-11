@@ -1,53 +1,57 @@
-package by.pavlovskii.ilya.mvvm.test.activity.main;
+package by.pavlovskii.ilya.mvvm.test.activity.main.di;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import javax.inject.Provider;
+
 import by.mvvmwrapper.dagger.scope.ActivityScope;
-import by.pavlovskii.ilya.mvvm.test.di.scopes.ViewModelScope;
-import by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerFragmentProvider;
+import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewData;
+import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
+import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
 import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.LazyViewModelProviderFactory;
-import dagger.Lazy;
+import by.pavlovskii.ilya.mvvm.test.viewmodel.GeneralViewModelFactory;
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
-import dagger.android.ContributesAndroidInjector;
+import ru.terrakok.cicerone.Navigator;
 
 /**
  * Create with Android Studio<br>
  * Created by Pavlovskii Ilya<br>
  * E-mail: pavlovskii_ilya@mail.ru, trane91666@gmail.com<br>
  * Skype: trane9119<br>
- * Date: 24.11.2017<br>
- * Time: 17:39<br>
+ * Date: 08.12.2017<br>
+ * Time: 16:18<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
 @Module
-@ViewModelScope
-public abstract class MainViewModelModule {
+@ActivityScope
+public abstract class MainActivityModule {
+
+    @Binds
+    @ActivityScope
+    abstract Navigator navigator(MainNavigator navigator);
 
     @Provides
-    @ViewModelScope
+    @ActivityScope
     static MainViewData viewData() {
         return new MainViewData();
     }
 
     @Provides
-    @ViewModelScope
+    @ActivityScope
     static MainViewModel viewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
         Log.d("MainViewModel", "provide");
         return new MainViewModel(viewData, demoActivityFactory);
     }
 
     @Provides
-    @ViewModelScope
-    static LazyViewModelProviderFactory<MainViewModel> viewModelProviderFactory(@NonNull Lazy<MainViewModel> lazy) {
-        return new LazyViewModelProviderFactory<>(lazy);
-    }
-
     @ActivityScope
-    @ContributesAndroidInjector(modules = {MainActivityModule.class})
-    abstract MainActivity mainActivityInjector();
+    static ViewModelProvider.Factory viewModelProvider(@NonNull Provider<MainViewModel> provider) {
+        return new GeneralViewModelFactory<>(MainViewModel.class, provider);
+    }
 
 }

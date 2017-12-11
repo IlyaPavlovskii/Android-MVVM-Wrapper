@@ -21,7 +21,7 @@ ext {
     minSdkVersion = 15
     targetSdkVersion = 26
 
-    supportVersion = "27.0.1"
+    supportVersion = "27.0.2"
     daggerVersion = '2.13'
 
     googlePlayVersion = '11.6.0'

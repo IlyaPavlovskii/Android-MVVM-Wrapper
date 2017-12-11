@@ -35,45 +35,44 @@ public class Injector {
                 .application(app)
                 .build();
         sApplicationComponent.inject(app);
+        app.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                handleActivity(activity);
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+
+            }
+        });
     }
 
-
-    //        app.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
-//            @Override
-//            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-//                handleActivity(activity);
-//            }
-//
-//            @Override
-//            public void onActivityStarted(Activity activity) {
-//
-//            }
-//
-//            @Override
-//            public void onActivityResumed(Activity activity) {
-//
-//            }
-//
-//            @Override
-//            public void onActivityPaused(Activity activity) {
-//
-//            }
-//
-//            @Override
-//            public void onActivityStopped(Activity activity) {
-//
-//            }
-//
-//            @Override
-//            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-//
-//            }
-//
-//            @Override
-//            public void onActivityDestroyed(Activity activity) {
-//
-//            }
-//        });
     private static void handleActivity(Activity activity) {
         if (activity instanceof HasSupportFragmentInjector) {
             AndroidInjection.inject(activity);
