@@ -41,6 +41,4 @@ public interface ApplicationComponent {
 
     void inject(App app);
 
-    Context getContext();
-
 }

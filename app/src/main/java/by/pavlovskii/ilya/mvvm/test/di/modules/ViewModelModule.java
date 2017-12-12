@@ -5,11 +5,10 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import javax.inject.Singleton;
 
-import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
-import by.pavlovskii.ilya.mvvm.test.activity.yellow.YellowViewModel;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.YellowViewModel;
 import by.pavlovskii.ilya.mvvm.test.di.ViewModelKey;
-import by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerViewModel;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.AppViewModelFactory;
+import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerViewModel;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
@@ -43,9 +42,5 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TimerViewModel.class)
     abstract ViewModel bindTimerViewModel(TimerViewModel viewModel);
-
-    @Binds
-    @Singleton
-    abstract ViewModelProvider.Factory bindViewModelFactory(AppViewModelFactory factory);
 
 }

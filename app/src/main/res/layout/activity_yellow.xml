@@ -5,7 +5,7 @@
     <data>
         <variable
             name="model"
-            type="by.pavlovskii.ilya.mvvm.test.activity.yellow.YellowViewData"/>
+            type="by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.YellowViewData"/>
     </data>
 
     <RelativeLayout

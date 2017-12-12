@@ -1,8 +1,6 @@
-package by.pavlovskii.ilya.mvvm.test.fragments.timer;
+package by.pavlovskii.ilya.mvvm.test.ui.fragments.timer;
 
 import android.databinding.ObservableField;
-
-import javax.inject.Inject;
 
 import by.mvvmwrapper.viewdata.SimpleViewData;
 

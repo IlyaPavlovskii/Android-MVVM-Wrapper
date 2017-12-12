@@ -1,16 +1,17 @@
-package by.pavlovskii.ilya.mvvm.test.activity.main;
+package by.pavlovskii.ilya.mvvm.test.ui.activity.main;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import javax.inject.Inject;
 
 import by.pavlovskii.ilya.mvvm.test.R;
-import by.pavlovskii.ilya.mvvm.test.activity.BaseActivity;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
-import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
@@ -38,6 +39,8 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
     Navigator mNavigator;
+    @Inject
+    ViewModelProvider.Factory mViewModelProviderFactory;
 
     private final CompositeDisposable mDisposable = new CompositeDisposable();
 
@@ -72,6 +75,17 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     @Override
     protected Navigator initNavigator() {
         return mNavigator;
+    }
+
+    @NonNull
+    @Override
+    protected ViewModelProvider.Factory getViewModelProviderFactory() {
+        return mViewModelProviderFactory;
+    }
+
+    @Override
+    protected Class<MainViewModel> getViewModelClass() {
+        return MainViewModel.class;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.activity.main.di;
+package by.pavlovskii.ilya.mvvm.test.ui.activity.main.di;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
@@ -7,11 +7,12 @@ import android.util.Log;
 import javax.inject.Provider;
 
 import by.mvvmwrapper.dagger.scope.ActivityScope;
-import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewData;
-import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
+import by.mvvmwrapper.utils.viewmodelproviders.ProviderViewModelProviderFactory;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewData;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
 import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
 import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.GeneralViewModelFactory;
+import by.mvvmwrapper.utils.viewmodelproviders.GeneralViewModelFactory;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -51,7 +52,7 @@ public abstract class MainActivityModule {
     @Provides
     @ActivityScope
     static ViewModelProvider.Factory viewModelProvider(@NonNull Provider<MainViewModel> provider) {
-        return new GeneralViewModelFactory<>(MainViewModel.class, provider);
+        return new ProviderViewModelProviderFactory<>(MainViewModel.class, provider);
     }
 
 }

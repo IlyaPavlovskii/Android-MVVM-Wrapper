@@ -1,14 +1,11 @@
-package by.pavlovskii.ilya.mvvm.test.viewmodel;
+package by.mvvmwrapper.utils.viewmodelproviders;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
-import android.util.Log;
-
-import javax.inject.Provider;
 
 import by.mvvmwrapper.viewmodel.BaseViewModel;
-import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
+import dagger.Lazy;
 
 /**
  * Create with Android Studio<br>
@@ -22,19 +19,19 @@ import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
  */
 public class LazyViewModelProviderFactory<T extends BaseViewModel> implements ViewModelProvider.Factory {
 
-    //private Lazy<T> mLazy;
-    private Provider<T> mProvider;
+    private Class<T> mClass;
+    private Lazy<T> mLazy;
 
-    public LazyViewModelProviderFactory(Provider<T> provider) {
-        this.mProvider = provider;
+    public LazyViewModelProviderFactory(Class<T> clazz, Lazy<T> lazy) {
+        this.mClass = clazz;
+        this.mLazy = lazy;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        Log.d("LazyViewModelProviderFactory", "CREATE: " + modelClass);
-        if (modelClass.isAssignableFrom(MainViewModel.class)) {
-            return (T) mProvider.get();
+        if (modelClass.isAssignableFrom(mClass)) {
+            return (T) mLazy.get();
         }
         return null;
     }

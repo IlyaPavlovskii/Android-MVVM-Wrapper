@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="by.pavlovskii.ilya.mvvm.test.activity.main.MainViewData"/>
+            type="by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewData"/>
 
         <variable
             name="demoAdapterListener"

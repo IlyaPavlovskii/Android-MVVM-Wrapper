@@ -1,14 +1,15 @@
-package by.pavlovskii.ilya.mvvm.test.activity.yellow;
+package by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.di;
 
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import javax.inject.Provider;
+
 import by.mvvmwrapper.dagger.scope.ActivityScope;
-import by.mvvmwrapper.viewmodel.BaseViewModel;
-import dagger.Binds;
-import dagger.Lazy;
+import by.mvvmwrapper.utils.viewmodelproviders.ProviderViewModelProviderFactory;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.YellowViewData;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.YellowViewModel;
 import dagger.Module;
 import dagger.Provides;
 
@@ -38,23 +39,9 @@ public abstract class YellowActivityModule {
         return new YellowViewModel(viewData);
     }
 
-    @Binds
-    @ActivityScope
-    abstract ViewModel vm(@NonNull YellowViewModel vm);
-
-
     @Provides
     @ActivityScope
-    static ViewModelProvider.Factory factory(@NonNull YellowViewModel viewModel) {
-        return new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                if (modelClass.isAssignableFrom(viewModel.getClass())) {
-                    return (T) viewModel;
-                }
-                return null;
-            }
-        };
+    static ViewModelProvider.Factory factory(@NonNull Provider<YellowViewModel> viewModel) {
+        return new ProviderViewModelProviderFactory<>(YellowViewModel.class, viewModel);
     }
 }

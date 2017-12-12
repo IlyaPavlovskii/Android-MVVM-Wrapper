@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.viewmodel;
+package by.mvvmwrapper.utils.viewmodelproviders;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -8,9 +8,7 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
 import javax.inject.Provider;
-import javax.inject.Singleton;
 
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 
@@ -24,19 +22,15 @@ import by.mvvmwrapper.viewmodel.BaseViewModel;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-@Singleton
 public class GeneralViewModelFactory<T extends BaseViewModel> implements ViewModelProvider.Factory {
 
     private final static String TAG = GeneralViewModelFactory.class.getSimpleName();
     private final Map<Class<T>, Provider<T>> mProviderMap = new HashMap<>();
 
-    @Inject
     public GeneralViewModelFactory() {
-        Log.d(TAG, "constructor");
     }
 
     public GeneralViewModelFactory(Class<T> clazz, Provider<T> provider) {
-        Log.d(TAG, "constructor");
         put(clazz, provider);
     }
 

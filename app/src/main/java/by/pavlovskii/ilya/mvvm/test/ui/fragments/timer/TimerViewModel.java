@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.fragments.timer;
+package by.pavlovskii.ilya.mvvm.test.ui.fragments.timer;
 
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
@@ -8,11 +8,9 @@ import org.joda.time.format.ISODateTimeFormat;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.FragmentTimerBinding;
-import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

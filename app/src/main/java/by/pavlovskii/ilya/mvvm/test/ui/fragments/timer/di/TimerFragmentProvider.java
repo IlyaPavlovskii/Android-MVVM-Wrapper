@@ -1,6 +1,7 @@
-package by.pavlovskii.ilya.mvvm.test.fragments.timer;
+package by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.di;
 
 import by.mvvmwrapper.dagger.scope.FragmentScope;
+import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 

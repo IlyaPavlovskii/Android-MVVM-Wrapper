@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.activity.yellow;
+package by.pavlovskii.ilya.mvvm.test.ui.activity.yellow;
 
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;

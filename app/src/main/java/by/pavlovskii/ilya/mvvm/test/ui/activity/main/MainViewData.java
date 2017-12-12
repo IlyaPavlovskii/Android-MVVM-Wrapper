@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.activity.main;
+package by.pavlovskii.ilya.mvvm.test.ui.activity.main;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
@@ -6,7 +6,6 @@ import android.databinding.ObservableField;
 import javax.inject.Inject;
 
 import by.mvvmwrapper.viewdata.SimpleViewData;
-import by.pavlovskii.ilya.mvvm.test.activity.main.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 
 /**
@@ -26,7 +25,6 @@ public class MainViewData extends SimpleViewData {
     public ObservableArrayList<DemoActivity> demoList = new ObservableArrayList<>();
     public ObservableField<String> info = new ObservableField<>("");
 
-    @Inject
     public MainViewData() {
     }
 

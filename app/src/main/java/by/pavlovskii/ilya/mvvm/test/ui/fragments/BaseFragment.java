@@ -1,8 +1,7 @@
-package by.pavlovskii.ilya.mvvm.test.fragments;
+package by.pavlovskii.ilya.mvvm.test.ui.fragments;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -35,6 +34,9 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
     @Inject
     protected Router mRouter;
 
+    //======================================================
+    //-------------------Override methods-------------------
+    //======================================================
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         AndroidSupportInjection.inject(this);
@@ -55,7 +57,9 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
                 .get(getViewModelClass());
     }
 
+    //======================================================
+    //-------------------Abstract methods-------------------
+    //======================================================
     protected abstract ViewModelProvider.Factory getViewModelFactory();
-
     protected abstract Class<TViewModel> getViewModelClass();
 }

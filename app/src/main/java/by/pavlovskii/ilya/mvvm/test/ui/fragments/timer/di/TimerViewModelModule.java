@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.fragments.timer;
+package by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.di;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
@@ -7,8 +7,12 @@ import javax.inject.Named;
 import javax.inject.Provider;
 
 import by.mvvmwrapper.dagger.scope.FragmentScope;
-import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
-import by.pavlovskii.ilya.mvvm.test.viewmodel.GeneralViewModelFactory;
+import by.mvvmwrapper.utils.viewmodelproviders.ProviderViewModelProviderFactory;
+import by.pavlovskii.ilya.mvvm.test.storage.Constants;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
+import by.mvvmwrapper.utils.viewmodelproviders.GeneralViewModelFactory;
+import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerViewData;
+import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerViewModel;
 import dagger.Module;
 import dagger.Provides;
 
@@ -39,10 +43,10 @@ public abstract class TimerViewModelModule {
     }
 
     @Provides
-    @Named("TimerFragmentViewModelProvider")
     @FragmentScope
+    @Named(Constants.Dagger.TIMER_VM_PROVIDER)
     static ViewModelProvider.Factory viewModelProvider(@NonNull Provider<TimerViewModel> provider) {
-        return new GeneralViewModelFactory<>(TimerViewModel.class, provider);
+        return new ProviderViewModelProviderFactory<>(TimerViewModel.class, provider);
     }
 
 }

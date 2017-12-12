@@ -8,9 +8,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import by.pavlovskii.ilya.mvvm.test.R;
-import by.pavlovskii.ilya.mvvm.test.activity.main.MainActivity;
-import by.pavlovskii.ilya.mvvm.test.activity.yellow.YellowActivity;
-import by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerFragment;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainActivity;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.YellowActivity;
+import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerFragment;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import ru.terrakok.cicerone.android.container.ActivityContainerImpl;
 import ru.terrakok.cicerone.android.container.IActivityContainer;
