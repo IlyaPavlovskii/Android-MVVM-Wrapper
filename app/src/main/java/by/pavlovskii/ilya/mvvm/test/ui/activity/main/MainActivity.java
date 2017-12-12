@@ -33,10 +33,8 @@ import ru.terrakok.cicerone.Navigator;
  * Default activity implementation based on MVVM framework<br>
  * ===================================================================================<br>
  */
-public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> implements HasSupportFragmentInjector {
+public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> {
 
-    @Inject
-    DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
     Navigator mNavigator;
     @Inject
@@ -86,11 +84,6 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     @Override
     protected Class<MainViewModel> getViewModelClass() {
         return MainViewModel.class;
-    }
-
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return mFragmentInjector;
     }
 
     //===================================================================================

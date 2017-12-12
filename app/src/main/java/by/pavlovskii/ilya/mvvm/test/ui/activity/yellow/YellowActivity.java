@@ -1,6 +1,7 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.yellow;
 
 import android.arch.lifecycle.ViewModelProvider;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
@@ -23,6 +24,11 @@ public class YellowActivity extends BaseActivity<YellowViewModel, ActivityYellow
 
     @Inject
     ViewModelProvider.Factory mViewModelProviderFactory;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected int getLayoutRes() {

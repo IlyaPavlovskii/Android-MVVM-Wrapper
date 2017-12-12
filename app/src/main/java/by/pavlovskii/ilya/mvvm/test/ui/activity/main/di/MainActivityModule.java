@@ -8,11 +8,10 @@ import javax.inject.Provider;
 
 import by.mvvmwrapper.dagger.scope.ActivityScope;
 import by.mvvmwrapper.utils.viewmodelproviders.ProviderViewModelProviderFactory;
+import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewData;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
-import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
 import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
-import by.mvvmwrapper.utils.viewmodelproviders.GeneralViewModelFactory;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;

@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
 import javax.inject.Inject;
 
@@ -12,6 +13,9 @@ import by.mvvmwrapper.activity.BaseDialogAppCompatActivity;
 import by.mvvmwrapper.interfaces.DialogActionsDelegate;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 import by.pavlovskii.ilya.mvvm.test.R;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.Router;
@@ -31,8 +35,10 @@ import ru.terrakok.cicerone.android.navigator.ISystemMessageNavigator;
  */
 public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
         extends BaseDialogAppCompatActivity<TViewModel, TViewDataBinding>
-        implements ISystemMessageActions, DialogActionsDelegate {
+        implements ISystemMessageActions, DialogActionsDelegate, HasSupportFragmentInjector {
 
+    @Inject
+    DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
     protected Router mRouter;
     @Inject
@@ -52,6 +58,11 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
         return ViewModelProviders
                 .of(this, getViewModelProviderFactory())
                 .get(getViewModelClass());
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return mFragmentInjector;
     }
 
     @Override
