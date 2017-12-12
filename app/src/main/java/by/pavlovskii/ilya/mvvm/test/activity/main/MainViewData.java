@@ -26,6 +26,7 @@ public class MainViewData extends SimpleViewData {
     public ObservableArrayList<DemoActivity> demoList = new ObservableArrayList<>();
     public ObservableField<String> info = new ObservableField<>("");
 
+    @Inject
     public MainViewData() {
     }
 

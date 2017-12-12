@@ -9,6 +9,8 @@ import android.util.Log;
 
 import org.joda.time.format.ISODateTimeFormat;
 
+import javax.inject.Inject;
+
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
@@ -38,6 +40,7 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
     @Nullable
     private ObservableEmitter<DemoActivity> mNavigateToEmitter;
 
+    @Inject
     public MainViewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
         super(viewData);
         Log.d(TAG, "constructor");

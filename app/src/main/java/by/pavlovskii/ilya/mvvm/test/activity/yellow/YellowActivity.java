@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.activity.BaseActivity;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityYellowBinding;
+import io.reactivex.Observable;
 
 /**
  * Create with Android Studio<br>

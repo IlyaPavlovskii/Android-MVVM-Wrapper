@@ -1,6 +1,8 @@
 package by.pavlovskii.ilya.mvvm.test.activity.main;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -38,6 +40,16 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     Navigator mNavigator;
 
     private final CompositeDisposable mDisposable = new CompositeDisposable();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState == null) {
+            Log.d(TAG, "TimerFragment. Replace");
+            mRouter.navigateTo(Constants.FragmentKeys.TIMER);
+            mRouter.navigateTo(Constants.FragmentKeys.TIMER, 1);
+        }
+    }
 
     // ===========
     @Override

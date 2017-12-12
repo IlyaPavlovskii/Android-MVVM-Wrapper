@@ -36,9 +36,9 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
     protected Router mRouter;
 
     @Override
-    public void onAttach(Context context) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         AndroidSupportInjection.inject(this);
-        super.onAttach(context);
+        super.onCreate(savedInstanceState);
     }
 
     @Override

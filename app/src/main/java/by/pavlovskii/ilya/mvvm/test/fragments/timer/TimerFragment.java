@@ -1,10 +1,12 @@
 package by.pavlovskii.ilya.mvvm.test.fragments.timer;
 
 import android.arch.lifecycle.ViewModelProvider;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 
 import javax.inject.Inject;
@@ -27,17 +29,26 @@ import by.pavlovskii.ilya.mvvm.test.fragments.BaseFragment;
 public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBinding> {
 
     @Inject
+    @Named("TimerFragmentViewModelProvider")
     ViewModelProvider.Factory mViewModelFactory;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setRetainInstance(true);
+        Log.d(TAG, "onCreate");
+        setRetainInstance(true);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "onAttach");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onViewCreated");
         mBinding.setOnUpdateInfoClickListener(v -> mViewModel.updateInfo());
     }
 

@@ -1,8 +1,14 @@
 package by.pavlovskii.ilya.mvvm.test.fragments.timer;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
+import javax.inject.Named;
+import javax.inject.Provider;
+
 import by.mvvmwrapper.dagger.scope.FragmentScope;
+import by.pavlovskii.ilya.mvvm.test.activity.main.MainViewModel;
+import by.pavlovskii.ilya.mvvm.test.viewmodel.GeneralViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
 
@@ -15,12 +21,10 @@ import dagger.Provides;
  * Time: 17:10<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
- * //TODO Add description<br>
- * ===================================================================================<br>
  */
 @Module
 @FragmentScope
-public interface TimerViewModelModule {
+public abstract class TimerViewModelModule {
 
     @Provides
     @FragmentScope
@@ -30,8 +34,15 @@ public interface TimerViewModelModule {
 
     @Provides
     @FragmentScope
-    static TimerViewModel viewModel(@NonNull TimerViewData viewData) {
-        return new TimerViewModel(viewData);
+    static TimerViewModel viewModel(@NonNull TimerViewData viewData, @NonNull MainViewModel mainViewModel) {
+        return new TimerViewModel(viewData, mainViewModel);
+    }
+
+    @Provides
+    @Named("TimerFragmentViewModelProvider")
+    @FragmentScope
+    static ViewModelProvider.Factory viewModelProvider(@NonNull Provider<TimerViewModel> provider) {
+        return new GeneralViewModelFactory<>(TimerViewModel.class, provider);
     }
 
 }

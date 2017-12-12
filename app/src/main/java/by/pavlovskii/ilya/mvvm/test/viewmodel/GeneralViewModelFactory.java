@@ -24,13 +24,13 @@ import by.mvvmwrapper.viewmodel.BaseViewModel;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-//@Singleton
+@Singleton
 public class GeneralViewModelFactory<T extends BaseViewModel> implements ViewModelProvider.Factory {
 
     private final static String TAG = GeneralViewModelFactory.class.getSimpleName();
     private final Map<Class<T>, Provider<T>> mProviderMap = new HashMap<>();
 
-    //@Inject
+    @Inject
     public GeneralViewModelFactory() {
         Log.d(TAG, "constructor");
     }

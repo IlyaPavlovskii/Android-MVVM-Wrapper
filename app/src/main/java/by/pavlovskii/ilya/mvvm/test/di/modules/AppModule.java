@@ -12,6 +12,7 @@ import by.pavlovskii.ilya.mvvm.test.activity.main.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.activity.main.di.MainActivityModule;
 import by.pavlovskii.ilya.mvvm.test.activity.yellow.YellowActivity;
 import by.pavlovskii.ilya.mvvm.test.activity.yellow.YellowActivityModule;
+import by.pavlovskii.ilya.mvvm.test.fragments.timer.TimerFragmentProvider;
 import by.pavlovskii.ilya.mvvm.test.viewmodel.GeneralViewModelFactory;
 import dagger.Binds;
 import dagger.Module;
@@ -41,17 +42,17 @@ public abstract class AppModule {
         return context.getResources();
     }
 
-    @Provides
-    @Singleton
-    static GeneralViewModelFactory viewModelFactory() {
-        return new GeneralViewModelFactory();
-    }
+//    @Provides
+//    @Singleton
+//    static GeneralViewModelFactory viewModelFactory() {
+//        return new GeneralViewModelFactory();
+//    }
 
     //======================================================
     //----------------------Methods-------------------------
     //======================================================
     @ActivityScope
-    @ContributesAndroidInjector(modules = {MainActivityModule.class})
+    @ContributesAndroidInjector(modules = {MainActivityModule.class, TimerFragmentProvider.class})
     abstract MainActivity mainActivityInjector();
 
     @ActivityScope

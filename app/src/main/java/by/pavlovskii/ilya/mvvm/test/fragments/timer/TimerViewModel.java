@@ -33,13 +33,13 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
 
-    //private final MainViewModel mMainViewModel;
+    private final MainViewModel mMainViewModel;
     private final CompositeDisposable mDisposable = new CompositeDisposable();
 
-    public TimerViewModel(@NonNull TimerViewData viewData/*, @NonNull MainViewModel mainViewModel*/) {
+    public TimerViewModel(@NonNull TimerViewData viewData, @NonNull MainViewModel mainViewModel) {
         super(viewData);
         Log.d(TAG, "constructor");
-        //this.mMainViewModel = mainViewModel;
+        this.mMainViewModel = mainViewModel;
         mDisposable.add(timer());
     }
 
@@ -65,6 +65,6 @@ public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
     }
 
     public void updateInfo() {
-        //mMainViewModel.updateInfo();
+        mMainViewModel.updateInfo();
     }
 }

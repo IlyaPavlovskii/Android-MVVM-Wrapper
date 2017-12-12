@@ -73,16 +73,11 @@ public abstract class BaseFragmentSupport<TViewModel extends BaseViewModel, TVie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
         mViewModel = initViewModel();
         if (mViewModel == null) {
             throw new NullPointerException("IViewModel component must be initialized");
         }
+        mViewModel.onCreate(savedInstanceState);
     }
 
     @Nullable
