@@ -1,21 +1,15 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 
 import javax.inject.Inject;
 
-import by.mvvmwrapper.activity.BaseDialogAppCompatActivity;
+import by.mvvmwrapper.activity.BaseDaggerDialogAppCompatActivity;
 import by.mvvmwrapper.interfaces.DialogActionsDelegate;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 import by.pavlovskii.ilya.mvvm.test.R;
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.Router;
@@ -34,11 +28,9 @@ import ru.terrakok.cicerone.android.navigator.ISystemMessageNavigator;
  * ===================================================================================<br>
  */
 public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
-        extends BaseDialogAppCompatActivity<TViewModel, TViewDataBinding>
-        implements ISystemMessageActions, DialogActionsDelegate, HasSupportFragmentInjector {
+        extends BaseDaggerDialogAppCompatActivity<TViewModel, TViewDataBinding>
+        implements ISystemMessageActions, DialogActionsDelegate {
 
-    @Inject
-    DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
     protected Router mRouter;
     @Inject
@@ -50,19 +42,6 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNavigator = initNavigator();
-    }
-
-    @NonNull
-    @Override
-    protected TViewModel initViewModel() {
-        return ViewModelProviders
-                .of(this, getViewModelProviderFactory())
-                .get(getViewModelClass());
-    }
-
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return mFragmentInjector;
     }
 
     @Override
@@ -110,9 +89,6 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
     protected Navigator initNavigator() {
         return null;
     }
-
-    @NonNull
-    protected abstract ViewModelProvider.Factory getViewModelProviderFactory();
 
     protected abstract Class<TViewModel> getViewModelClass();
 

@@ -1,6 +1,5 @@
 package by.pavlovskii.ilya.mvvm.test.ui.fragments.timer;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,13 +8,9 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.FragmentTimerBinding;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.BaseFragment;
-import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 
 /**
  * Create with Android Studio<br>
@@ -34,20 +29,12 @@ public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBin
     }
 
     //======================================================
-    //-------------------------Fields-----------------------
-    //======================================================
-    @Inject
-    @Named(Constants.Dagger.TIMER_VM_PROVIDER)
-    ViewModelProvider.Factory mViewModelFactory;
-
-    //======================================================
     //-------------------Override methods-------------------
     //======================================================
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-        //setRetainInstance(true);
     }
 
     @Override
@@ -66,11 +53,6 @@ public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBin
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_timer;
-    }
-
-    @Override
-    protected ViewModelProvider.Factory getViewModelFactory() {
-        return mViewModelFactory;
     }
 
     @Override

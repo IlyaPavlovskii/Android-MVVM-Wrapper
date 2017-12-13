@@ -6,6 +6,7 @@ import android.content.Context;
 import javax.inject.Singleton;
 
 import by.pavlovskii.ilya.mvvm.test.application.App;
+import by.pavlovskii.ilya.mvvm.test.di.modules.ActivityModule;
 import by.pavlovskii.ilya.mvvm.test.di.modules.AppModule;
 import by.pavlovskii.ilya.mvvm.test.di.modules.RouterModule;
 import dagger.BindsInstance;
@@ -26,7 +27,9 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
         AndroidSupportInjectionModule.class,
         AppModule.class,
-        RouterModule.class
+        RouterModule.class,
+
+        ActivityModule.class
 })
 public interface ApplicationComponent {
 

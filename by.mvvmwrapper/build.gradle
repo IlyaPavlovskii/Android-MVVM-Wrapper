@@ -35,10 +35,13 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${rootProject.supportVersion}"
     implementation "com.android.support:recyclerview-v7:${rootProject.supportVersion}"
 
+    //Dagger 2
     annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
-    testAnnotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.daggerVersion}"
+
     implementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
-    testImplementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
+    implementation "com.google.dagger:dagger-android:${rootProject.daggerVersion}"
+    implementation "com.google.dagger:dagger-android-support:${rootProject.daggerVersion}"
 
     api "android.arch.lifecycle:extensions:${rootProject.androidArchVersion}"
     api "android.arch.lifecycle:reactivestreams:${rootProject.androidArchVersion}"

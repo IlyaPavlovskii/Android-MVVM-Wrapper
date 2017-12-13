@@ -39,9 +39,9 @@ public abstract class YellowActivityModule {
         return new YellowViewModel(viewData);
     }
 
-    @Provides
-    @ActivityScope
-    static ViewModelProvider.Factory factory(@NonNull Provider<YellowViewModel> viewModel) {
-        return new ProviderViewModelProviderFactory<>(YellowViewModel.class, viewModel);
-    }
+//    @Provides
+//    @ActivityScope
+//    static ViewModelProvider.Factory factory(@NonNull Provider<YellowViewModel> viewModel) {
+//        return new ProviderViewModelProviderFactory<>(YellowViewModel.class, viewModel);
+//    }
 }

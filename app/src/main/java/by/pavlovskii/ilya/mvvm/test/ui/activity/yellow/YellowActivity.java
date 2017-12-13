@@ -1,14 +1,10 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.yellow;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-
-import javax.inject.Inject;
 
 import by.pavlovskii.ilya.mvvm.test.R;
-import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityYellowBinding;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
 
 /**
  * Create with Android Studio<br>
@@ -22,9 +18,6 @@ import by.pavlovskii.ilya.mvvm.test.databinding.ActivityYellowBinding;
  */
 public class YellowActivity extends BaseActivity<YellowViewModel, ActivityYellowBinding> {
 
-    @Inject
-    ViewModelProvider.Factory mViewModelProviderFactory;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +26,6 @@ public class YellowActivity extends BaseActivity<YellowViewModel, ActivityYellow
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_yellow;
-    }
-
-    @NonNull
-    @Override
-    protected ViewModelProvider.Factory getViewModelProviderFactory() {
-        return mViewModelProviderFactory;
     }
 
     @Override
