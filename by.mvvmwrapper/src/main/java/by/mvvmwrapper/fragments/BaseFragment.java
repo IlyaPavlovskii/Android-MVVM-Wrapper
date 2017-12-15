@@ -179,7 +179,11 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
         super.onDestroy();
         mViewModel.onDestroy();
         mBinding.unbind();
-        mViewModel.onDestroy();
+    }
+
+    @NonNull
+    protected TViewModel getViewModel() {
+        return mViewModel;
     }
 
 }

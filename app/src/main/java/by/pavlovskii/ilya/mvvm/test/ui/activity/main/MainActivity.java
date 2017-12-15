@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     //---------------------------------View action callback------------------------------
     //===================================================================================
     private Disposable navigateToDisposable() {
-        return initViewModel()
+        return getViewModel()
                 .navigateToScreen()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -98,7 +98,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
                             mRouter.exit();
                             break;
                     }
-                }, throwable -> initViewModel().handleException(throwable));
+                }, throwable -> getViewModel().handleException(throwable));
     }
 
 }
