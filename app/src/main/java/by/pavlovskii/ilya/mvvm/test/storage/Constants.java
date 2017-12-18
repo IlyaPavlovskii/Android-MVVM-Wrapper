@@ -32,7 +32,4 @@ public class Constants {
         public static final String THROW_EXCEPTION = "exception";
     }
 
-    public static class Dagger {
-        public static final String TIMER_VM_PROVIDER = "timer_view_model_provider";
-    }
 }
