@@ -47,7 +47,7 @@ public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBin
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "onViewCreated");
-        mBinding.setOnUpdateInfoClickListener(v -> mViewModel.updateInfo());
+        mBinding.setOnUpdateInfoClickListener(v -> getViewModel().updateInfo());
     }
 
     @Override

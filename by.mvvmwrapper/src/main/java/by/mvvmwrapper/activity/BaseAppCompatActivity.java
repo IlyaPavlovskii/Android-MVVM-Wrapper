@@ -139,5 +139,10 @@ public abstract class BaseAppCompatActivity<TViewModel extends BaseViewModel, TV
         mBinding.unbind();
     }
 
+    @NonNull
+    protected TViewModel getViewModel() {
+        return mViewModel;
+    }
+
 }
 

@@ -123,4 +123,8 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
         mBinding.unbind();
     }
 
+    @NonNull
+    protected TViewModel getViewModel() {
+        return mViewModel;
+    }
 }

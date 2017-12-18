@@ -179,6 +179,10 @@ public abstract class BaseFragmentSupport<TViewModel extends BaseViewModel, TVie
         super.onDestroy();
         mViewModel.onDestroy();
         mBinding.unbind();
-        mViewModel.onDestroy();
+    }
+
+    @NonNull
+    protected TViewModel getViewModel() {
+        return mViewModel;
     }
 }
