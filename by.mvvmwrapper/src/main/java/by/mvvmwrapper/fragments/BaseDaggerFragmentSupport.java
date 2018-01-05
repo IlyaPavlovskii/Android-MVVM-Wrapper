@@ -26,14 +26,14 @@ import dagger.android.support.AndroidSupportInjection;
  * {@link BaseFragmentSupport} extension with dependency injection modules<br>
  * ===================================================================================<br>
  */
-public abstract class BaseDaggerFragmentSupport<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
-        extends BaseFragmentSupport<TViewModel, TViewDataBinding> {
+public abstract class BaseDaggerFragmentSupport<M extends BaseViewModel, B extends ViewDataBinding>
+        extends BaseFragmentSupport<M, B> {
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
     @Inject
-    Provider<TViewModel> mViewModelProvider;
+    Provider<M> mViewModelProvider;
 
     //======================================================
     //-------------------Override methods-------------------
@@ -46,7 +46,7 @@ public abstract class BaseDaggerFragmentSupport<TViewModel extends BaseViewModel
 
     @NonNull
     @Override
-    protected TViewModel initViewModel() {
+    protected M initViewModel() {
         return ViewModelProviders
                 .of(this, getViewModelFactory())
                 .get(getViewModelClass());
@@ -63,6 +63,6 @@ public abstract class BaseDaggerFragmentSupport<TViewModel extends BaseViewModel
     //======================================================
     //-------------------Abstract methods-------------------
     //======================================================
-    protected abstract Class<TViewModel> getViewModelClass();
+    protected abstract Class<M> getViewModelClass();
 }
 

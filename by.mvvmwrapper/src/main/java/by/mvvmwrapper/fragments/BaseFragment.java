@@ -31,22 +31,17 @@ import by.mvvmwrapper.viewmodel.BaseViewModel;
  * Base {@link Fragment} realization of view component<br>
  * ===================================================================================
  */
-public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
+public abstract class BaseFragment<M extends BaseViewModel, B extends ViewDataBinding>
         extends Fragment
         implements DialogActionsDelegate {
-
-    //======================================================
-    //----------------------Constants-----------------------
-    //======================================================
-    public final String TAG = getClass().getSimpleName();
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
     @NonNull
-    protected TViewDataBinding mBinding;
+    protected B mBinding;
     @NonNull
-    protected TViewModel mViewModel;
+    protected M mViewModel;
 
     private Dialog mProgressDialog;
 
@@ -57,7 +52,7 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
     protected abstract int getLayoutRes();
 
     @NonNull
-    protected abstract TViewModel initViewModel();
+    protected abstract M initViewModel();
 
     //======================================================
     //-------------------Override methods-------------------
@@ -66,22 +61,15 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = initViewModel();
-        if (mViewModel == null) {
-            throw new NullPointerException("IViewModel component must be initialized");
-        }
         mViewModel.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
-        if (mBinding == null) {
-            throw new NullPointerException("ViewDataBinding must be initialized");
-        }
+        inflateBinding(inflater, container, savedInstanceState);
         return mBinding.getRoot();
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -157,9 +145,10 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
         if (getActivity() instanceof DialogActionsDelegate) {
             ((DialogActionsDelegate) getActivity()).showErrorDialog(message);
         } else {
+            message = message == null ? "" : message;
             getAlertDialogBuilder()
                     .title(R.string.error)
-                    .title(message)
+                    .content(message)
                     .build()
                     .show();
         }
@@ -182,8 +171,15 @@ public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBi
     }
 
     @NonNull
-    protected TViewModel getViewModel() {
+    protected M getViewModel() {
         return mViewModel;
+    }
+
+    protected void inflateBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
+        if (mBinding == null) {
+            throw new NullPointerException("ViewDataBinding must be initialized");
+        }
     }
 
 }

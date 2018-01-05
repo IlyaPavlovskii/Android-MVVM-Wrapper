@@ -2,13 +2,11 @@ package by.mvvmwrapper.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.databinding.DataBindingComponent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 
@@ -24,16 +22,16 @@ import by.mvvmwrapper.viewmodel.BaseViewModel;
  * Base {@link Activity} realization of view MVVM component<br>
  * ===================================================================================
  */
-public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
+public abstract class BaseActivity<M extends BaseViewModel, B extends ViewDataBinding>
         extends Activity {
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
     @NonNull
-    protected TViewDataBinding mBinding;
+    protected B mBinding;
     @NonNull
-    protected TViewModel mViewModel;
+    protected M mViewModel;
 
     //======================================================
     //-------------------Abstract methods-------------------
@@ -42,7 +40,7 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
     protected abstract int getLayoutRes();
 
     @NonNull
-    protected abstract TViewModel initViewModel();
+    protected abstract M initViewModel();
 
     //======================================================
     //-------------------Override methods-------------------
@@ -50,12 +48,7 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        android.databinding.DataBindingComponent dataBindingComponent = getDataBindingComponent();
-        if (dataBindingComponent == null) {
-            mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
-        } else {
-            mBinding = DataBindingUtil.setContentView(this, getLayoutRes(), dataBindingComponent);
-        }
+        inflateBinding();
         mViewModel = initViewModel();
 
         if (mBinding == null) {
@@ -125,12 +118,11 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
     }
 
     @NonNull
-    protected TViewModel getViewModel() {
+    protected M getViewModel() {
         return mViewModel;
     }
 
-    @Nullable
-    protected DataBindingComponent getDataBindingComponent() {
-        return null;
+    protected void inflateBinding() {
+        mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
     }
 }

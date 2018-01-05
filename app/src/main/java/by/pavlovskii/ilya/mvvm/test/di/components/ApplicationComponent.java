@@ -32,7 +32,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 
         ActivityModule.class
 })
-public interface ApplicationComponent extends android.databinding.DataBindingComponent {
+public interface ApplicationComponent {
 
     @Component.Builder
     interface Builder {

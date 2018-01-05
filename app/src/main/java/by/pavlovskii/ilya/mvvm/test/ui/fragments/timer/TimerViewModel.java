@@ -16,6 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Create with Android Studio<br>
@@ -31,19 +32,17 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
 
-    private final MainViewModel mMainViewModel;
     private final CompositeDisposable mDisposable = new CompositeDisposable();
 
-    public TimerViewModel(@NonNull TimerViewData viewData, @NonNull MainViewModel mainViewModel) {
+    public TimerViewModel(@NonNull TimerViewData viewData) {
         super(viewData);
-        Log.d(TAG, "constructor");
-        this.mMainViewModel = mainViewModel;
+        Timber.d("constructor");
         mDisposable.add(timer());
     }
 
     @Override
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
-        Log.d(TAG, "bind" + hashCode());
+        Timber.d("bind%s", hashCode());
         ((FragmentTimerBinding) viewDataBinding).setModel(mViewData);
     }
 
@@ -62,7 +61,4 @@ public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
                 .subscribe(text -> mViewData.time.set(text), this::handleException);
     }
 
-    public void updateInfo() {
-        mMainViewModel.updateInfo();
-    }
 }

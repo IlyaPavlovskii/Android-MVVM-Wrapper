@@ -27,7 +27,7 @@ public class Injector {
                 .application(app)
                 .build();
         sApplicationComponent.inject(app);
-        DataBindingUtil.setDefaultComponent(sApplicationComponent);
+        //DataBindingUtil.setDefaultComponent(sApplicationComponent);
     }
 
     public static ApplicationComponent getApplicationComponent() {

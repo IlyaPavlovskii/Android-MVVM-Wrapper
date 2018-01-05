@@ -8,9 +8,13 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 
+import javax.inject.Inject;
+
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.FragmentTimerBinding;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.BaseFragment;
+import timber.log.Timber;
 
 /**
  * Create with Android Studio<br>
@@ -28,26 +32,29 @@ public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBin
         return new TimerFragment();
     }
 
+    @Inject
+    MainViewModel mMainViewModel;
+
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate");
+        Timber.d("onCreate");
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d(TAG, "onAttach");
+        Timber.d("onAttach");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG, "onViewCreated");
-        mBinding.setOnUpdateInfoClickListener(v -> getViewModel().updateInfo());
+        Timber.d("onViewCreated");
+        mBinding.setOnUpdateInfoClickListener(v -> mMainViewModel.updateInfo());
     }
 
     @Override

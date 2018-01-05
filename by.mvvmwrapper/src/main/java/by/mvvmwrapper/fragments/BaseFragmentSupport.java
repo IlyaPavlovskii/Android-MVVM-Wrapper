@@ -1,7 +1,6 @@
 package by.mvvmwrapper.fragments;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,22 +30,17 @@ import by.mvvmwrapper.viewmodel.BaseViewModel;
  * Base {@link android.support.v4.app.Fragment} realization of view component<br>
  * ===================================================================================
  */
-public abstract class BaseFragmentSupport<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
+public abstract class BaseFragmentSupport<M extends BaseViewModel, B extends ViewDataBinding>
         extends android.support.v4.app.Fragment
         implements DialogActionsDelegate {
-
-    //======================================================
-    //----------------------Constants-----------------------
-    //======================================================
-    public final String TAG = getClass().getSimpleName();
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
     @NonNull
-    protected TViewDataBinding mBinding;
+    protected B mBinding;
     @NonNull
-    protected TViewModel mViewModel;
+    protected M mViewModel;
 
     private Dialog mProgressDialog;
 
@@ -57,7 +50,7 @@ public abstract class BaseFragmentSupport<TViewModel extends BaseViewModel, TVie
     @LayoutRes
     protected abstract int getLayoutRes();
     @NonNull
-    protected abstract TViewModel initViewModel();
+    protected abstract M initViewModel();
 
     //======================================================
     //-------------------Protected methods------------------
@@ -74,16 +67,13 @@ public abstract class BaseFragmentSupport<TViewModel extends BaseViewModel, TVie
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = initViewModel();
-        if (mViewModel == null) {
-            throw new NullPointerException("IViewModel component must be initialized");
-        }
         mViewModel.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
+        inflateBinding(inflater, container, savedInstanceState);
         if (mBinding == null) {
             throw new NullPointerException("ViewDataBinding must be initialized");
         }
@@ -182,7 +172,14 @@ public abstract class BaseFragmentSupport<TViewModel extends BaseViewModel, TVie
     }
 
     @NonNull
-    protected TViewModel getViewModel() {
+    protected M getViewModel() {
         return mViewModel;
+    }
+
+    protected void inflateBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
+        if (mBinding == null) {
+            throw new NullPointerException("ViewDataBinding must be initialized");
+        }
     }
 }

@@ -50,10 +50,18 @@ dependencies {
     //Dagger 2
     annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
     annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.daggerVersion}"
-
     implementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
     implementation "com.google.dagger:dagger-android:${rootProject.daggerVersion}"
     implementation "com.google.dagger:dagger-android-support:${rootProject.daggerVersion}"
+
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
+    androidTestAnnotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.daggerVersion}"
+    testAnnotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
+    testAnnotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.daggerVersion}"
+    testImplementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
+    testImplementation "com.google.dagger:dagger-android:${rootProject.daggerVersion}"
+    testImplementation "com.google.dagger:dagger-android-support:${rootProject.daggerVersion}"
+    compileOnly 'javax.annotation:jsr250-api:1.0'
 
     implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"
     implementation "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"

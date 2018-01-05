@@ -10,6 +10,7 @@ import by.pavlovskii.ilya.mvvm.test.di.Injector;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import timber.log.Timber;
 
 /**
  * Create with Android Studio<br>
@@ -26,11 +27,6 @@ import dagger.android.HasActivityInjector;
 public class App extends Application implements HasActivityInjector {
 
     //======================================================
-    //----------------------Constants-----------------------
-    //======================================================
-    private static final String TAG = App.class.getSimpleName();
-
-    //======================================================
     //------------------------Fields------------------------
     //======================================================
     @Inject
@@ -43,14 +39,14 @@ public class App extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG, "onCreate");
+        Timber.d("onCreate");
         Injector.init(this);
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-        Log.d(TAG, "onTerminate");
+        Timber.d("onTerminate");
     }
 
     @Override

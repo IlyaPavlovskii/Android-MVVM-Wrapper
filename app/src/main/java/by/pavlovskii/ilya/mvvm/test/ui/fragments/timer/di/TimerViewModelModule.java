@@ -31,8 +31,8 @@ public interface TimerViewModelModule {
 
     @Provides
     @FragmentScope
-    static TimerViewModel viewModel(@NonNull TimerViewData viewData, @NonNull MainViewModel mainViewModel) {
-        return new TimerViewModel(viewData, mainViewModel);
+    static TimerViewModel viewModel(@NonNull TimerViewData viewData) {
+        return new TimerViewModel(viewData);
     }
 
 }

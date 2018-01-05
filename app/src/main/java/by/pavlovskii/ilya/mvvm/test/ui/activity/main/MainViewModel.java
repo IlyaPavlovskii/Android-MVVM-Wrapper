@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.joda.time.format.ISODateTimeFormat;
 
@@ -18,6 +17,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Create with Android Studio<br>
@@ -40,13 +40,13 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
 
     public MainViewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
         super(viewData);
-        Log.d(TAG, "constructor");
+        Timber.d("constructor");
         mDemoActivityFactory = demoActivityFactory;
     }
 
     @Override
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
-        Log.d(TAG, "bind: " + hashCode());
+        Timber.d("bind: %s", hashCode());
         ((ActivityMainBinding) viewDataBinding).setModel(mViewData);
         //((ActivityMainBinding) viewDataBinding).setDemoAdapterListener(this::doNavigation);
     }

@@ -24,11 +24,12 @@ import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 public class MainBindingAdapter {
 
     @BindingAdapter({"demoAdapter"})
-    public void demoAdapter(@NonNull RecyclerView recyclerView, @Nullable List<DemoActivity> list) {
+    public static void demoAdapter(@NonNull RecyclerView recyclerView, @Nullable List<DemoActivity> list) {
         if (list == null) {
             return;
         }
         Context context = recyclerView.getContext();
+
         if (recyclerView.getAdapter() == null) {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -40,7 +41,7 @@ public class MainBindingAdapter {
     }
 
     @BindingAdapter({"demoAdapterListener"})
-    public void demoAdapter(@NonNull RecyclerView recyclerView, @Nullable DemoAdapter.OnDemoAdapterListener listener) {
+    public static void demoAdapter(@NonNull RecyclerView recyclerView, @Nullable DemoAdapter.OnDemoAdapterListener listener) {
         if (recyclerView.getAdapter() instanceof DemoAdapter) {
             ((DemoAdapter) recyclerView.getAdapter()).setOnDemoAdapterListener(listener);
         }

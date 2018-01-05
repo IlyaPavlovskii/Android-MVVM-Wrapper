@@ -49,12 +49,6 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         }
     }
 
-    @Nullable
-    @Override
-    protected android.databinding.DataBindingComponent getDataBindingComponent() {
-        return Injector.getApplicationComponent();
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
