@@ -14,8 +14,6 @@ import javax.inject.Scope;
  * Time: 17:34<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
- * //TODO Add description<br>
- * ===================================================================================<br>
  */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)

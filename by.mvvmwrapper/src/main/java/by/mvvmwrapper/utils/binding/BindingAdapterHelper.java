@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.util.Log;
 import android.util.Pair;
@@ -13,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.List;
 
 import by.mvvmwrapper.utils.SeekBarChangeAdapter;
 import by.mvvmwrapper.utils.TextWatcherAdapter;
@@ -88,8 +90,8 @@ public class BindingAdapterHelper {
      * @param view target {@link BindableEditText} component
      * @param bindableString target text*/
     @BindingAdapter({ATTR_TAG + ":binding"})
-    public static void bindEditText(@NonNull BindableEditText view,
-                                    @Nullable final BindableGeneric<String> bindableString) {
+    public static void bindBindableEditText(@NonNull BindableEditText view,
+                                            @Nullable final BindableGeneric<String> bindableString) {
         if (bindableString == null) {
             return;
         }
@@ -101,7 +103,6 @@ public class BindingAdapterHelper {
             TextWatcherAdapter watcher = new TextWatcherAdapter() {
                 @Override
                 public void afterTextChanged(Editable s) {
-                    view.acquire();
                     bindableString.set(s.toString());
                 }
             };
@@ -176,4 +177,5 @@ public class BindingAdapterHelper {
             textView.setTypeface(typeface);
         }
     }
+
 }

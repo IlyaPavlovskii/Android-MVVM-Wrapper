@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'jacoco-android'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -11,84 +11,60 @@ android {
         applicationId "by.pavlovskii.ilya.mvvm.test"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 2
-        versionName "1.3"
+        versionCode 5
+        versionName "2.2.2"
     }
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
     compileOptions {
-        incremental false
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     packagingOptions {
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
     }
     lintOptions {
-        abortOnError false
         checkReleaseBuilds false
+        abortOnError false
     }
 }
 
-
-retrolambda {
-    jdk getJavaVersion(8)
-    oldJdk getJavaVersion(7)
-    javaVersion JavaVersion.VERSION_1_7
-    include 'Debug', 'Release', 'Test'
-    defaultMethods false
-    incremental true
-}
-
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile group: 'com.android.support', name: 'appcompat-v7', version: "${rootProject.supportVersion}"
-    compile group: 'com.android.support', name: 'recyclerview-v7', version: "${rootProject.supportVersion}"
-    compile group: 'com.android.support', name: 'design', version: "${rootProject.supportVersion}"
-    compile group: 'joda-time', name: 'joda-time', version: '2.9.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
 
-    annotationProcessor group: 'com.google.dagger', name: 'dagger-compiler', version: "${rootProject.daggerVersion}"
-    compile group: 'com.google.dagger', name: 'dagger', version: "${rootProject.daggerVersion}"
-    compile group: 'com.google.dagger', name: 'dagger-android', version: "${rootProject.daggerVersion}"
-    testCompile group: 'com.google.dagger', name: 'dagger', version: "${rootProject.daggerVersion}"
-    testAnnotationProcessor group: 'com.google.dagger', name: 'dagger-compiler', version: "${rootProject.daggerVersion}"
-    compile group: 'com.google.errorprone', name: 'error_prone_annotations', version: '2.0.19'
+    implementation "com.android.support:appcompat-v7:${rootProject.supportVersion}"
+    implementation "com.android.support:recyclerview-v7:${rootProject.supportVersion}"
+    implementation "com.android.support:design:${rootProject.supportVersion}"
+    implementation 'joda-time:joda-time:2.9.9'
 
-    // Google
-    compile group: 'com.google.android.gms', name: 'play-services-auth', version: "${rootProject.googlePlayVersion}"
-    compile group: 'com.google.android.gms', name: 'play-services-maps', version: "${rootProject.googlePlayVersion}"
-    compile group: 'com.google.android.gms', name: 'play-services-places', version: "${rootProject.googlePlayVersion}"
-    compile group: 'com.google.android.gms', name: 'play-services-gcm', version: "${rootProject.googlePlayVersion}"
-    compile group: 'com.google.android.gms', name: 'play-services-analytics', version: "${rootProject.googlePlayVersion}"
-    compile group: 'com.google.android.gms', name: 'play-services-location', version: "${rootProject.googlePlayVersion}"
+    //Dagger 2
+    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.daggerVersion}"
 
-    // Firebase
-    compile group: 'com.google.firebase', name: 'firebase-ads', version: "${rootProject.firebaseVersion}"
-    compile group: 'com.google.firebase', name: 'firebase-analytics', version: "${rootProject.firebaseVersion}"
-    compile group: 'com.google.firebase', name: 'firebase-appindexing', version: "${rootProject.firebaseVersion}"
-    compile group: 'com.google.firebase', name: 'firebase-messaging', version: "${rootProject.firebaseVersion}"
-    compile group: 'com.google.firebase', name: 'firebase-core', version: "${rootProject.firebaseVersion}"
-    compile group: 'com.google.firebase', name: 'firebase-auth', version: "${rootProject.firebaseVersion}"
-    compile group: 'com.google.firebase', name: 'firebase-database', version: "${rootProject.firebaseVersion}"
-    compile group: 'com.google.firebase', name: 'firebase-storage', version: "${rootProject.firebaseVersion}"
-    compile group: 'com.firebaseui', name: 'firebase-ui-database', version: '1.0.1'
+    implementation "com.google.dagger:dagger:${rootProject.daggerVersion}"
+    implementation "com.google.dagger:dagger-android:${rootProject.daggerVersion}"
+    implementation "com.google.dagger:dagger-android-support:${rootProject.daggerVersion}"
 
-    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.5.1'
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"
+    implementation "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"
 
-    compile project(':by.mvvmwrapper')
+    implementation "com.afollestad.material-dialogs:commons:${rootProject.materialDialogVersion}"
+    implementation 'com.github.IlyaPavlovskii:Cicerone:v2.2.0'
+    implementation 'com.jakewharton.timber:timber:4.6.0'
+
+    implementation project(':by.mvvmwrapper')
 
 }
+
 // ADD THIS AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'

@@ -1,61 +1,45 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         jcenter()
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://plugins.gradle.org/m2/' }
+        google()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
-        classpath 'com.google.gms:google-services:3.0.0'
-        classpath "net.ltgt.gradle:gradle-apt-plugin:0.5"
-        classpath 'me.tatarka:gradle-retrolambda:3.6.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.google.gms:google-services:3.1.0'
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.2'
     }
-}
-
-
-ext {
-    compileSdkVersion = 25
-    buildToolsVersion = "25.0.2"
-
-    minSdkVersion = 15
-    targetSdkVersion = 25
-
-    retrofitVersion = "2.1.0"
-    supportVersion = "25.2.0"
-
-    googlePlayVersion = "10.2.0"
-    firebaseVersion = "10.2.0"
-
-    daggerVersion = '2.10'
 }
 
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://www.jitpack.io" }
+        google()
     }
 }
 
-repositories {
-    mavenCentral()
+ext {
+    compileSdkVersion = 27
+    buildToolsVersion = "27.0.2"
+
+    minSdkVersion = 15
+    targetSdkVersion = 27
+
+    supportVersion = "27.0.2"
+    daggerVersion = '2.13'
+
+    googlePlayVersion = '11.6.0'
+    androidArchVersion = '1.0.0'
+
+    rxJavaVersion = '2.1.6'
+    rxAndroidVersion = '2.0.1'
+
+    materialDialogVersion = '0.9.1.0'
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-
-static def getJavaVersion(Integer v) {
-    def sout = new StringBuffer()
-    def proc = "/usr/libexec/java_home -v 1.$v".execute()
-    proc.consumeProcessOutput(sout, new StringBuffer())
-    proc.waitForOrKill(1000)
-    return sout.toString().replace("\n", "").replace("\r", "")
-}
-
-gradle.projectsEvaluated {
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xmaxerrs" << "500" // or whatever number you want
-    }
 }

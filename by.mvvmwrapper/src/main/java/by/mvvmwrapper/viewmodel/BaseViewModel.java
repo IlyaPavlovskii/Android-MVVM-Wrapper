@@ -1,60 +1,43 @@
 package by.mvvmwrapper.viewmodel;
 
-import android.content.Context;
+import android.arch.lifecycle.ViewModel;
 import android.content.Intent;
-import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import javax.inject.Inject;
-
-import by.mvvmwrapper.viewdata.IViewData;
 
 /**
  * Create with Android Studio<br>
  * Created by Pavlovskii Ilya<br>
  * E-mail: pavlovskii_ilya@mail.ru, trane91666@gmail.com<br>
  * Skype: trane9119<br>
- * Date: 31.01.16<br>
- * Time: 19:03<br>
+ * Date: 27.11.2017<br>
+ * Time: 16:38<br>
  * Project name: MVVMtest<br>
- * ===================================================================================
- * Base {@link IViewModel} realization with communication between
- * view({@link android.app.Activity} or {@link android.app.Fragment}) and {@link IViewModel}.
- * Contains required fields like - {@link IViewData} and {@link ViewDataBinding}<br>
- * ===================================================================================
+ * ===================================================================================<br>
  */
-public abstract class BaseViewModel<TViewData extends IViewData> implements IViewModel<TViewData> {
+public abstract class BaseViewModel extends ViewModel implements SimpleViewModel {
 
-    //======================================================
-    //----------------------Constants-----------------------
-    //======================================================
-    public final String TAG = getClass().getSimpleName();
-
-    //======================================================
-    //------------------------Fields------------------------
-    //======================================================
-    @Inject
-    protected TViewData mViewData;
-
-    //======================================================
-    //---------------------Constructors---------------------
-    //======================================================
-    public BaseViewModel() {
-        injectViewData();
-    }
-
-    //======================================================
-    //-------------------Override methods-------------------
-    //======================================================
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
     }
 
@@ -79,14 +62,7 @@ public abstract class BaseViewModel<TViewData extends IViewData> implements IVie
     }
 
     @Override
-    public void destroy() {
-        mViewData = null;
+    public void onDestroy() {
+
     }
-
-    //======================================================
-    //------------------Protected methods-------------------
-    //======================================================
-    protected abstract void injectViewData();
-
 }
-

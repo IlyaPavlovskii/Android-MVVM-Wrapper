@@ -1,5 +1,6 @@
 package by.mvvmwrapper.fragments;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -12,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
+import com.afollestad.materialdialogs.MaterialDialog;
 
-import by.mvvmwrapper.viewmodel.IViewModel;
+import by.mvvmwrapper.R;
+import by.mvvmwrapper.interfaces.DialogActionsDelegate;
+import by.mvvmwrapper.viewmodel.BaseViewModel;
 
 /**
  * Create with Android Studio<br>
@@ -28,8 +31,9 @@ import by.mvvmwrapper.viewmodel.IViewModel;
  * Base {@link Fragment} realization of view component<br>
  * ===================================================================================
  */
-public abstract class BaseFragment<TViewModel extends IViewModel, TViewDataBinding extends ViewDataBinding>
-        extends Fragment {
+public abstract class BaseFragment<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
+        extends Fragment
+        implements DialogActionsDelegate {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -39,95 +43,12 @@ public abstract class BaseFragment<TViewModel extends IViewModel, TViewDataBindi
     //======================================================
     //------------------------Fields------------------------
     //======================================================
+    @NonNull
     protected TViewDataBinding mBinding;
-    @Inject
+    @NonNull
     protected TViewModel mViewModel;
 
-    //======================================================
-    //-------------------Override methods-------------------
-    //======================================================
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        injectViewModel();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
-        return mBinding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (mViewModel != null) {
-            mViewModel.bindViewData(mBinding);
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mViewModel != null) {
-            mViewModel.onPause();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mViewModel != null) {
-            mViewModel.onResume();
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (mViewModel != null) {
-            mViewModel.onStart();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mViewModel != null) {
-            mViewModel.onStop();
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (mViewModel != null) {
-            mViewModel.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (mViewModel != null) {
-            mViewModel.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mBinding != null) {
-            mBinding.unbind();
-        }
-        if (mViewModel != null) {
-            mViewModel.destroy();
-        }
-        mBinding = null;
-        mViewModel = null;
-    }
+    private Dialog mProgressDialog;
 
     //======================================================
     //-------------------Abstract methods-------------------
@@ -135,5 +56,134 @@ public abstract class BaseFragment<TViewModel extends IViewModel, TViewDataBindi
     @LayoutRes
     protected abstract int getLayoutRes();
 
-    protected abstract void injectViewModel();
+    @NonNull
+    protected abstract TViewModel initViewModel();
+
+    //======================================================
+    //-------------------Override methods-------------------
+    //======================================================
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel = initViewModel();
+        if (mViewModel == null) {
+            throw new NullPointerException("IViewModel component must be initialized");
+        }
+        mViewModel.onCreate(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
+        if (mBinding == null) {
+            throw new NullPointerException("ViewDataBinding must be initialized");
+        }
+        return mBinding.getRoot();
+    }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mViewModel.bindViewData(mBinding);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mViewModel.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mViewModel.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mViewModel.onStop();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mViewModel.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        mViewModel.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mViewModel.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        mViewModel.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @NonNull
+    @Override
+    public Dialog getProgressDialog() {
+        if (getActivity() instanceof DialogActionsDelegate) {
+            return ((DialogActionsDelegate) getActivity()).getProgressDialog();
+        }
+        if (mProgressDialog == null) {
+            mProgressDialog = getAlertDialogBuilder()
+                    .progress(true, 0)
+                    .build();
+        }
+        return mProgressDialog;
+    }
+
+    @Override
+    public void showErrorDialog(@Nullable String message) {
+        if (getActivity() instanceof DialogActionsDelegate) {
+            ((DialogActionsDelegate) getActivity()).showErrorDialog(message);
+        } else {
+            getAlertDialogBuilder()
+                    .title(R.string.error)
+                    .title(message)
+                    .build()
+                    .show();
+        }
+    }
+
+    @NonNull
+    @Override
+    public MaterialDialog.Builder getAlertDialogBuilder() {
+        if (getActivity() instanceof DialogActionsDelegate) {
+            return ((DialogActionsDelegate) getActivity()).getAlertDialogBuilder();
+        }
+        return new MaterialDialog.Builder(getActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mViewModel.onDestroy();
+        mBinding.unbind();
+    }
+
+    @NonNull
+    protected TViewModel getViewModel() {
+        return mViewModel;
+    }
+
 }

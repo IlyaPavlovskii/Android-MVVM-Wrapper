@@ -6,9 +6,10 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
-import dagger.android.DaggerFragment_MembersInjector;
+import by.pavlovskii.ilya.mvvm.test.di.Injector;
+import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasDispatchingActivityInjector;
+import dagger.android.HasActivityInjector;
 
 /**
  * Create with Android Studio<br>
@@ -22,7 +23,7 @@ import dagger.android.HasDispatchingActivityInjector;
  * Application main class<br>
  * ===================================================================================
  */
-public class App extends Application implements HasDispatchingActivityInjector {
+public class App extends Application implements HasActivityInjector {
 
     //======================================================
     //----------------------Constants-----------------------
@@ -33,7 +34,7 @@ public class App extends Application implements HasDispatchingActivityInjector {
     //------------------------Fields------------------------
     //======================================================
     @Inject
-    DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     //======================================================
     //-------------------Override methods-------------------
@@ -43,7 +44,7 @@ public class App extends Application implements HasDispatchingActivityInjector {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate");
-        //DaggerAppComponent.create().inject(this);
+        Injector.init(this);
     }
 
     @Override
@@ -53,19 +54,7 @@ public class App extends Application implements HasDispatchingActivityInjector {
     }
 
     @Override
-    public DispatchingAndroidInjector<Activity> activityInjector() {
-        return dispatchingActivityInjector;
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingAndroidInjector;
     }
-
-    //======================================================
-    //---------------------Public methods-------------------
-    //======================================================
-
-    //======================================================
-    //-----------------------Listeners----------------------
-    //======================================================
-
-    //======================================================
-    //---------------------Inner classes--------------------
-    //======================================================
 }
