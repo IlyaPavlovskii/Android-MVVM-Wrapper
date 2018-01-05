@@ -41,7 +41,8 @@ public class MainBindingAdapter {
     }
 
     @BindingAdapter({"demoAdapterListener"})
-    public static void demoAdapter(@NonNull RecyclerView recyclerView, @Nullable DemoAdapter.OnDemoAdapterListener listener) {
+    public static void demoAdapterListener(@NonNull RecyclerView recyclerView,
+                                           @Nullable DemoAdapter.OnDemoAdapterListener listener) {
         if (recyclerView.getAdapter() instanceof DemoAdapter) {
             ((DemoAdapter) recyclerView.getAdapter()).setOnDemoAdapterListener(listener);
         }

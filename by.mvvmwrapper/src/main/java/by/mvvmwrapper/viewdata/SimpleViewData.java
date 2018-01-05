@@ -19,6 +19,5 @@ public class SimpleViewData implements ViewData {
 
     @Override
     public void destroy() {
-
     }
 }

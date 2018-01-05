@@ -27,7 +27,7 @@ import timber.log.Timber;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-@Module(subcomponents = MainActivitySubComponent.class)
+@Module
 @ActivityScope
 public interface MainActivityModule {
 

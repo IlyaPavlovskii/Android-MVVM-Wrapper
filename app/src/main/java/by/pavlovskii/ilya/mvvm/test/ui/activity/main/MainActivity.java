@@ -1,16 +1,11 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.main;
 
-import android.databinding.DataBindingComponent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
 
 import javax.inject.Inject;
 
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
-import by.pavlovskii.ilya.mvvm.test.di.Injector;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -100,6 +95,8 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
                             break;
                         case Constants.Command.EXIT:
                             mRouter.exit();
+                            break;
+                        default:
                             break;
                     }
                 }, throwable -> getViewModel().handleException(throwable));

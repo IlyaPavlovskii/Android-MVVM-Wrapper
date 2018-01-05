@@ -2,7 +2,6 @@ package by.pavlovskii.ilya.mvvm.test.ui.fragments.timer;
 
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import org.joda.time.format.ISODateTimeFormat;
 
@@ -32,10 +31,12 @@ import timber.log.Timber;
  */
 public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
 
+    private final MainViewModel mMainViewModel;
     private final CompositeDisposable mDisposable = new CompositeDisposable();
 
-    public TimerViewModel(@NonNull TimerViewData viewData) {
+    public TimerViewModel(@NonNull TimerViewData viewData, @NonNull MainViewModel mainViewModel) {
         super(viewData);
+        mMainViewModel = mainViewModel;
         Timber.d("constructor");
         mDisposable.add(timer());
     }
@@ -50,7 +51,6 @@ public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
     public void onDestroy() {
         super.onDestroy();
         mDisposable.clear();
-        mViewData.destroy();
     }
 
     private Disposable timer() {
@@ -58,7 +58,10 @@ public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
                 .map(instant -> ISODateTimeFormat.basicTimeNoMillis().print(instant))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(text -> mViewData.time.set(text), this::handleException);
+                .subscribe(mViewData::setTime, this::handleException);
     }
 
+    public void updateInfo() {
+        mMainViewModel.updateInfo();
+    }
 }

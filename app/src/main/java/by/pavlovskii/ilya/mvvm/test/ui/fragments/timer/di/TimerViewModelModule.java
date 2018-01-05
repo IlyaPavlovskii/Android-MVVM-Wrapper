@@ -6,6 +6,7 @@ import by.mvvmwrapper.dagger.scope.FragmentScope;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerViewData;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerViewModel;
+import dagger.Lazy;
 import dagger.Module;
 import dagger.Provides;
 
@@ -31,8 +32,8 @@ public interface TimerViewModelModule {
 
     @Provides
     @FragmentScope
-    static TimerViewModel viewModel(@NonNull TimerViewData viewData) {
-        return new TimerViewModel(viewData);
+    static TimerViewModel viewModel(@NonNull TimerViewData viewData, Lazy<MainViewModel> lazy) {
+        return new TimerViewModel(viewData, lazy.get());
     }
 
 }

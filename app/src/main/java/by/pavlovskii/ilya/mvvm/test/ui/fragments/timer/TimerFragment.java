@@ -32,9 +32,6 @@ public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBin
         return new TimerFragment();
     }
 
-    @Inject
-    MainViewModel mMainViewModel;
-
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
@@ -54,7 +51,7 @@ public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBin
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Timber.d("onViewCreated");
-        mBinding.setOnUpdateInfoClickListener(v -> mMainViewModel.updateInfo());
+        mBinding.setOnUpdateInfoClickListener(v -> mViewModel.updateInfo());
     }
 
     @Override

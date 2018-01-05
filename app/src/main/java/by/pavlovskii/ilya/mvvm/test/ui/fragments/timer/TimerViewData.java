@@ -16,8 +16,9 @@ import by.mvvmwrapper.viewdata.SimpleViewData;
  */
 public class TimerViewData extends SimpleViewData {
 
-    public ObservableField<String> time = new ObservableField<>("");
+    public final ObservableField<String> time = new ObservableField<>("");
 
-    public TimerViewData() {
+    public void setTime(String time) {
+        this.time.set(time);
     }
 }

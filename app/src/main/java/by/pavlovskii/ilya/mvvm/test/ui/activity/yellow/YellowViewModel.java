@@ -6,6 +6,7 @@ import android.util.Log;
 
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityYellowBinding;
+import timber.log.Timber;
 
 /**
  * Create with Android Studio<br>
@@ -21,12 +22,12 @@ public class YellowViewModel extends SimpleViewModelImpl<YellowViewData> {
 
     public YellowViewModel(@NonNull YellowViewData viewData) {
         super(viewData);
-        Log.d(TAG, "constructor");
+        Timber.d("constructor");
     }
 
     @Override
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
-        Log.d(TAG, "bind" + hashCode());
+        Timber.d("bind: %s", hashCode());
         ((ActivityYellowBinding) viewDataBinding).setModel(mViewData);
     }
 }

@@ -10,7 +10,7 @@
 
         <variable
             name="demoAdapterListener"
-            type="by.pavlovskii.ilya.mvvm.test.ui.activity.main.DemoAdapter"/>
+            type="by.pavlovskii.ilya.mvvm.test.ui.activity.main.DemoAdapter.OnDemoAdapterListener"/>
     </data>
 
     <LinearLayout
