@@ -29,11 +29,6 @@ public abstract class BaseDialogAppCompatActivity<TViewModel extends BaseViewMod
         implements DialogActionsDelegate {
 
     //======================================================
-    //----------------------Constants-----------------------
-    //======================================================
-    public final String TAG = getClass().getSimpleName();
-
-    //======================================================
     //------------------------Fields------------------------
     //======================================================
     protected Dialog mProgressDialog;

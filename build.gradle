@@ -1,25 +1,32 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         jcenter()
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://plugins.gradle.org/m2/' }
         google()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.google.gms:google-services:3.1.0'
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.2'
     }
 }
 
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://www.jitpack.io" }
+        google()
+    }
+}
 
 ext {
-    compileSdkVersion = 26
-    buildToolsVersion = "26.0.2"
+    compileSdkVersion = 27
+    buildToolsVersion = "27.0.2"
 
     minSdkVersion = 15
-    targetSdkVersion = 26
+    targetSdkVersion = 27
 
     supportVersion = "27.0.2"
     daggerVersion = '2.13'
@@ -31,18 +38,6 @@ ext {
     rxAndroidVersion = '2.0.1'
 
     materialDialogVersion = '0.9.1.0'
-}
-
-allprojects {
-    repositories {
-        jcenter()
-        maven { url "https://www.jitpack.io" }
-        google()
-    }
-}
-
-repositories {
-    mavenCentral()
 }
 
 task clean(type: Delete) {

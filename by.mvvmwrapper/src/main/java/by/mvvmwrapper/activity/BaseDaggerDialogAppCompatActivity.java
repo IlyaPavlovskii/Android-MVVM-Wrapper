@@ -29,8 +29,8 @@ import dagger.android.support.HasSupportFragmentInjector;
  * {@link BaseDialogAppCompatActivity} extension with dependency injection modules<br>
  * ===================================================================================<br>
  */
-public abstract class BaseDaggerDialogAppCompatActivity<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
-        extends BaseDialogAppCompatActivity<TViewModel, TViewDataBinding>
+public abstract class BaseDaggerDialogAppCompatActivity<VM extends BaseViewModel, DB extends ViewDataBinding>
+        extends BaseDialogAppCompatActivity<VM, DB>
         implements HasSupportFragmentInjector {
 
     //===================================================================================
@@ -39,12 +39,12 @@ public abstract class BaseDaggerDialogAppCompatActivity<TViewModel extends BaseV
     @Inject
     DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
-    Provider<TViewModel> mViewModelProvider;
+    Provider<VM> mViewModelProvider;
 
     //===================================================================================
     //----------------------------------Abstract methods---------------------------------
     //===================================================================================
-    protected abstract Class<TViewModel> getViewModelClass();
+    protected abstract Class<VM> getViewModelClass();
 
     //===================================================================================
     //----------------------------------Override methods---------------------------------
@@ -62,7 +62,7 @@ public abstract class BaseDaggerDialogAppCompatActivity<TViewModel extends BaseV
 
     @NonNull
     @Override
-    protected TViewModel initViewModel() {
+    protected VM initViewModel() {
         return ViewModelProviders
                 .of(this, getViewModelProviderFactory())
                 .get(getViewModelClass());

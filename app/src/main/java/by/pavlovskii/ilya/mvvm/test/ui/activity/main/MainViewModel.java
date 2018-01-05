@@ -48,7 +48,7 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
         Log.d(TAG, "bind: " + hashCode());
         ((ActivityMainBinding) viewDataBinding).setModel(mViewData);
-        ((ActivityMainBinding) viewDataBinding).setDemoAdapterListener(this::doNavigation);
+        //((ActivityMainBinding) viewDataBinding).setDemoAdapterListener(this::doNavigation);
     }
 
 
@@ -87,7 +87,7 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
     }
 
     private void initDemoList() {
-        mDemoActivityFactory.generateDemoActities()
+        mDemoActivityFactory.generateDemoActivities()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(list -> {

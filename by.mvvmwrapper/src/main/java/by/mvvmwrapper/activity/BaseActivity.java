@@ -2,11 +2,13 @@ package by.mvvmwrapper.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingComponent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 
@@ -24,11 +26,6 @@ import by.mvvmwrapper.viewmodel.BaseViewModel;
  */
 public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
         extends Activity {
-
-    //======================================================
-    //----------------------Constants-----------------------
-    //======================================================
-    public final String TAG = getClass().getSimpleName();
 
     //======================================================
     //------------------------Fields------------------------
@@ -53,7 +50,12 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
+        android.databinding.DataBindingComponent dataBindingComponent = getDataBindingComponent();
+        if (dataBindingComponent == null) {
+            mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
+        } else {
+            mBinding = DataBindingUtil.setContentView(this, getLayoutRes(), dataBindingComponent);
+        }
         mViewModel = initViewModel();
 
         if (mBinding == null) {
@@ -64,7 +66,6 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
         }
 
         mViewModel.bindViewData(mBinding);
-        mViewModel.onCreate(savedInstanceState);
     }
 
     @Override
@@ -126,5 +127,10 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
     @NonNull
     protected TViewModel getViewModel() {
         return mViewModel;
+    }
+
+    @Nullable
+    protected DataBindingComponent getDataBindingComponent() {
+        return null;
     }
 }

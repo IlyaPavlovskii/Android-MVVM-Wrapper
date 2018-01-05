@@ -27,7 +27,7 @@ public class DemoActivityFactory {
     public DemoActivityFactory() {
     }
 
-    public Single<List<DemoActivity>> generateDemoActities() {
+    public Single<List<DemoActivity>> generateDemoActivities() {
         return Single.just(new ArrayList<DemoActivity>())
                 .doOnSuccess(list -> {
                     list.add(DemoActivity.create(Constants.Command.NAVIGATE_TO, Constants.ActivityKeys.MAIN));

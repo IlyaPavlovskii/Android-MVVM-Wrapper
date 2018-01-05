@@ -1,5 +1,7 @@
 package by.pavlovskii.ilya.mvvm.test.di;
 
+import android.databinding.DataBindingUtil;
+
 import by.pavlovskii.ilya.mvvm.test.application.App;
 import by.pavlovskii.ilya.mvvm.test.di.components.ApplicationComponent;
 import by.pavlovskii.ilya.mvvm.test.di.components.DaggerApplicationComponent;
@@ -25,6 +27,7 @@ public class Injector {
                 .application(app)
                 .build();
         sApplicationComponent.inject(app);
+        DataBindingUtil.setDefaultComponent(sApplicationComponent);
     }
 
     public static ApplicationComponent getApplicationComponent() {

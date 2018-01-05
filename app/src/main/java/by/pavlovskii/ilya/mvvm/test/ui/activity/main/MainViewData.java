@@ -2,6 +2,7 @@ package by.pavlovskii.ilya.mvvm.test.ui.activity.main;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
+import android.databinding.ObservableList;
 
 import javax.inject.Inject;
 
@@ -22,16 +23,12 @@ import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
  */
 public class MainViewData extends SimpleViewData {
 
-    public ObservableArrayList<DemoActivity> demoList = new ObservableArrayList<>();
-    public ObservableField<String> info = new ObservableField<>("");
-
-    public MainViewData() {
-    }
+    public final ObservableList<DemoActivity> demoList = new ObservableArrayList<>();
+    public final ObservableField<String> info = new ObservableField<>("");
 
     @Override
     public void destroy() {
         super.destroy();
         demoList.clear();
-        demoList = null;
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:attr="http://schemas.android.com/apk/res-auto">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -11,7 +10,7 @@
 
         <variable
             name="demoAdapterListener"
-            type="by.pavlovskii.ilya.mvvm.test.adapters.DemoAdapter.OnDemoAdapterListener"/>
+            type="by.pavlovskii.ilya.mvvm.test.ui.activity.main.DemoAdapter"/>
     </data>
 
     <LinearLayout
@@ -28,8 +27,8 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            attr:demoAdapter="@{model.demoList}"
-            attr:demoAdapterListener="@{demoAdapterListener}"/>
+            demoAdapter="@{model.demoList}"
+            demoAdapterListener="@{demoAdapterListener}"/>
 
         <LinearLayout
             android:orientation="horizontal"

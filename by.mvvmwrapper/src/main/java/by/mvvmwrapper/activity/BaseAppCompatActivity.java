@@ -2,11 +2,13 @@ package by.mvvmwrapper.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingComponent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
@@ -59,7 +61,13 @@ public abstract class BaseAppCompatActivity<TViewModel extends BaseViewModel, TV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
+
+        DataBindingComponent dataBindingComponent = getDataBindingComponent();
+        if (dataBindingComponent == null) {
+            mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
+        } else {
+            mBinding = DataBindingUtil.setContentView(this, getLayoutRes(), dataBindingComponent);
+        }
         mViewModel = initViewModel();
 
         if (mBinding == null) {
@@ -142,6 +150,11 @@ public abstract class BaseAppCompatActivity<TViewModel extends BaseViewModel, TV
     @NonNull
     protected TViewModel getViewModel() {
         return mViewModel;
+    }
+
+    @Nullable
+    protected DataBindingComponent getDataBindingComponent() {
+        return null;
     }
 
 }

@@ -17,11 +17,6 @@ import by.mvvmwrapper.viewdata.ViewData;
  */
 public class DemoViewData extends BaseViewData {
 
-    public ObservableField<String> title = new ObservableField<>();
+    public final ObservableField<String> title = new ObservableField<>();
 
-    @Override
-    public void destroy() {
-        super.destroy();
-        title = null;
-    }
 }

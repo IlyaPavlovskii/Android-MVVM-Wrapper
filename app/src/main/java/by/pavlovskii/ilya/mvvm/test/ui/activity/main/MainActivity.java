@@ -1,12 +1,16 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.main;
 
+import android.databinding.DataBindingComponent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import javax.inject.Inject;
 
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
+import by.pavlovskii.ilya.mvvm.test.di.Injector;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -14,6 +18,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import ru.terrakok.cicerone.Navigator;
+import timber.log.Timber;
 
 /**
  * Create with Android Studio<br>
@@ -38,13 +43,18 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            Log.d(TAG, "TimerFragment. Replace");
+            Timber.d("TimerFragment. Replace");
             mRouter.navigateTo(Constants.FragmentKeys.TIMER);
             mRouter.navigateTo(Constants.FragmentKeys.TIMER, 1);
         }
     }
 
-    // ===========
+    @Nullable
+    @Override
+    protected android.databinding.DataBindingComponent getDataBindingComponent() {
+        return Injector.getApplicationComponent();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();

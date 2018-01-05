@@ -21,7 +21,7 @@ import dagger.Provides;
  */
 @Module
 @FragmentScope
-public abstract class TimerViewModelModule {
+public interface TimerViewModelModule {
 
     @Provides
     @FragmentScope

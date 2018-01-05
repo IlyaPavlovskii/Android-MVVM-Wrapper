@@ -16,10 +16,10 @@ import dagger.android.ContributesAndroidInjector;
  * ===================================================================================<br>
  */
 @Module
-public abstract class TimerFragmentProvider {
+public interface TimerFragmentProvider {
 
     @FragmentScope
     @ContributesAndroidInjector(modules = TimerViewModelModule.class)
-    abstract TimerFragment provideAboutFragmentFactory();
+    TimerFragment provideAboutFragmentFactory();
 
 }

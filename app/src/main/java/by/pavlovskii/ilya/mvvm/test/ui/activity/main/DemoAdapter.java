@@ -1,4 +1,4 @@
-package by.pavlovskii.ilya.mvvm.test.adapters;
+package by.pavlovskii.ilya.mvvm.test.ui.activity.main;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

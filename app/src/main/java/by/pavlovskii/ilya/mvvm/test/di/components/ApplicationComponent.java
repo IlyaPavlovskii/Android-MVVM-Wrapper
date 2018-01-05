@@ -2,6 +2,7 @@ package by.pavlovskii.ilya.mvvm.test.di.components;
 
 import android.app.Application;
 import android.content.Context;
+import android.databinding.DataBindingComponent;
 
 import javax.inject.Singleton;
 
@@ -31,7 +32,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 
         ActivityModule.class
 })
-public interface ApplicationComponent {
+public interface ApplicationComponent extends android.databinding.DataBindingComponent {
 
     @Component.Builder
     interface Builder {

@@ -27,8 +27,8 @@ import ru.terrakok.cicerone.android.navigator.ISystemMessageNavigator;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
-        extends BaseDaggerDialogAppCompatActivity<TViewModel, TViewDataBinding>
+public abstract class BaseActivity<VM extends BaseViewModel, DB extends ViewDataBinding>
+        extends BaseDaggerDialogAppCompatActivity<VM, DB>
         implements ISystemMessageActions, DialogActionsDelegate {
 
     @Inject
@@ -90,6 +90,6 @@ public abstract class BaseActivity<TViewModel extends BaseViewModel, TViewDataBi
         return null;
     }
 
-    protected abstract Class<TViewModel> getViewModelClass();
+    protected abstract Class<VM> getViewModelClass();
 
 }
