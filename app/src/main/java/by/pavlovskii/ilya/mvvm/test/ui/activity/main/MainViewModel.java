@@ -8,6 +8,8 @@ import android.text.TextUtils;
 
 import org.joda.time.format.ISODateTimeFormat;
 
+import javax.inject.Inject;
+
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
@@ -38,9 +40,10 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
     @Nullable
     private ObservableEmitter<DemoActivity> mNavigateToEmitter;
 
+    @Inject
     public MainViewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
         super(viewData);
-        Timber.d("constructor");
+        Timber.d("constructor: %s", hashCode());
         mDemoActivityFactory = demoActivityFactory;
     }
 
@@ -48,7 +51,7 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
         Timber.d("bind: %s", hashCode());
         ((ActivityMainBinding) viewDataBinding).setModel(mViewData);
-        //((ActivityMainBinding) viewDataBinding).setDemoAdapterListener(this::doNavigation);
+        ((ActivityMainBinding) viewDataBinding).setDemoAdapterListener(this::doNavigation);
     }
 
 

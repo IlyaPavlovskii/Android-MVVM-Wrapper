@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 
 /**
@@ -22,6 +24,10 @@ import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
  * ===================================================================================<br>
  */
 public class MainBindingAdapter {
+
+    @Inject
+    public MainBindingAdapter() {
+    }
 
     @BindingAdapter({"demoAdapter"})
     public static void demoAdapter(@NonNull RecyclerView recyclerView, @Nullable List<DemoActivity> list) {

@@ -8,10 +8,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 
-import by.mvvmwrapper.utils.viewmodelproviders.ProviderViewModelProviderFactory;
+import by.mvvmwrapper.utils.viewmodelproviders.LazyViewModelProviderFactory;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
+import dagger.Lazy;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -39,7 +39,7 @@ public abstract class BaseDaggerDialogAppCompatActivity<VM extends BaseViewModel
     @Inject
     DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
-    Provider<VM> mViewModelProvider;
+    Lazy<VM> mViewModelLazy;
 
     //===================================================================================
     //----------------------------------Abstract methods---------------------------------
@@ -70,6 +70,7 @@ public abstract class BaseDaggerDialogAppCompatActivity<VM extends BaseViewModel
 
     @NonNull
     protected ViewModelProvider.Factory getViewModelProviderFactory() {
-        return new ProviderViewModelProviderFactory<>(getViewModelClass(), mViewModelProvider);
+        //return new ProviderViewModelProviderFactory<>(getViewModelClass(), mViewModelLazy);
+        return new LazyViewModelProviderFactory<>(getViewModelClass(), mViewModelLazy);
     }
 }

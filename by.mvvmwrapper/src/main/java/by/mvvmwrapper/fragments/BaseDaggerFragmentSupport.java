@@ -10,8 +10,10 @@ import android.support.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
+import by.mvvmwrapper.utils.viewmodelproviders.LazyViewModelProviderFactory;
 import by.mvvmwrapper.utils.viewmodelproviders.ProviderViewModelProviderFactory;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
+import dagger.Lazy;
 import dagger.android.support.AndroidSupportInjection;
 
 /**
@@ -32,8 +34,10 @@ public abstract class BaseDaggerFragmentSupport<M extends BaseViewModel, B exten
     //======================================================
     //------------------------Fields------------------------
     //======================================================
+//    @Inject
+//    Provider<M> mViewModelProvider;
     @Inject
-    Provider<M> mViewModelProvider;
+    Lazy<M> mViewModelLazy;
 
     //======================================================
     //-------------------Override methods-------------------
@@ -57,7 +61,8 @@ public abstract class BaseDaggerFragmentSupport<M extends BaseViewModel, B exten
     //======================================================
     @NonNull
     protected ViewModelProvider.Factory getViewModelFactory() {
-        return new ProviderViewModelProviderFactory<>(getViewModelClass(), mViewModelProvider);
+        //return new ProviderViewModelProviderFactory<>(getViewModelClass(), mViewModelProvider);
+        return new LazyViewModelProviderFactory<>(getViewModelClass(), mViewModelLazy);
     }
 
     //======================================================

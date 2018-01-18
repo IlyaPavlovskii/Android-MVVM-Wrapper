@@ -35,23 +35,21 @@ public interface MainActivityModule {
     @ActivityScope
     Navigator navigator(MainNavigator navigator);
 
-    @Provides
-    @ActivityScope
-    static MainViewData viewData() {
-        return new MainViewData();
-    }
-
-    @Provides
-    @ActivityScope
-    static MainViewModel viewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
-        Timber.d("provide");
-        return new MainViewModel(viewData, demoActivityFactory);
-    }
-
-    @Provides
-    @ActivityScope
-    static MainBindingAdapter mainBindingAdapter() {
-        return new MainBindingAdapter();
-    }
+//    @Provides
+//    @ActivityScope
+//    static MainViewData viewData() {
+//        return new MainViewData();
+//    }
+//    @Provides
+//    @ActivityScope
+//    static MainViewModel viewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
+//        Timber.d("provide");
+//        return new MainViewModel(viewData, demoActivityFactory);
+//    }
+//    @Provides
+//    @ActivityScope
+//    static MainBindingAdapter mainBindingAdapter() {
+//        return new MainBindingAdapter();
+//    }
 
 }

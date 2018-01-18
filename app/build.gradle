@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'jacoco-android'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -16,7 +15,6 @@ android {
     }
     buildTypes {
         debug {
-            //testCoverageEnabled true
         }
         release {
             minifyEnabled false
@@ -46,6 +44,8 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:${rootProject.supportVersion}"
     implementation "com.android.support:design:${rootProject.supportVersion}"
     implementation 'joda-time:joda-time:2.9.9'
+
+    implementation 'me.grantland:autofittextview:0.2.1'
 
     //Dagger 2
     annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"

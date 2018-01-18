@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:attr="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <by.pavlovskii.ilya.mvvm.test.view.AutofitLayout
+        android:id="@+id/vAutofitLayout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:padding="10dp"
+        attr:minTextSize="16sp"
+        attr:sizeToFit="true">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/vEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/max_text_size"
+            android:paddingTop="30dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="100dp"
+            android:background="@drawable/bubble_1"/>
+    </by.pavlovskii.ilya.mvvm.test.view.AutofitLayout>
+
+</LinearLayout>

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
+import by.pavlovskii.ilya.mvvm.test.BuildConfig;
 import by.pavlovskii.ilya.mvvm.test.di.Injector;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -39,8 +40,12 @@ public class App extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
         Timber.d("onCreate");
         Injector.init(this);
+
     }
 
     @Override

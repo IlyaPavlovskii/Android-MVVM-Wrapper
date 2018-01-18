@@ -2,6 +2,8 @@ package by.pavlovskii.ilya.mvvm.test.ui.fragments.timer;
 
 import android.databinding.ObservableField;
 
+import javax.inject.Inject;
+
 import by.mvvmwrapper.viewdata.SimpleViewData;
 
 /**
@@ -17,6 +19,10 @@ import by.mvvmwrapper.viewdata.SimpleViewData;
 public class TimerViewData extends SimpleViewData {
 
     public final ObservableField<String> time = new ObservableField<>("");
+
+    @Inject
+    public TimerViewData() {
+    }
 
     public void setTime(String time) {
         this.time.set(time);

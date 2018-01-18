@@ -34,6 +34,6 @@ public class ProviderViewModelProviderFactory<T extends BaseViewModel> implement
         if (modelClass.isAssignableFrom(mClass)) {
             return (T) mProvider.get();
         }
-        return null;
+        throw new IllegalArgumentException("ViewModel class not found");
     }
 }

@@ -26,6 +26,10 @@ public class MainViewData extends SimpleViewData {
     public final ObservableList<DemoActivity> demoList = new ObservableArrayList<>();
     public final ObservableField<String> info = new ObservableField<>("");
 
+    @Inject
+    public MainViewData() {
+    }
+
     @Override
     public void destroy() {
         super.destroy();
