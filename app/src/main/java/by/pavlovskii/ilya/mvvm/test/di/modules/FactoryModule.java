@@ -19,7 +19,6 @@ import dagger.Provides;
  * ===================================================================================<br>
  */
 @Module
-@Singleton
 public class FactoryModule {
 
     @Provides

@@ -13,7 +13,7 @@
         attr:minTextSize="16sp"
         attr:sizeToFit="true">
 
-        <android.support.v7.widget.AppCompatEditText
+        <by.pavlovskii.ilya.mvvm.test.view.stroke.StrokeEditText
             android:id="@+id/vEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,8 +24,11 @@
             android:paddingTop="30dp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
+            android:text="фвып"
             android:paddingBottom="100dp"
-            android:background="@drawable/bubble_1"/>
+            android:background="@drawable/bubble_1"
+            attr:textStrokeColor="@android:color/black"
+            attr:textStrokeWidth="8dp" />
     </by.pavlovskii.ilya.mvvm.test.view.AutofitLayout>
 
 </LinearLayout>

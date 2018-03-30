@@ -33,4 +33,16 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <declare-styleable name="StrokedTextAttrs">
+        <attr name="textStrokeColor" format="color" />
+        <attr name="textStrokeWidth" format="float|dimension" />
+        <attr name="textHintStrokeColor" format="color" />
+        <attr name="textHintStrokeWidth" format="float|dimension" />
+    </declare-styleable>
+    <declare-styleable name="AutofitTextView">
+        <attr name="minTextSize" format="dimension" />
+        <attr name="precision" format="float" />
+        <attr name="sizeToFit" format="boolean" />
+    </declare-styleable>
+
 </resources>

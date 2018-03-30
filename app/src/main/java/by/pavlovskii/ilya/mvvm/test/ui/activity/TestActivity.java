@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.widget.EditText;
@@ -33,6 +34,7 @@ public class TestActivity extends AppCompatActivity {
     private AutofitHelper mAutofitHelper;
 
     private int mMaxTextSize;
+    private int mInitHeight = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,12 +49,13 @@ public class TestActivity extends AppCompatActivity {
         vEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mAutofitHelper.autofit();
+                //mAutofitHelper.autofit();
+                Timber.d("beforeTextChanged. " + i + " i1 " + i1 + " i2 " + i2);
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                Timber.d("onTextChanged. " + i + " i1 " + i1 + " i2 " + i2);
             }
 
             @Override
@@ -67,23 +70,30 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void autoresizeTextView(@NonNull TextView textView, @NonNull AutofitLayout autofitLayout,
-                                    @NonNull AutofitHelper autofitHelper, @NonNull CharSequence charSequence) {
+                                    @NonNull AutofitHelper autofitHelper, @NonNull CharSequence input) {
+        if (mInitHeight < 0) {
+            mInitHeight = textView.getHeight();
+        }
+        int maxBubbleLines = 3;
         int maxWidth = autofitLayout.getWidth() - (autofitLayout.getPaddingLeft() + autofitLayout.getPaddingRight());
-        maxWidth = (int) (0.85 * maxWidth);
+        maxWidth = (int) (0.8 * maxWidth);
         int width = textView.getWidth();
-        int wordCount = wordCount(charSequence);
-        boolean hasNewLines = hasNewline(charSequence);
-        Timber.d("TV width: %d Max width: %d Has new lines: %s Line count: %d", width, maxWidth, hasNewLines, textView.getLineCount());
-        if (textView.getLineCount() == 1 && !hasNewLines && wordCount == 1 && width < maxWidth) {
+        int wordCount = wordCount(input);
+        boolean hasNewLines = hasNewline(input);
+        //int lineCount = Math.max(1, textView.getLineCount());
+        //Timber.d("TV width: %d Max width: %d Has new lines: %s Line count: %d TR length: %d", width, maxWidth, hasNewLines, textView.getLineCount(), TextUtils.getTrimmedLength(input));
+        Timber.d("Height: %d Init height: %d", textView.getHeight(), mInitHeight);
+        if (!hasNewLines && width < maxWidth &&
+                (wordCount == 1 || TextUtils.getTrimmedLength(input) < 8)) {
             if (autofitHelper.getMaxTextSize() < mMaxTextSize) {
                 autofitHelper.setRawMaxTextSize(mMaxTextSize);
             }
             return;
         }
         int newLine = hasNewLines ? 2 : 1;
-        int maxLines = Math.max(newLine, Math.min(wordCount, MAX_LINES));
+        int maxLines = Math.max(newLine, Math.min(wordCount, maxBubbleLines));
         int textSize = mMaxTextSize / maxLines;
-        Timber.d("TV. Word: %d, Lines: %d Text size: %d MAX Text size: %d", wordCount, maxLines, textSize, mMaxTextSize);
+        //Timber.d("TV. Word: %d, Lines: %d Text size: %d MAX Text size: %d", wordCount, maxLines, textSize, mMaxTextSize);
         autofitHelper.setRawMaxTextSize(textSize);
         autofitHelper.setMaxLines(maxLines);
     }
