@@ -1,21 +1,10 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.main.di;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
-
-import javax.inject.Provider;
-
 import by.mvvmwrapper.dagger.scope.ActivityScope;
 import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
-import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainBindingAdapter;
-import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewData;
-import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
-import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
 import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 import ru.terrakok.cicerone.Navigator;
-import timber.log.Timber;
 
 /**
  * Create with Android Studio<br>

@@ -70,7 +70,6 @@ public abstract class BaseDaggerDialogAppCompatActivity<VM extends BaseViewModel
 
     @NonNull
     protected ViewModelProvider.Factory getViewModelProviderFactory() {
-        //return new ProviderViewModelProviderFactory<>(getViewModelClass(), mViewModelLazy);
         return new LazyViewModelProviderFactory<>(getViewModelClass(), mViewModelLazy);
     }
 }
