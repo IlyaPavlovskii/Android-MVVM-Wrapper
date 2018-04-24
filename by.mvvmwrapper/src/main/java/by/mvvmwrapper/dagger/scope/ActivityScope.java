@@ -15,7 +15,7 @@ import javax.inject.Scope;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-//@Scope
-//@Retention(RetentionPolicy.RUNTIME)
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
 public @interface ActivityScope {
 }

@@ -48,8 +48,8 @@ public abstract class BaseActivity<M extends BaseViewModel, B extends ViewDataBi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        inflateBinding();
         mViewModel = initViewModel();
+        inflateBinding();
 
         if (mBinding == null) {
             throw new NullPointerException("ViewDataBinding must be initialized");

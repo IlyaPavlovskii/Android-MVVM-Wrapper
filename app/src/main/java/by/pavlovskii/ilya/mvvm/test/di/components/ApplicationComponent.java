@@ -1,8 +1,6 @@
 package by.pavlovskii.ilya.mvvm.test.di.components;
 
 import android.app.Application;
-import android.content.Context;
-import android.databinding.DataBindingComponent;
 
 import javax.inject.Singleton;
 

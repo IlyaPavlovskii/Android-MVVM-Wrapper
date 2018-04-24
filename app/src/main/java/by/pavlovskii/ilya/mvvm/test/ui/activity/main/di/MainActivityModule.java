@@ -1,10 +1,18 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.main.di;
 
+import android.support.annotation.NonNull;
+
 import by.mvvmwrapper.dagger.scope.ActivityScope;
 import by.pavlovskii.ilya.mvvm.test.navigator.MainNavigator;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainBindingAdapter;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewData;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
+import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
 import dagger.Binds;
 import dagger.Module;
+import dagger.Provides;
 import ru.terrakok.cicerone.Navigator;
+import timber.log.Timber;
 
 /**
  * Create with Android Studio<br>
@@ -17,24 +25,20 @@ import ru.terrakok.cicerone.Navigator;
  * ===================================================================================<br>
  */
 @Module
-@ActivityScope
-public interface MainActivityModule {
+public abstract class MainActivityModule {
 
     @Binds
     @ActivityScope
-    Navigator navigator(MainNavigator navigator);
+    abstract Navigator navigator(MainNavigator navigator);
 
-//    @Provides
-//    @ActivityScope
-//    static MainViewData viewData() {
-//        return new MainViewData();
-//    }
-//    @Provides
-//    @ActivityScope
-//    static MainViewModel viewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
-//        Timber.d("provide");
-//        return new MainViewModel(viewData, demoActivityFactory);
-//    }
+    @Provides
+    @ActivityScope
+    static MainViewModel viewModel(@NonNull MainViewData viewData,
+                                   @NonNull DemoActivityFactory demoActivityFactory) {
+        Timber.d("provide");
+        return new MainViewModel(viewData, demoActivityFactory);
+    }
+
 //    @Provides
 //    @ActivityScope
 //    static MainBindingAdapter mainBindingAdapter() {

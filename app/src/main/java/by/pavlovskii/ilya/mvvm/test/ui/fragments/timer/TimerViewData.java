@@ -20,7 +20,6 @@ public class TimerViewData extends SimpleViewData {
 
     public final ObservableField<String> time = new ObservableField<>("");
 
-    @Inject
     public TimerViewData() {
     }
 

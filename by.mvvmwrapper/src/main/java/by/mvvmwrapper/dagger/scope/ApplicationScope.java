@@ -17,8 +17,8 @@ import javax.inject.Scope;
  * Application scope for dagger injection<br>
  * ===================================================================================<br>
  */
-//@Scope
-//@Retention(RetentionPolicy.RUNTIME)
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
 public @interface ApplicationScope {
 
 }

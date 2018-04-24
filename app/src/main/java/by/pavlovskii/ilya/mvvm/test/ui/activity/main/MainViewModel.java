@@ -40,7 +40,6 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
     @Nullable
     private ObservableEmitter<DemoActivity> mNavigateToEmitter;
 
-    @Inject
     public MainViewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
         super(viewData);
         Timber.d("constructor: %s", hashCode());

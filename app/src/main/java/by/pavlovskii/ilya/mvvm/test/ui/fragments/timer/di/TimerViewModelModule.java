@@ -21,8 +21,7 @@ import dagger.Provides;
  * ===================================================================================<br>
  */
 @Module
-@FragmentScope
-public interface TimerViewModelModule {
+public abstract class TimerViewModelModule {
 
     @Provides
     @FragmentScope
@@ -33,7 +32,7 @@ public interface TimerViewModelModule {
     @Provides
     @FragmentScope
     static TimerViewModel viewModel(@NonNull TimerViewData viewData, Lazy<MainViewModel> lazy) {
-        return new TimerViewModel(viewData, lazy);
+        return new TimerViewModel(viewData, lazy.get());
     }
 
 }

@@ -25,7 +25,9 @@ import dagger.android.ContributesAndroidInjector;
 public interface ActivityModule {
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = {MainActivityModule.class, TimerFragmentProvider.class})
+    @ContributesAndroidInjector(modules = {
+            MainActivityModule.class,
+            TimerFragmentProvider.class})
     MainActivity mainActivityInjector();
 
     @ActivityScope

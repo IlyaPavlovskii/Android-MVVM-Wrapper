@@ -7,12 +7,9 @@ import org.joda.time.format.ISODateTimeFormat;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.FragmentTimerBinding;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
-import dagger.Lazy;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -37,11 +34,10 @@ public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
     private final MainViewModel mMainViewModel;
     private final CompositeDisposable mDisposable = new CompositeDisposable();
 
-    @Inject
-    public TimerViewModel(@NonNull TimerViewData viewData, @NonNull Lazy<MainViewModel> lazy) {
+    public TimerViewModel(@NonNull TimerViewData viewData, @NonNull MainViewModel viewModel) {
         super(viewData);
-        mMainViewModel = lazy.get();
-        Timber.d("constructor. VM: %s Lazy code: %s", mMainViewModel.hashCode(), lazy.hashCode());
+        mMainViewModel = viewModel;
+        Timber.d("constructor. VM: %s ", mMainViewModel.hashCode());
         mDisposable.add(timer());
     }
 

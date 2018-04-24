@@ -42,12 +42,6 @@ public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBin
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Timber.d("onAttach");
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Timber.d("onViewCreated");
