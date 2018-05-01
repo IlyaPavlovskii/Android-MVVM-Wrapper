@@ -40,13 +40,12 @@ public class MainNavigator extends FragmentActivityNavigatorImpl {
     @Nullable
     @Override
     protected ISupportFragmentContainer getSupportFragmentContainer(String screenKey, Object... transitionData) {
-        switch (screenKey) {
-            case Constants.FragmentKeys.TIMER:
-                if (isEmptyData(transitionData)) {
-                    return SupportFragmentContainerImpl.create(R.id.vFlContainer, TimerFragment.newInstance());
-                } else {
-                    return SupportFragmentContainerImpl.create(R.id.vFlContainer1, TimerFragment.newInstance());
-                }
+        if (Constants.FragmentKeys.TIMER.equals(screenKey)) {
+            if (isEmptyData(transitionData)) {
+                return SupportFragmentContainerImpl.create(R.id.vFlContainer, TimerFragment.newInstance());
+            } else {
+                return SupportFragmentContainerImpl.create(R.id.vFlContainer1, TimerFragment.newInstance());
+            }
         }
         return null;
     }
@@ -54,11 +53,10 @@ public class MainNavigator extends FragmentActivityNavigatorImpl {
     @Nullable
     @Override
     protected IActivityContainer getActivityContainer(String commandKey, Object... transitionData) {
-        switch (commandKey) {
-            case Constants.ActivityKeys.MAIN:
-                return ActivityContainerImpl.create(getActivity(), MainActivity.class);
-            case Constants.ActivityKeys.YELLOW:
-                return ActivityContainerImpl.create(getActivity(), YellowActivity.class);
+        if (Constants.ActivityKeys.MAIN.equals(commandKey)) {
+            return ActivityContainerImpl.create(getActivity(), MainActivity.class);
+        } else if (Constants.ActivityKeys.YELLOW.equals(commandKey)) {
+            return ActivityContainerImpl.create(getActivity(), YellowActivity.class);
         }
         return null;
     }

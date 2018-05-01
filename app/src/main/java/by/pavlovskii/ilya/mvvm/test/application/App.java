@@ -40,9 +40,7 @@ public class App extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        }
+        initLogger();
         Timber.d("onCreate");
         Injector.init(this);
 
@@ -57,5 +55,11 @@ public class App extends Application implements HasActivityInjector {
     @Override
     public AndroidInjector<Activity> activityInjector() {
         return dispatchingAndroidInjector;
+    }
+
+    private void initLogger() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 }
