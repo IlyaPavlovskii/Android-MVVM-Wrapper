@@ -7,13 +7,13 @@ import org.joda.time.format.ISODateTimeFormat;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.FragmentTimerBinding;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -32,13 +32,11 @@ import timber.log.Timber;
 public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
 
     private final MainViewModel mMainViewModel;
-    private final CompositeDisposable mDisposable = new CompositeDisposable();
 
+    @Inject
     public TimerViewModel(@NonNull TimerViewData viewData, @NonNull MainViewModel viewModel) {
         super(viewData);
         mMainViewModel = viewModel;
-        Timber.d("constructor. VM: %s ", mMainViewModel.hashCode());
-        mDisposable.add(timer());
     }
 
     @Override
@@ -47,18 +45,12 @@ public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
         ((FragmentTimerBinding) viewDataBinding).setModel(mViewData);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mDisposable.clear();
-    }
-
-    private Disposable timer() {
+    public Observable<String> timer() {
         return Observable.interval(1, TimeUnit.SECONDS)
                 .map(instant -> ISODateTimeFormat.basicTimeNoMillis().print(instant))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mViewData::setTime, this::handleException);
+                .doOnNext(mViewData::setTime);
     }
 
     public void updateInfo() {

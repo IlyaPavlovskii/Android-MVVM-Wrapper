@@ -24,8 +24,8 @@ import by.mvvmwrapper.viewmodel.BaseViewModel;
  * {@link BaseAppCompatActivity} extension with {@link DialogActionsDelegate} implementation<br>
  * ===================================================================================<br>
  */
-public abstract class BaseDialogAppCompatActivity<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
-        extends BaseAppCompatActivity<TViewModel, TViewDataBinding>
+public abstract class BaseDialogAppCompatActivity<T extends BaseViewModel, B extends ViewDataBinding>
+        extends BaseAppCompatActivity<T, B>
         implements DialogActionsDelegate {
 
     //======================================================

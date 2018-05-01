@@ -7,11 +7,14 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 
+import by.mvvmwrapper.exceptions.ExceptionHandler;
+import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 
 /**
@@ -28,7 +31,8 @@ import by.mvvmwrapper.viewmodel.BaseViewModel;
  * ===================================================================================
  */
 public abstract class BaseAppCompatActivity<M extends BaseViewModel, B extends ViewDataBinding>
-        extends AppCompatActivity {
+        extends AppCompatActivity
+        implements ExceptionHandler {
 
     //======================================================
     //------------------------Fields------------------------
@@ -37,6 +41,8 @@ public abstract class BaseAppCompatActivity<M extends BaseViewModel, B extends V
     protected B mBinding;
     @NonNull
     protected M mViewModel;
+    @NonNull
+    protected ExceptionHandlerChain mExceptionHandlerChain;
 
     //======================================================
     //-------------------Abstract methods-------------------
@@ -53,15 +59,9 @@ public abstract class BaseAppCompatActivity<M extends BaseViewModel, B extends V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mExceptionHandlerChain = initExceptionHandlerChain();
         mViewModel = initViewModel();
-        inflateBinding(savedInstanceState);
-
-        if (mBinding == null) {
-            throw new NullPointerException("ViewDataBinding must be initialized");
-        }
-        if (mViewModel == null) {
-            throw new NullPointerException("IViewModel component must be initialized");
-        }
+        inflateBinding();
 
         mViewModel.bindViewData(mBinding);
         mViewModel.onCreate(savedInstanceState);
@@ -133,13 +133,48 @@ public abstract class BaseAppCompatActivity<M extends BaseViewModel, B extends V
         mBinding.unbind();
     }
 
+    @Override
+    public boolean handleException(@Nullable Throwable throwable) {
+        return mExceptionHandlerChain.handleException(throwable);
+    }
+
     @NonNull
     protected M getViewModel() {
         return mViewModel;
     }
 
-    protected void inflateBinding(Bundle savedInstanceState) {
+    protected void inflateBinding() {
         mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
     }
+
+    @NonNull
+    protected ExceptionHandlerChain initExceptionHandlerChain() {
+        return new ExceptionHandlerChain();
+    }
+
+    protected void addExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.addHandler(exceptionHandler);
+    }
+
+    protected void addExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void addExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.removeHandler(exceptionHandler);
+    }
+
+    protected void removeExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
 }
 

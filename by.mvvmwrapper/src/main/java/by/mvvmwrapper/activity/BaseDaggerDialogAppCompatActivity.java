@@ -9,9 +9,7 @@ import android.support.v4.app.Fragment;
 
 import javax.inject.Inject;
 
-import by.mvvmwrapper.utils.viewmodelproviders.LazyViewModelProviderFactory;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
-import dagger.Lazy;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -29,8 +27,8 @@ import dagger.android.support.HasSupportFragmentInjector;
  * {@link BaseDialogAppCompatActivity} extension with dependency injection modules<br>
  * ===================================================================================<br>
  */
-public abstract class BaseDaggerDialogAppCompatActivity<VM extends BaseViewModel, DB extends ViewDataBinding>
-        extends BaseDialogAppCompatActivity<VM, DB>
+public abstract class BaseDaggerDialogAppCompatActivity<T extends BaseViewModel, B extends ViewDataBinding>
+        extends BaseDialogAppCompatActivity<T, B>
         implements HasSupportFragmentInjector {
 
     //===================================================================================
@@ -39,12 +37,12 @@ public abstract class BaseDaggerDialogAppCompatActivity<VM extends BaseViewModel
     @Inject
     DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
-    Lazy<VM> mViewModelLazy;
+    ViewModelProvider.Factory mViewModelProviderFactory;
 
     //===================================================================================
     //----------------------------------Abstract methods---------------------------------
     //===================================================================================
-    protected abstract Class<VM> getViewModelClass();
+    protected abstract Class<T> getViewModelClass();
 
     //===================================================================================
     //----------------------------------Override methods---------------------------------
@@ -62,14 +60,10 @@ public abstract class BaseDaggerDialogAppCompatActivity<VM extends BaseViewModel
 
     @NonNull
     @Override
-    protected VM initViewModel() {
+    protected T initViewModel() {
         return ViewModelProviders
-                .of(this, getViewModelProviderFactory())
+                .of(this, mViewModelProviderFactory)
                 .get(getViewModelClass());
     }
 
-    @NonNull
-    protected ViewModelProvider.Factory getViewModelProviderFactory() {
-        return new LazyViewModelProviderFactory<>(getViewModelClass(), mViewModelLazy);
-    }
 }

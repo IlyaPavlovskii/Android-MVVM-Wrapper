@@ -14,9 +14,14 @@ import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.List;
+
+import by.mvvmwrapper.exceptions.ExceptionHandler;
 import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
 import by.mvvmwrapper.interfaces.DialogActionsDelegate;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Create with Android Studio<br>
@@ -32,7 +37,7 @@ import by.mvvmwrapper.viewmodel.BaseViewModel;
  */
 public abstract class BaseFragmentSupport<M extends BaseViewModel, B extends ViewDataBinding>
         extends android.support.v4.app.Fragment
-        implements DialogActionsDelegate {
+        implements DialogActionsDelegate, ExceptionHandler {
 
     //======================================================
     //------------------------Fields------------------------
@@ -43,21 +48,66 @@ public abstract class BaseFragmentSupport<M extends BaseViewModel, B extends Vie
     protected M mViewModel;
 
     private Dialog mProgressDialog;
+    protected final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+
+    @NonNull
+    protected ExceptionHandlerChain mExceptionHandlerChain;
 
     //======================================================
     //-------------------Abstract methods-------------------
     //======================================================
     @LayoutRes
     protected abstract int getLayoutRes();
+
     @NonNull
     protected abstract M initViewModel();
 
     //======================================================
     //-------------------Protected methods------------------
     //======================================================
+    protected void inflateBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
+    }
+
+    protected void addDisposable(@Nullable Disposable disposable) {
+        if (disposable != null) {
+            mCompositeDisposable.add(disposable);
+        }
+    }
+
+    protected void addDisposable(@Nullable Disposable... array) {
+        if (array != null && array.length > 0) {
+            mCompositeDisposable.addAll(array);
+        }
+    }
+
     @NonNull
     protected ExceptionHandlerChain initExceptionHandlerChain() {
         return new ExceptionHandlerChain();
+    }
+
+    protected void addExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.addHandler(exceptionHandler);
+    }
+
+    protected void addExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void addExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.removeHandler(exceptionHandler);
+    }
+
+    protected void removeExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
     }
 
     //======================================================
@@ -66,6 +116,7 @@ public abstract class BaseFragmentSupport<M extends BaseViewModel, B extends Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mExceptionHandlerChain = initExceptionHandlerChain();
         mViewModel = initViewModel();
         mViewModel.onCreate(savedInstanceState);
     }
@@ -74,9 +125,6 @@ public abstract class BaseFragmentSupport<M extends BaseViewModel, B extends Vie
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         inflateBinding(inflater, container, savedInstanceState);
-        if (mBinding == null) {
-            throw new NullPointerException("ViewDataBinding must be initialized");
-        }
         return mBinding.getRoot();
     }
 
@@ -108,6 +156,7 @@ public abstract class BaseFragmentSupport<M extends BaseViewModel, B extends Vie
     public void onStop() {
         super.onStop();
         mViewModel.onStop();
+        mCompositeDisposable.clear();
     }
 
     @Override
@@ -171,15 +220,14 @@ public abstract class BaseFragmentSupport<M extends BaseViewModel, B extends Vie
         mBinding.unbind();
     }
 
+    @Override
+    public boolean handleException(@Nullable Throwable throwable) {
+        return mExceptionHandlerChain.handleException(throwable);
+    }
+
     @NonNull
     protected M getViewModel() {
         return mViewModel;
     }
 
-    protected void inflateBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
-        if (mBinding == null) {
-            throw new NullPointerException("ViewDataBinding must be initialized");
-        }
-    }
 }

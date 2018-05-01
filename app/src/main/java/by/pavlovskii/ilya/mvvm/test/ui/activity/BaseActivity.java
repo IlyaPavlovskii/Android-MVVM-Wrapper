@@ -3,6 +3,7 @@ package by.pavlovskii.ilya.mvvm.test.ui.activity;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import javax.inject.Inject;
 
@@ -10,6 +11,8 @@ import by.mvvmwrapper.activity.BaseDaggerDialogAppCompatActivity;
 import by.mvvmwrapper.interfaces.DialogActionsDelegate;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 import by.pavlovskii.ilya.mvvm.test.R;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.Router;
@@ -27,14 +30,16 @@ import ru.terrakok.cicerone.android.navigator.ISystemMessageNavigator;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-public abstract class BaseActivity<VM extends BaseViewModel, DB extends ViewDataBinding>
-        extends BaseDaggerDialogAppCompatActivity<VM, DB>
+public abstract class BaseActivity<T extends BaseViewModel, B extends ViewDataBinding>
+        extends BaseDaggerDialogAppCompatActivity<T, B>
         implements ISystemMessageActions, DialogActionsDelegate {
 
     @Inject
     protected Router mRouter;
     @Inject
     NavigatorHolder mNavigatorHolder;
+
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     private Navigator mNavigator;
 
@@ -76,6 +81,12 @@ public abstract class BaseActivity<VM extends BaseViewModel, DB extends ViewData
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mCompositeDisposable.clear();
+    }
+
 
     @Override
     public void showMessage(@NonNull String message) {
@@ -86,10 +97,22 @@ public abstract class BaseActivity<VM extends BaseViewModel, DB extends ViewData
                 .show();
     }
 
+    protected void addDisposable(@Nullable Disposable disposable) {
+        if (disposable != null) {
+            mCompositeDisposable.add(disposable);
+        }
+    }
+
+    protected void addDisposable(@Nullable Disposable... array) {
+        if (array != null) {
+            mCompositeDisposable.addAll(array);
+        }
+    }
+
     protected Navigator initNavigator() {
         return null;
     }
 
-    protected abstract Class<VM> getViewModelClass();
+    protected abstract Class<T> getViewModelClass();
 
 }

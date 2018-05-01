@@ -1,12 +1,7 @@
 package by.mvvmwrapper.viewmodel;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-import java.util.List;
-
-import by.mvvmwrapper.exceptions.ExceptionHandler;
-import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
 import by.mvvmwrapper.viewdata.ViewData;
 
 /**
@@ -21,21 +16,15 @@ import by.mvvmwrapper.viewdata.ViewData;
  * {@link SimpleViewModel} implementation<br>
  * ===================================================================================
  */
-public abstract class SimpleViewModelImpl<TViewData extends ViewData>
-        extends BaseViewModel implements ExceptionHandler {
-
-    //======================================================
-    //----------------------Constants-----------------------
-    //======================================================
-    public final String TAG = getClass().getSimpleName();
+public abstract class SimpleViewModelImpl<T extends ViewData>
+        extends BaseViewModel {
 
     //======================================================
     //------------------------Fields------------------------
     //======================================================
     @NonNull
-    protected TViewData mViewData;
-    @NonNull
-    protected ExceptionHandlerChain mExceptionHandlerChain;
+    protected T mViewData;
+
 
     //======================================================
     //---------------------Constructors---------------------
@@ -44,54 +33,15 @@ public abstract class SimpleViewModelImpl<TViewData extends ViewData>
         super();
     }
 
-    public SimpleViewModelImpl(@NonNull TViewData viewData) {
+    public SimpleViewModelImpl(@NonNull T viewData) {
         mViewData = viewData;
-        if (mViewData == null) {
-            throw new NullPointerException("ViewData must not be null");
-        }
-        mExceptionHandlerChain = initExceptionHandlerChain();
     }
 
     //======================================================
     //-------------------- Public methods ------------------
     //======================================================
-    public void setViewData(@NonNull TViewData viewData) {
+    public void setViewData(@NonNull T viewData) {
         mViewData = viewData;
-        if (mViewData == null) {
-            throw new NullPointerException("ViewData must not be null");
-        }
-    }
-
-    //======================================================
-    //-------------------Protected methods------------------
-    //======================================================
-    @NonNull
-    protected ExceptionHandlerChain initExceptionHandlerChain() {
-        return new ExceptionHandlerChain();
-    }
-
-    protected void addExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
-        mExceptionHandlerChain.addHandler(exceptionHandler);
-    }
-
-    protected void addExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
-        mExceptionHandlerChain.addHandlers(exceptionHandlers);
-    }
-
-    protected void addExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
-        mExceptionHandlerChain.addHandlers(exceptionHandlers);
-    }
-
-    protected void removeExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
-        mExceptionHandlerChain.removeHandler(exceptionHandler);
-    }
-
-    protected void removeExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
-        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
-    }
-
-    protected void removeExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
-        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
     }
 
     //======================================================
@@ -101,11 +51,6 @@ public abstract class SimpleViewModelImpl<TViewData extends ViewData>
     protected void onCleared() {
         super.onCleared();
         mViewData.destroy();
-    }
-
-    @Override
-    public boolean handleException(@Nullable Throwable throwable) {
-        return mExceptionHandlerChain.handleException(throwable);
     }
 
 }

@@ -1,17 +1,16 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.di;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import javax.inject.Provider;
-
+import by.mvvmwrapper.dagger.map.ViewModelKey;
 import by.mvvmwrapper.dagger.scope.ActivityScope;
-import by.mvvmwrapper.utils.viewmodelproviders.ProviderViewModelProviderFactory;
+import by.mvvmwrapper.viewmodel.BaseViewModel;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.YellowViewData;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.YellowViewModel;
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import dagger.multibindings.IntoMap;
 
 /**
  * Create with Android Studio<br>
@@ -32,16 +31,9 @@ public abstract class YellowActivityModule {
         return new YellowViewData();
     }
 
-    @Provides
-    @ActivityScope
-    static YellowViewModel viewModel(@NonNull YellowViewData viewData) {
-        Log.d("YellowViewModel", "provide");
-        return new YellowViewModel(viewData);
-    }
+    @Binds
+    @IntoMap
+    @ViewModelKey(YellowViewModel.class)
+    abstract BaseViewModel bindYellowViewModel(@NonNull YellowViewModel viewModel);
 
-//    @Provides
-//    @ActivityScope
-//    static ViewModelProvider.Factory factory(@NonNull Provider<YellowViewModel> viewModel) {
-//        return new ProviderViewModelProviderFactory<>(YellowViewModel.class, viewModel);
-//    }
 }

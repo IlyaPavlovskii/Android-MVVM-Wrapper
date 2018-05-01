@@ -40,7 +40,9 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
     @Nullable
     private ObservableEmitter<DemoActivity> mNavigateToEmitter;
 
-    public MainViewModel(@NonNull MainViewData viewData, @NonNull DemoActivityFactory demoActivityFactory) {
+    @Inject
+    public MainViewModel(@NonNull MainViewData viewData,
+                         @NonNull DemoActivityFactory demoActivityFactory) {
         super(viewData);
         Timber.d("constructor: %s", hashCode());
         mDemoActivityFactory = demoActivityFactory;
@@ -95,7 +97,7 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
                 .subscribe(list -> {
                     mViewData.demoList.clear();
                     mViewData.demoList.addAll(list);
-                }, this::handleException);
+                }, Throwable::printStackTrace);
     }
 
 }

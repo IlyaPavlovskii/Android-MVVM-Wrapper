@@ -8,9 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 
-import by.mvvmwrapper.utils.viewmodelproviders.ProviderViewModelProviderFactory;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
@@ -29,8 +27,8 @@ import dagger.android.support.HasSupportFragmentInjector;
  * {@link BaseAppCompatActivity} extension with dependency injection modules<br>
  * ===================================================================================<br>
  */
-public abstract class BaseDaggerAppCompatActivity<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
-        extends BaseAppCompatActivity<TViewModel, TViewDataBinding>
+public abstract class BaseDaggerAppCompatActivity<T extends BaseViewModel, B extends ViewDataBinding>
+        extends BaseAppCompatActivity<T, B>
         implements HasSupportFragmentInjector {
 
     //===================================================================================
@@ -39,12 +37,12 @@ public abstract class BaseDaggerAppCompatActivity<TViewModel extends BaseViewMod
     @Inject
     DispatchingAndroidInjector<Fragment> mFragmentInjector;
     @Inject
-    Provider<TViewModel> mViewModelProvider;
+    ViewModelProvider.Factory mViewModelProviderFactory;
 
     //===================================================================================
     //----------------------------------Abstract methods---------------------------------
     //===================================================================================
-    protected abstract Class<TViewModel> getViewModelClass();
+    protected abstract Class<T> getViewModelClass();
 
     //===================================================================================
     //----------------------------------Override methods---------------------------------
@@ -63,15 +61,10 @@ public abstract class BaseDaggerAppCompatActivity<TViewModel extends BaseViewMod
 
     @NonNull
     @Override
-    protected TViewModel initViewModel() {
+    protected T initViewModel() {
         return ViewModelProviders
-                .of(this, getViewModelProviderFactory())
+                .of(this, mViewModelProviderFactory)
                 .get(getViewModelClass());
-    }
-
-    @NonNull
-    protected ViewModelProvider.Factory getViewModelProviderFactory() {
-        return new ProviderViewModelProviderFactory<>(getViewModelClass(), mViewModelProvider);
     }
 
 }

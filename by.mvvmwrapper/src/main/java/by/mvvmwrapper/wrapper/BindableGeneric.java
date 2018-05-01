@@ -1,7 +1,6 @@
 package by.mvvmwrapper.wrapper;
 
 import android.databinding.BaseObservable;
-import android.databinding.ObservableField;
 
 /**
  * Create with Android Studio<br>
@@ -48,11 +47,6 @@ public class BindableGeneric<T> extends BaseObservable {
     }
 
     @Override
-    public BindableGeneric<T> clone() {
-        return new BindableGeneric<>(mValue);
-    }
-
-    @Override
     public String toString() {
         return mValue != null ? mValue.toString() : null;
     }
@@ -71,7 +65,8 @@ public class BindableGeneric<T> extends BaseObservable {
     /**
      * Set new value to template variable and notify all components about changes
      *
-     * @param value new template value*/
+     * @param value new template value
+     */
     public void set(T value) {
         if (mValue == null || !mValue.equals(value)) {
             this.mValue = value;
@@ -82,7 +77,8 @@ public class BindableGeneric<T> extends BaseObservable {
     /**
      * Set new value to template variable without notify subscribers
      *
-     * @param value new template value*/
+     * @param value new template value
+     */
     public void setValue(T value) {
         this.mValue = value;
     }

@@ -2,13 +2,15 @@ package by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.di;
 
 import android.support.annotation.NonNull;
 
+import by.mvvmwrapper.dagger.map.ViewModelKey;
 import by.mvvmwrapper.dagger.scope.FragmentScope;
-import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
+import by.mvvmwrapper.viewmodel.BaseViewModel;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerViewData;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerViewModel;
-import dagger.Lazy;
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import dagger.multibindings.IntoMap;
 
 /**
  * Create with Android Studio<br>
@@ -29,10 +31,9 @@ public abstract class TimerViewModelModule {
         return new TimerViewData();
     }
 
-    @Provides
-    @FragmentScope
-    static TimerViewModel viewModel(@NonNull TimerViewData viewData, Lazy<MainViewModel> lazy) {
-        return new TimerViewModel(viewData, lazy.get());
-    }
+    @Binds
+    @IntoMap
+    @ViewModelKey(TimerViewModel.class)
+    abstract BaseViewModel bindTimerViewModel(@NonNull TimerViewModel viewModel);
 
 }

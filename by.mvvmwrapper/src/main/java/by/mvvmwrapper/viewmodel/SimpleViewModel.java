@@ -1,6 +1,6 @@
 package by.mvvmwrapper.viewmodel;
 
-import by.mvvmwrapper.interfaces.components.OnLifecycleListener;
+import by.mvvmwrapper.interfaces.components.LifecycleListener;
 import by.mvvmwrapper.interfaces.components.OnRequestPermissionListener;
 import by.mvvmwrapper.interfaces.components.OnSaveRestoreInstanceListener;
 
@@ -16,7 +16,7 @@ import by.mvvmwrapper.interfaces.components.OnSaveRestoreInstanceListener;
  * Simple view model model interface<br>
  * ===================================================================================
  */
-public interface SimpleViewModel extends IViewModel, OnLifecycleListener,
+public interface SimpleViewModel extends IViewModel, LifecycleListener,
         OnRequestPermissionListener, OnSaveRestoreInstanceListener {
 
 }

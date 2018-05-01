@@ -12,12 +12,6 @@ package by.mvvmwrapper.viewdata;
  * Simple {@link ViewData} implementation<br>
  * ===================================================================================
  */
-public class SimpleViewData implements ViewData {
+public class SimpleViewData extends BaseViewData {
 
-    public SimpleViewData() {
-    }
-
-    @Override
-    public void destroy() {
-    }
 }

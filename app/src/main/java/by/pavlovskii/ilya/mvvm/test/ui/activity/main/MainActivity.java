@@ -9,7 +9,6 @@ import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import ru.terrakok.cicerone.Navigator;
@@ -32,8 +31,6 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     @Inject
     Navigator mNavigator;
 
-    private final CompositeDisposable mDisposable = new CompositeDisposable();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,20 +42,14 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        mDisposable.addAll(navigateToDisposable());
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mDisposable.clear();
-    }
-
-    @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        addDisposable(navigateToDisposable());
     }
 
     @Override
@@ -99,7 +90,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
                         default:
                             break;
                     }
-                }, throwable -> getViewModel().handleException(throwable));
+                }, this::handleException);
     }
 
 }

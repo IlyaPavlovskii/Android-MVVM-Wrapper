@@ -1,7 +1,5 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.yellow;
 
-import android.os.Bundle;
-
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityYellowBinding;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
@@ -17,11 +15,6 @@ import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
  * ===================================================================================<br>
  */
 public class YellowActivity extends BaseActivity<YellowViewModel, ActivityYellowBinding> {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     protected int getLayoutRes() {

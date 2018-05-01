@@ -8,6 +8,7 @@ import by.pavlovskii.ilya.mvvm.test.application.App;
 import by.pavlovskii.ilya.mvvm.test.di.modules.ActivityModule;
 import by.pavlovskii.ilya.mvvm.test.di.modules.AppModule;
 import by.pavlovskii.ilya.mvvm.test.di.modules.RouterModule;
+import by.pavlovskii.ilya.mvvm.test.di.modules.ViewModelModule;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;
@@ -27,6 +28,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
         AndroidSupportInjectionModule.class,
         AppModule.class,
         RouterModule.class,
+        ViewModelModule.class,
 
         ActivityModule.class
 })

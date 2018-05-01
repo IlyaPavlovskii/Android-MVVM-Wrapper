@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
+import by.mvvmwrapper.exceptions.ExceptionHandler;
+import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
 
 /**
@@ -32,6 +36,8 @@ public abstract class BaseActivity<M extends BaseViewModel, B extends ViewDataBi
     protected B mBinding;
     @NonNull
     protected M mViewModel;
+    @NonNull
+    protected ExceptionHandlerChain mExceptionHandlerChain;
 
     //======================================================
     //-------------------Abstract methods-------------------
@@ -48,16 +54,9 @@ public abstract class BaseActivity<M extends BaseViewModel, B extends ViewDataBi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mExceptionHandlerChain = initExceptionHandlerChain();
         mViewModel = initViewModel();
         inflateBinding();
-
-        if (mBinding == null) {
-            throw new NullPointerException("ViewDataBinding must be initialized");
-        }
-        if (mViewModel == null) {
-            throw new NullPointerException("IViewModel component must be initialized");
-        }
-
         mViewModel.bindViewData(mBinding);
     }
 
@@ -124,5 +123,34 @@ public abstract class BaseActivity<M extends BaseViewModel, B extends ViewDataBi
 
     protected void inflateBinding() {
         mBinding = DataBindingUtil.setContentView(this, getLayoutRes());
+    }
+
+    @NonNull
+    protected ExceptionHandlerChain initExceptionHandlerChain() {
+        return new ExceptionHandlerChain();
+    }
+
+    protected void addExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.addHandler(exceptionHandler);
+    }
+
+    protected void addExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void addExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.removeHandler(exceptionHandler);
+    }
+
+    protected void removeExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
     }
 }

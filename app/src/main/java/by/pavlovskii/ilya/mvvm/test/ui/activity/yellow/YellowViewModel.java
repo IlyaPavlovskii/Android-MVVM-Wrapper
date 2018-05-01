@@ -2,7 +2,8 @@ package by.pavlovskii.ilya.mvvm.test.ui.activity.yellow;
 
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
-import android.util.Log;
+
+import javax.inject.Inject;
 
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityYellowBinding;
@@ -20,6 +21,7 @@ import timber.log.Timber;
  */
 public class YellowViewModel extends SimpleViewModelImpl<YellowViewData> {
 
+    @Inject
     public YellowViewModel(@NonNull YellowViewData viewData) {
         super(viewData);
         Timber.d("constructor");

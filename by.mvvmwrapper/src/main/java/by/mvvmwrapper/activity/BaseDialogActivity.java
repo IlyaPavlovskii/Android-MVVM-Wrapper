@@ -24,14 +24,9 @@ import by.mvvmwrapper.viewmodel.BaseViewModel;
  * {@link BaseActivity} extension with {@link DialogActionsDelegate} implementation<br>
  * ===================================================================================<br>
  */
-public abstract class BaseDialogActivity<TViewModel extends BaseViewModel, TViewDataBinding extends ViewDataBinding>
-        extends BaseActivity<TViewModel, TViewDataBinding>
+public abstract class BaseDialogActivity<T extends BaseViewModel, B extends ViewDataBinding>
+        extends BaseActivity<T, B>
         implements DialogActionsDelegate {
-
-    //======================================================
-    //----------------------Constants-----------------------
-    //======================================================
-    public final String TAG = getClass().getSimpleName();
 
     //======================================================
     //------------------------Fields------------------------

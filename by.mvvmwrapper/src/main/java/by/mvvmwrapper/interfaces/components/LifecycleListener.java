@@ -15,7 +15,7 @@ import android.os.Bundle;
  * Android component lifecycle listener<br>
  * ===================================================================================
  */
-public interface OnLifecycleListener {
+public interface LifecycleListener {
 
     void onCreate(Bundle savedInstanceState);
 

@@ -15,9 +15,15 @@ import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.List;
+
 import by.mvvmwrapper.R;
+import by.mvvmwrapper.exceptions.ExceptionHandler;
+import by.mvvmwrapper.exceptions.ExceptionHandlerChain;
 import by.mvvmwrapper.interfaces.DialogActionsDelegate;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Create with Android Studio<br>
@@ -33,7 +39,7 @@ import by.mvvmwrapper.viewmodel.BaseViewModel;
  */
 public abstract class BaseFragment<M extends BaseViewModel, B extends ViewDataBinding>
         extends Fragment
-        implements DialogActionsDelegate {
+        implements DialogActionsDelegate, ExceptionHandler {
 
     //======================================================
     //------------------------Fields------------------------
@@ -45,6 +51,10 @@ public abstract class BaseFragment<M extends BaseViewModel, B extends ViewDataBi
 
     private Dialog mProgressDialog;
 
+    @NonNull
+    protected ExceptionHandlerChain mExceptionHandlerChain;
+    protected final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+
     //======================================================
     //-------------------Abstract methods-------------------
     //======================================================
@@ -55,11 +65,60 @@ public abstract class BaseFragment<M extends BaseViewModel, B extends ViewDataBi
     protected abstract M initViewModel();
 
     //======================================================
+    //-------------------Protected methods------------------
+    //======================================================
+    protected void inflateBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
+    }
+
+    protected void addDisposable(@Nullable Disposable disposable) {
+        if (disposable != null) {
+            mCompositeDisposable.add(disposable);
+        }
+    }
+
+    protected void addDisposable(@Nullable Disposable... array) {
+        if (array != null && array.length > 0) {
+            mCompositeDisposable.addAll(array);
+        }
+    }
+
+    @NonNull
+    protected ExceptionHandlerChain initExceptionHandlerChain() {
+        return new ExceptionHandlerChain();
+    }
+
+    protected void addExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.addHandler(exceptionHandler);
+    }
+
+    protected void addExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void addExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.addHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandler(@NonNull ExceptionHandler exceptionHandler) {
+        mExceptionHandlerChain.removeHandler(exceptionHandler);
+    }
+
+    protected void removeExceptionHandlers(@NonNull ExceptionHandler... exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+    protected void removeExceptionHandlers(@NonNull List<? extends ExceptionHandler> exceptionHandlers) {
+        mExceptionHandlerChain.removeHandlers(exceptionHandlers);
+    }
+
+    //======================================================
     //-------------------Override methods-------------------
     //======================================================
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mExceptionHandlerChain = initExceptionHandlerChain();
         mViewModel = initViewModel();
         mViewModel.onCreate(savedInstanceState);
     }
@@ -170,16 +229,14 @@ public abstract class BaseFragment<M extends BaseViewModel, B extends ViewDataBi
         mBinding.unbind();
     }
 
+    @Override
+    public boolean handleException(@Nullable Throwable throwable) {
+        return mExceptionHandlerChain.handleException(throwable);
+    }
+
     @NonNull
     protected M getViewModel() {
         return mViewModel;
-    }
-
-    protected void inflateBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, getLayoutRes(), container, false);
-        if (mBinding == null) {
-            throw new NullPointerException("ViewDataBinding must be initialized");
-        }
     }
 
 }

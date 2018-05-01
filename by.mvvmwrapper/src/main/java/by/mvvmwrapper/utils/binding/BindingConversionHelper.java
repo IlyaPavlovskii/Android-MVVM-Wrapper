@@ -27,9 +27,6 @@ public class BindingConversionHelper {
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
-    /**
-     * Implement base helper realization constructor
-     */
     private BindingConversionHelper() {
     }
 
