@@ -1,3 +1,10 @@
+#TODO LIST
+1. Two-way binding example
+2. Dagger 2 + Databinding example
+3. Recyclerview adapter
+4. PagerAdapter
+5. ...
+
 # Android MVVM Wrapper.
 
 Package include more specified features of MVVM pattern for Android platform:

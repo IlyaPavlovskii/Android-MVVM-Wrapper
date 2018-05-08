@@ -3,6 +3,7 @@ package by.mvvmwrapper.adapter;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,21 +23,24 @@ import java.util.List;
  * Base recycler view adapter implementation for generic<br>
  * ===================================================================================<br>
  */
-public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewAdapter.ViewHolder> {
+public abstract class BaseRecyclerViewAdapter<T, H extends BaseRecyclerViewAdapter.ViewHolder>
+        extends RecyclerView.Adapter<H>
+        implements UpdateAdapter<T> {
 
     //===================================================================================
     //----------------------------------- Fields ----------------------------------------
     //===================================================================================
-    @NonNull
+    @Nullable
     protected List<T> mList;
-    @NonNull
-    protected LayoutInflater mLayoutInflater;
 
     //===================================================================================
     //--------------------------------- Constructor -------------------------------------
     //===================================================================================
-    public BaseRecyclerViewAdapter(@NonNull Context context, @NonNull List<T> list) {
-        mLayoutInflater = LayoutInflater.from(context);
+
+    public BaseRecyclerViewAdapter() {
+    }
+
+    public BaseRecyclerViewAdapter(@Nullable List<T> list) {
         mList = list;
     }
 
@@ -47,40 +51,66 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
     protected abstract int getLayoutRes(int viewType);
 
     @NonNull
-    protected abstract ViewHolder<T> createViewHolder(View view);
-
-    @NonNull
-    protected abstract T getItem(int position);
+    protected abstract H createViewHolder(@NonNull View view);
 
     //===================================================================================
     //------------------------------- Override methods ----------------------------------
     //===================================================================================
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mLayoutInflater.inflate(getLayoutRes(viewType), parent, false);
+    public H onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = getLayoutInflater(parent)
+                .inflate(getLayoutRes(viewType), parent, false);
         return createViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull H holder, int position) {
         T item = getItem(position);
         holder.bind(item);
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList == null ? 0 : mList.size();
+    }
+
+    @Override
+    public void update(List<T> list) {
+        this.mList = list;
+        notifyDataSetChanged();
+    }
+
+    //===================================================================================
+    //------------------------------ Protected methods ----------------------------------
+    //===================================================================================
+    @NonNull
+    protected T getItem(int position) {
+        if (mList != null && (position >= 0 && position < mList.size())) {
+            return mList.get(position);
+        }
+        throw new IndexOutOfBoundsException();
+    }
+
+    @NonNull
+    protected LayoutInflater getLayoutInflater(@NonNull View view) {
+        return getLayoutInflater(view.getContext());
+    }
+
+    @NonNull
+    protected LayoutInflater getLayoutInflater(@NonNull Context context) {
+        return LayoutInflater.from(context);
     }
 
     //===================================================================================
     //-------------------------------Inner classes---------------------------------------
     //===================================================================================
-    public abstract static class ViewHolder<T> extends RecyclerView.ViewHolder {
+    public abstract static class ViewHolder<M> extends RecyclerView.ViewHolder {
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
-        protected abstract void bind(T item);
+        protected abstract void bind(@NonNull M item);
     }
 }

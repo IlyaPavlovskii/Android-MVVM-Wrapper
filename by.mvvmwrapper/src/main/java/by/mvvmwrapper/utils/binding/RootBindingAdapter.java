@@ -12,15 +12,16 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import java.io.File;
-import java.util.List;
-
+import by.mvvmwrapper.adapter.UpdateAdapter;
 import by.mvvmwrapper.utils.SeekBarChangeAdapter;
 import by.mvvmwrapper.utils.TextWatcherAdapter;
 import by.mvvmwrapper.utils.TypefaceHelper;
 import by.mvvmwrapper.widget.BindableEditText;
 import by.mvvmwrapper.wrapper.BindableGeneric;
+
+import javax.inject.Provider;
+import java.io.File;
+import java.util.List;
 
 /**
  * Create with Android Studio<br>
@@ -34,7 +35,7 @@ import by.mvvmwrapper.wrapper.BindableGeneric;
  * All {@link BindingAdapter} methods used in base pack methods<br>
  * ===================================================================================
  */
-public class BindingAdapterHelper {
+public class RootBindingAdapter {
 
     //======================================================
     //-----------------------Constants----------------------
@@ -44,23 +45,42 @@ public class BindingAdapterHelper {
     //======================================================
     //---------------------Constructors---------------------
     //======================================================
+
     /**
      * Implement base helper realization constructor
      */
-    private BindingAdapterHelper() {
+    private RootBindingAdapter() {
     }
 
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
+    public static <T> void bindAdapter(@NonNull Provider<? extends RecyclerView.Adapter> adapterProvider,
+                                       @NonNull RecyclerView recyclerView,
+                                       @Nullable List<T> list, Class<T> tClass) {
+        if (list != null) {
+            if (recyclerView.getAdapter() == null) {
+                RecyclerView.Adapter adapter = adapterProvider.get();
+                recyclerView.setAdapter(adapter);
+            }
+            if (recyclerView.getAdapter() instanceof UpdateAdapter &&
+                    ((UpdateAdapter<T>) recyclerView.getAdapter())
+                            .getModelClass()
+                            .isAssignableFrom(tClass)) {
+                ((UpdateAdapter<T>) recyclerView.getAdapter()).update(list);
+            }
+        }
+    }
+
     /**
      * Fill text and tracking changes on target {@see EditText} component
      * !ATTENTION!
      * Current method have some problems with subscribe multiply {@see EditText} components to one
      * bindable argument. To avoid this problems use {@link BindableEditText}.
      *
-     * @param view target {@link BindableEditText} component
-     * @param bindableString target text*/
+     * @param view           target {@link BindableEditText} component
+     * @param bindableString target text
+     */
     @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindEditText(@NonNull EditText view,
                                     @Nullable final BindableGeneric<String> bindableString) {
@@ -87,8 +107,9 @@ public class BindingAdapterHelper {
     /**
      * Fill text and tracking changes on target {@see BindableEditText} component
      *
-     * @param view target {@link BindableEditText} component
-     * @param bindableString target text*/
+     * @param view           target {@link BindableEditText} component
+     * @param bindableString target text
+     */
     @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindBindableEditText(@NonNull BindableEditText view,
                                             @Nullable final BindableGeneric<String> bindableString) {
@@ -115,8 +136,9 @@ public class BindingAdapterHelper {
     /**
      * Fill checked/unchecked states to {@see CompoundButton} component and tracking changes
      *
-     * @param checkBox target {@link CompoundButton} component
-     * @param bindableBoolean observable checked/unchecked state data*/
+     * @param checkBox        target {@link CompoundButton} component
+     * @param bindableBoolean observable checked/unchecked state data
+     */
     @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindCompoundButton(@NonNull CompoundButton checkBox,
                                           @Nullable BindableGeneric<Boolean> bindableBoolean) {
@@ -137,8 +159,9 @@ public class BindingAdapterHelper {
     /**
      * Set progress state value and tracking changes on {@see SeekBar} component
      *
-     * @param seekBar target {@link SeekBar} component
-     * @param obsValue observable progress state value*/
+     * @param seekBar  target {@link SeekBar} component
+     * @param obsValue observable progress state value
+     */
     @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindSeekBar(@NonNull SeekBar seekBar, @Nullable BindableGeneric<Integer> obsValue) {
         if (obsValue != null) {

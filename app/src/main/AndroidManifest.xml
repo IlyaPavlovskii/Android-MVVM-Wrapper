@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="by.pavlovskii.ilya.mvvm.test"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="by.pavlovskii.ilya.mvvm.test">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:name=".application.App"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.main.MainActivity">
+            android:name=".application.App"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+
+        <activity android:name=".ui.activity.launch.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.yellow.YellowActivity"/>
-    </application>
 
+        <activity android:name=".ui.activity.main.MainActivity"/>
+        <activity android:name=".ui.activity.yellow.YellowActivity"/>
+        <activity android:name=".ui.activity.twoway.TwoWayActivity"/>
+    </application>
 
 
 </manifest>

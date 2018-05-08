@@ -2,16 +2,14 @@ package by.pavlovskii.ilya.mvvm.test.application;
 
 import android.app.Activity;
 import android.app.Application;
-import android.util.Log;
-
-import javax.inject.Inject;
-
 import by.pavlovskii.ilya.mvvm.test.BuildConfig;
 import by.pavlovskii.ilya.mvvm.test.di.Injector;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import timber.log.Timber;
+
+import javax.inject.Inject;
 
 /**
  * Create with Android Studio<br>
@@ -41,9 +39,7 @@ public class App extends Application implements HasActivityInjector {
     public void onCreate() {
         super.onCreate();
         initLogger();
-        Timber.d("onCreate");
         Injector.init(this);
-
     }
 
     @Override

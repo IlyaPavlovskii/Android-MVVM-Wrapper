@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">MVVMtest</string>
     <string name="typeface_good_times">fonts/good_times.ttf</string>
+    <string name="sample_title_two_way_binding">Two-way binding</string>
+    <string name="sample_description_two_way_binding">Two way binding example.</string>
 </resources>

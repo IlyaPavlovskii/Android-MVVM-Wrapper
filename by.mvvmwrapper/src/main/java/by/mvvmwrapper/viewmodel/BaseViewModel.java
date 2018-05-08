@@ -17,7 +17,6 @@ import android.support.annotation.NonNull;
  */
 public abstract class BaseViewModel extends ViewModel implements SimpleViewModel {
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     }

@@ -5,10 +5,7 @@ import android.app.Application;
 import javax.inject.Singleton;
 
 import by.pavlovskii.ilya.mvvm.test.application.App;
-import by.pavlovskii.ilya.mvvm.test.di.modules.ActivityModule;
-import by.pavlovskii.ilya.mvvm.test.di.modules.AppModule;
-import by.pavlovskii.ilya.mvvm.test.di.modules.RouterModule;
-import by.pavlovskii.ilya.mvvm.test.di.modules.ViewModelModule;
+import by.pavlovskii.ilya.mvvm.test.di.modules.*;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;
@@ -30,6 +27,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
         RouterModule.class,
         ViewModelModule.class,
 
+        DaggerBindingModule.class,
+
         ActivityModule.class
 })
 public interface ApplicationComponent {
@@ -44,5 +43,7 @@ public interface ApplicationComponent {
     }
 
     void inject(App app);
+
+    DaggerBindingComponent.Builder daggerBindingComponentBuilder();
 
 }

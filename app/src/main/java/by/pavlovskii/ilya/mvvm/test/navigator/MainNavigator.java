@@ -2,22 +2,20 @@ package by.pavlovskii.ilya.mvvm.test.navigator;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import by.pavlovskii.ilya.mvvm.test.R;
+import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.YellowActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerFragment;
-import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import ru.terrakok.cicerone.android.container.ActivityContainerImpl;
 import ru.terrakok.cicerone.android.container.IActivityContainer;
 import ru.terrakok.cicerone.android.container.ISupportFragmentContainer;
 import ru.terrakok.cicerone.android.container.SupportFragmentContainerImpl;
 import ru.terrakok.cicerone.android.navigator.FragmentActivityNavigatorImpl;
 import ru.terrakok.cicerone.commands.Replace;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Create with Android Studio<br>
@@ -34,7 +32,6 @@ public class MainNavigator extends FragmentActivityNavigatorImpl {
 
     @Inject
     public MainNavigator() {
-        Log.d("MainNavigator", "constructor");
     }
 
     @Nullable
