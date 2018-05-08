@@ -6,13 +6,18 @@
         <variable
                 name="model"
                 type="by.pavlovskii.ilya.mvvm.test.models.SampleItem"/>
+        <variable
+                name="onItemClickListener"
+                type="android.view.View.OnClickListener"/>
     </data>
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recycler_item_height"
-            android:padding="@dimen/recycler_item_padding">
+            android:padding="@dimen/recycler_item_padding"
+            android:background="@drawable/button_transparent_selector"
+            android:onClick="@{onItemClickListener}">
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

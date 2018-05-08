@@ -7,6 +7,9 @@
         <variable
                 name="model"
                 type="by.pavlovskii.ilya.mvvm.test.ui.activity.launch.LaunchViewData"/>
+        <variable
+                name="onSampleClickListener"
+                type="by.pavlovskii.ilya.mvvm.test.ui.adapters.SampleItemAdapter.OnSampleItemClickListener"/>
     </data>
 
     <LinearLayout
@@ -15,9 +18,11 @@
             android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
+                android:id="@+id/vRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                bindSampleAdapter="@{model.sampleItems}"/>
+                bindSampleAdapter="@{model.sampleItems}"
+                bindOnSampleItemClickListener="@{onSampleClickListener}"/>
     </LinearLayout>
 </layout>

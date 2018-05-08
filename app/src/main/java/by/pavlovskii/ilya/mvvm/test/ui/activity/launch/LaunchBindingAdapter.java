@@ -38,4 +38,12 @@ public class LaunchBindingAdapter {
     public void bindSampleAdapter(@NonNull RecyclerView recyclerView, @Nullable List<SampleItem> list) {
         RootBindingAdapter.bindAdapter(mAdapterProvider, recyclerView, list, SampleItem.class);
     }
+
+    @BindingAdapter("bindOnSampleItemClickListener")
+    public void bindOnSampleItemClickListener(@NonNull RecyclerView recyclerView,
+                                              @Nullable SampleItemAdapter.OnSampleItemClickListener listener) {
+        if (recyclerView.getAdapter() instanceof SampleItemAdapter) {
+            ((SampleItemAdapter) recyclerView.getAdapter()).setOnSampleItemClickListener(listener);
+        }
+    }
 }

@@ -2,6 +2,7 @@ package by.pavlovskii.ilya.mvvm.test.ui.adapters;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import by.mvvmwrapper.adapter.BaseRecyclerViewAdapter;
 import by.pavlovskii.ilya.mvvm.test.R;
@@ -23,6 +24,13 @@ import java.util.Objects;
  */
 public class SampleItemAdapter extends BaseRecyclerViewAdapter<SampleItem, SampleItemAdapter.SampleViewHolder> {
 
+    public interface OnSampleItemClickListener {
+        void onSampleClick(SampleItem item);
+    }
+
+    @Nullable
+    private OnSampleItemClickListener mOnSampleItemClickListener;
+
     @Inject
     public SampleItemAdapter() {
     }
@@ -43,6 +51,10 @@ public class SampleItemAdapter extends BaseRecyclerViewAdapter<SampleItem, Sampl
         return SampleItem.class;
     }
 
+    public void setOnSampleItemClickListener(@Nullable OnSampleItemClickListener onSampleItemClickListener) {
+        mOnSampleItemClickListener = onSampleItemClickListener;
+    }
+
     public class SampleViewHolder extends BaseRecyclerViewAdapter.ViewHolder<SampleItem> {
 
         @NonNull
@@ -51,6 +63,11 @@ public class SampleItemAdapter extends BaseRecyclerViewAdapter<SampleItem, Sampl
         SampleViewHolder(@NonNull View itemView) {
             super(itemView);
             mBinding = Objects.requireNonNull(DataBindingUtil.bind(itemView));
+            mBinding.setOnItemClickListener((View.OnClickListener) v -> {
+                if (mOnSampleItemClickListener != null) {
+                    mOnSampleItemClickListener.onSampleClick(mBinding.getModel());
+                }
+            });
         }
 
         @Override
