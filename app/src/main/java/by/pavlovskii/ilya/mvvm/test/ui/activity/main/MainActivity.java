@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import javax.inject.Inject;
 
+import android.support.annotation.NonNull;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
@@ -30,6 +31,8 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
 
     @Inject
     Navigator mNavigator;
+    @Inject
+    MainViewModel mMainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

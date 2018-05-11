@@ -5,6 +5,7 @@ import android.os.Bundle;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityLaunchBinding;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.adapters.SampleItemAdapter;
 import timber.log.Timber;
 
@@ -29,8 +30,10 @@ public class LaunchActivity extends BaseActivity<LaunchViewModel, ActivityLaunch
                         () -> Timber.d("Init list"),
                         this::handleException)
         );
-        mBinding.setOnSampleClickListener((SampleItemAdapter.OnSampleItemClickListener)
-                item -> startActivity(new Intent(LaunchActivity.this, item.getActivityClass())));
+        mBinding.setOnSampleClickListener(item -> {
+            startActivity(new Intent(LaunchActivity.this, MainActivity.class));
+            //startActivity(new Intent(LaunchActivity.this, item.getActivityClass()))
+        });
     }
 
     @Override
