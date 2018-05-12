@@ -1,21 +1,11 @@
-#TODO LIST
-1. DONE! Two-way binding example
-2. Dagger 2 + Databinding example
-3. DONE! Recyclerview adapter
-4. PagerAdapter
-5. Add license
-6. Add guide
-7. Add FreeMarker template
-8. Add AndroidStudio plugin
-9. DONE! Sonarqube 
-10. codecoverage
-
+[![](https://jitpack.io/v/IlyaPavlovskii/Android-MVVM-Wrapper.svg)](https://jitpack.io/#IlyaPavlovskii/Android-MVVM-Wrapper)
 # Android MVVM Wrapper.
 
 Package include more specified features of MVVM pattern for Android platform:
 
 1. Two-way binding</br>
 2. More @BindingAdapter and @BindingConversion realization</br>
+3. RecyclerView adapter binding. RecyclerView.Adapter databinding implementation 
 
 ## MVVM scheme:
 
@@ -31,42 +21,24 @@ Package include more specified features of MVVM pattern for Android platform:
  **Model** - main component of MVVM pattern. Data model. Describe fundamentals data for application.
  As then can be acted Services, DB Helper, HTTP Provider, Business logic e.t.c<br>
  
-## BindingAdapter
- 
- Library has default realization most popular components for 2-way binding. 
- [More info](by.mvvmwrapper/src/main/java//by/mvvmwrapper/utils/binding/BindingAdapterHelper.java).
-### Two-way binding for EditText 
-Required for rapid typed text acquisition into _IViewData_ component
-```
-    <BindableEditText
-        ...
-        attr:binding="@{model.text}"/> 
-```
-### Two-way binding for CompoundButton
-Required for rapid ```CompoundButton``` state into _IViewData_ component
-```
-    <ToggleButton
-        ...
-        attr:binding="@{model.state}"/> 
-```
-### Two-way binding for SeekBar
-Required for rapid ```SeekBar``` progress into _IViewData_ component
-```
-    <SeekBar
-        ...
-        attr:binding="@{model.progress}"/> 
-```
-### Custom typeface for TextView
-Used for binding custom typeface into ```TextView``` widget
-```
-    <TextView
-            ...
-            attr:assetTypeface="@{model.pathToTypefaceInAssetsFolder}"/>
-            <!--or-->
-    <TextView
-            ...
-            attr:fileTypeface="@{model.pathToTypefaceFileOrTypefaceFile}"/>
-```
+ ## Usage
+ Root ```build.gradle```
+ ```
+ allprojects {
+     repositories {
+         maven { url 'https://jitpack.io' }
+     }
+ }
+ ```
+ Project level ```build.gradle``` 
+ ```
+ dependencies {
+     implementation 'com.github.IlyaPavlovskii:Android-MVVM-Wrapper:2.2.3'
+ }
+ ```
+
+## Documentation
+See the [documentation](https://github.com/IlyaPavlovskii/Android-MVVM-Wrapper/wiki) for examples and general use of MWWMWrapper
 
 ## FreeMarker template
 If you doesn't wan't to spend much time for deployment single view into your project, you can use

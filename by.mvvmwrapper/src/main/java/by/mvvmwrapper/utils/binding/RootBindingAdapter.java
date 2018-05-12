@@ -69,9 +69,9 @@ public class RootBindingAdapter {
         }
     }
 
-    public static <T> void bindAdapter(@NonNull Provider<? extends RecyclerView.Adapter> adapterProvider,
-                                       @NonNull RecyclerView recyclerView,
-                                       @Nullable List<T> list) {
+    public static void bindAdapter(@NonNull Provider<? extends RecyclerView.Adapter> adapterProvider,
+                                   @NonNull RecyclerView recyclerView,
+                                   @Nullable List list) {
         if (list != null) {
             if (recyclerView.getAdapter() == null) {
                 RecyclerView.Adapter adapter = adapterProvider.get();

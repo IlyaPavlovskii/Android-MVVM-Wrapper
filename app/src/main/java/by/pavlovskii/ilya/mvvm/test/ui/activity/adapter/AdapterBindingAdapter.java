@@ -25,10 +25,11 @@ import java.util.List;
 @Singleton
 public class AdapterBindingAdapter {
 
+    @NonNull
     private final Provider<? extends RecyclerView.Adapter> mAdapterProvider;
 
     @Inject
-    public AdapterBindingAdapter(Provider<ColorAdapter> adapterProvider) {
+    public AdapterBindingAdapter(@NonNull Provider<ColorAdapter> adapterProvider) {
         mAdapterProvider = adapterProvider;
     }
 
