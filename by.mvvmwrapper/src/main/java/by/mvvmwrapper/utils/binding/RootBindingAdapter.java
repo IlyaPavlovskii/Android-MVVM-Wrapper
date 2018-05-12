@@ -81,6 +81,7 @@ public class RootBindingAdapter {
      * @param view           target {@link BindableEditText} component
      * @param bindableString target text
      */
+    @Deprecated
     @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindEditText(@NonNull EditText view,
                                     @Nullable final BindableGeneric<String> bindableString) {
@@ -110,6 +111,7 @@ public class RootBindingAdapter {
      * @param view           target {@link BindableEditText} component
      * @param bindableString target text
      */
+    @Deprecated
     @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindBindableEditText(@NonNull BindableEditText view,
                                             @Nullable final BindableGeneric<String> bindableString) {
@@ -139,6 +141,7 @@ public class RootBindingAdapter {
      * @param checkBox        target {@link CompoundButton} component
      * @param bindableBoolean observable checked/unchecked state data
      */
+    @Deprecated
     @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindCompoundButton(@NonNull CompoundButton checkBox,
                                           @Nullable BindableGeneric<Boolean> bindableBoolean) {
@@ -162,6 +165,7 @@ public class RootBindingAdapter {
      * @param seekBar  target {@link SeekBar} component
      * @param obsValue observable progress state value
      */
+    @Deprecated
     @BindingAdapter({ATTR_TAG + ":binding"})
     public static void bindSeekBar(@NonNull SeekBar seekBar, @Nullable BindableGeneric<Integer> obsValue) {
         if (obsValue != null) {
@@ -177,24 +181,39 @@ public class RootBindingAdapter {
         }
     }
 
-    @BindingAdapter({ATTR_TAG + ":assetTypeface"})
+    @BindingAdapter("bindAssetTypeface")
     public static void bindAssetTypeface(@NonNull TextView textView, @Nullable String assetPath) {
+        bindAssetTypefaceAttr(textView, assetPath);
+    }
+
+    @BindingAdapter({ATTR_TAG + ":assetTypeface"})
+    public static void bindAssetTypefaceAttr(@NonNull TextView textView, @Nullable String assetPath) {
         Typeface typeface = TypefaceHelper.getTypefaceFromAssets(textView.getContext(), assetPath);
         if (typeface != null) {
             textView.setTypeface(typeface);
         }
     }
 
-    @BindingAdapter({ATTR_TAG + ":fileTypeface"})
+    @BindingAdapter({"bindFileTypeface"})
     public static void bindFileTypeface(@NonNull TextView textView, @Nullable String filePath) {
+        bindFileTypefaceAttr(textView, filePath);
+    }
+
+    @BindingAdapter({ATTR_TAG + ":fileTypeface"})
+    public static void bindFileTypefaceAttr(@NonNull TextView textView, @Nullable String filePath) {
         Typeface typeface = TypefaceHelper.getTypefaceFromFile(filePath);
         if (typeface != null) {
             textView.setTypeface(typeface);
         }
     }
 
-    @BindingAdapter({ATTR_TAG + ":fileTypeface"})
+    @BindingAdapter({"bindFileTypeface"})
     public static void bindFileTypeface(@NonNull TextView textView, @Nullable File typefaceFile) {
+        bindFileTypefaceAttr(textView, typefaceFile);
+    }
+
+    @BindingAdapter({ATTR_TAG + ":fileTypeface"})
+    public static void bindFileTypefaceAttr(@NonNull TextView textView, @Nullable File typefaceFile) {
         Typeface typeface = TypefaceHelper.getTypefaceFromFile(typefaceFile);
         if (typeface != null) {
             textView.setTypeface(typeface);

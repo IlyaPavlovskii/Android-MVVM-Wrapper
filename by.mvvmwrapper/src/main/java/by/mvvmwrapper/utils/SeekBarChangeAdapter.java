@@ -11,7 +11,7 @@ import android.widget.SeekBar;
  * Time: 0:44<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * Simple realization {@link android.widget.SeekBar.OnSeekBarChangeListener}<br>
+ * Simple implementation {@link android.widget.SeekBar.OnSeekBarChangeListener}<br>
  * ===================================================================================
  */
 public class SeekBarChangeAdapter implements SeekBar.OnSeekBarChangeListener {

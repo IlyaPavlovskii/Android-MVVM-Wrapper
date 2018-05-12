@@ -12,7 +12,7 @@ import android.text.TextWatcher;
  * Time: 0:58<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
- * Simple realization {@link TextWatcher} implementation<br>
+ * Simple implementation {@link TextWatcher}<br>
  * ===================================================================================
  */
 public class TextWatcherAdapter implements TextWatcher {

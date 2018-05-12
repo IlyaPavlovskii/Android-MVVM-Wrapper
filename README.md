@@ -1,9 +1,13 @@
 #TODO LIST
-1. Two-way binding example
+1. DONE! Two-way binding example
 2. Dagger 2 + Databinding example
 3. Recyclerview adapter
 4. PagerAdapter
-5. ...
+5. Add license
+6. Add guide
+7. Add FreeMarker template
+8. Add AndroidStudio plugin
+9. Sonarqube codecoverage
 
 # Android MVVM Wrapper.
 
