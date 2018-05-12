@@ -44,11 +44,6 @@ public class SampleItemAdapter extends BaseRecyclerViewAdapter<SampleItem, Sampl
         return new SampleViewHolder((AdapterSampleItemBinding) binding);
     }
 
-    @Override
-    public Class<SampleItem> getModelClass() {
-        return SampleItem.class;
-    }
-
     public void setOnSampleItemClickListener(@Nullable OnSampleItemClickListener onSampleItemClickListener) {
         mOnSampleItemClickListener = onSampleItemClickListener;
     }

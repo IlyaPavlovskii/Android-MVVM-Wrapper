@@ -16,7 +16,5 @@ public interface UpdateAdapter<T> {
 
     void update(List<T> list);
 
-    Class<T> getModelClass();
-
 }
 

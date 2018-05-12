@@ -36,7 +36,7 @@ public class LaunchBindingAdapter {
 
     @BindingAdapter("bindSampleAdapter")
     public void bindSampleAdapter(@NonNull RecyclerView recyclerView, @Nullable List<SampleItem> list) {
-        RootBindingAdapter.bindAdapter(mAdapterProvider, recyclerView, list, SampleItem.class);
+        RootBindingAdapter.bindAdapter(mAdapterProvider, recyclerView, list);
     }
 
     @BindingAdapter("bindOnSampleItemClickListener")

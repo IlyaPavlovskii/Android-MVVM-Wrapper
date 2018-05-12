@@ -55,19 +55,31 @@ public class RootBindingAdapter {
     //======================================================
     //---------------------Public methods-------------------
     //======================================================
+    @BindingAdapter({"bindAdapter", "bindList"})
+    public static void bindAdapter(@NonNull RecyclerView recyclerView,
+                                   @Nullable RecyclerView.Adapter adapter,
+                                   @Nullable List list) {
+        if (adapter != null) {
+            if (recyclerView.getAdapter() == null) {
+                recyclerView.setAdapter(adapter);
+            }
+            if (adapter instanceof UpdateAdapter) {
+                ((UpdateAdapter) adapter).update(list);
+            }
+        }
+    }
+
     public static <T> void bindAdapter(@NonNull Provider<? extends RecyclerView.Adapter> adapterProvider,
                                        @NonNull RecyclerView recyclerView,
-                                       @Nullable List<T> list, Class<T> tClass) {
+                                       @Nullable List<T> list) {
         if (list != null) {
             if (recyclerView.getAdapter() == null) {
                 RecyclerView.Adapter adapter = adapterProvider.get();
                 recyclerView.setAdapter(adapter);
             }
-            if (recyclerView.getAdapter() instanceof UpdateAdapter &&
-                    ((UpdateAdapter<T>) recyclerView.getAdapter())
-                            .getModelClass()
-                            .isAssignableFrom(tClass)) {
-                ((UpdateAdapter<T>) recyclerView.getAdapter()).update(list);
+            if (recyclerView.getAdapter() instanceof UpdateAdapter) {
+                ((UpdateAdapter) recyclerView.getAdapter())
+                        .update(list);
             }
         }
     }

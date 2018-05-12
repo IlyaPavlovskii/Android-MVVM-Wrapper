@@ -36,11 +36,6 @@ public class ColorAdapter extends BaseRecyclerViewAdapter<String, ColorAdapter.V
         return new ViewHolder((AdapterColorBinding) binding);
     }
 
-    @Override
-    public Class<String> getModelClass() {
-        return String.class;
-    }
-
     public class ViewHolder extends BaseRecyclerViewAdapter.ViewHolder<String, AdapterColorBinding> {
 
         ViewHolder(AdapterColorBinding binding) {

@@ -51,18 +51,4 @@ public class AdapterActivity extends BaseActivity<AdapterViewModel, ActivityAdap
         return R.layout.activity_adapter;
     }
 
-    @BindingAdapter({"bindAdapter", "bindList"})
-    public static void bindAdapter(@NonNull RecyclerView recyclerView,
-                                   @Nullable RecyclerView.Adapter adapter,
-                                   @Nullable List list) {
-        if (adapter != null) {
-            if (recyclerView.getAdapter() == null) {
-                recyclerView.setAdapter(adapter);
-            }
-            if (adapter instanceof UpdateAdapter) {
-                ((UpdateAdapter) adapter).update(list);
-            }
-        }
-
-    }
 }
