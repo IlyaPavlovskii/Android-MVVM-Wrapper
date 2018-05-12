@@ -1,16 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimaryDark">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="TWO WAY BINDING"
-            android:textSize="24sp"
-            android:textColor="@android:color/white"/>
+    <data>
+        <variable
+                name="model"
+                type="by.pavlovskii.ilya.mvvm.test.ui.activity.twoway.TwoWayViewData"/>
+    </data>
 
-</RelativeLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            style="@style/RootLayout">
+
+        <LinearLayout
+                style="@style/TwoWayRootItem">
+            <TextView
+                    style="@style/TwoWayRootTitle"
+                    android:text="@string/edit_text"/>
+            <LinearLayout
+                    style="@style/TwoWayChildItem">
+                <EditText
+                        style="@style/TwoWayChildWidget"
+                        android:text="@={model.text}"/>
+                <TextView
+                        style="@style/TwoWayChildWidget"
+                        android:hint="@string/two_way_result"
+                        android:text="@{model.text}"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                style="@style/TwoWayRootItem">
+            <TextView
+                    style="@style/TwoWayRootTitle"
+                    android:text="@string/check_box"/>
+            <LinearLayout
+                    style="@style/TwoWayChildItem">
+                <CheckBox
+                        style="@style/TwoWayChildWidget"
+                        android:checked="@={model.checkBoxState}"/>
+                <TextView
+                        style="@style/TwoWayChildWidget"
+                        android:text="@{@string/value_formatter(model.checkBoxState)}"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                style="@style/TwoWayRootItem">
+            <TextView
+                    style="@style/TwoWayRootTitle"
+                    android:text="@string/switch_widget"/>
+            <LinearLayout
+                    style="@style/TwoWayChildItem">
+                <Switch
+                        style="@style/TwoWayChildWidget"
+                        android:checked="@={model.switchState}"/>
+                <TextView
+                        style="@style/TwoWayChildWidget"
+                        android:text="@{@string/value_formatter(model.switchState)}"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                style="@style/TwoWayRootItem">
+            <TextView
+                    style="@style/TwoWayRootTitle"
+                    android:text="@string/toggle_button"/>
+            <LinearLayout
+                    style="@style/TwoWayChildItem">
+                <ToggleButton
+                        style="@style/TwoWayChildWidget"
+                        android:checked="@={model.toggleState}"/>
+                <TextView
+                        style="@style/TwoWayChildWidget"
+                        android:text="@{@string/value_formatter(model.toggleState)}"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                style="@style/TwoWayRootItem">
+            <TextView
+                    style="@style/TwoWayRootTitle"
+                    android:text="@string/combo_states"/>
+            <LinearLayout
+                    style="@style/TwoWayChildItem">
+                <CheckBox
+                        style="@style/TwoWayChildWidget"
+                        android:checked="@={model.globalState}"/>
+                <Switch
+                        style="@style/TwoWayChildWidget"
+                        android:checked="@={model.globalState}"/>
+                <ToggleButton
+                        style="@style/TwoWayChildWidget"
+                        android:checked="@={model.globalState}"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

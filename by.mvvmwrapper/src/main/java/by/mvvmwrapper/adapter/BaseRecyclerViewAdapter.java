@@ -1,6 +1,8 @@
 package by.mvvmwrapper.adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,7 +53,7 @@ public abstract class BaseRecyclerViewAdapter<T, H extends BaseRecyclerViewAdapt
     protected abstract int getLayoutRes(int viewType);
 
     @NonNull
-    protected abstract H createViewHolder(@NonNull View view);
+    protected abstract H createViewHolder(@NonNull ViewDataBinding binding, int viewType);
 
     //===================================================================================
     //------------------------------- Override methods ----------------------------------
@@ -59,9 +61,12 @@ public abstract class BaseRecyclerViewAdapter<T, H extends BaseRecyclerViewAdapt
     @NonNull
     @Override
     public H onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = getLayoutInflater(parent)
-                .inflate(getLayoutRes(viewType), parent, false);
-        return createViewHolder(view);
+        ViewDataBinding binding = DataBindingUtil.inflate(
+                getLayoutInflater(parent),
+                getLayoutRes(viewType),
+                parent,
+                false);
+        return createViewHolder(binding, viewType);
     }
 
     @Override
@@ -105,12 +110,18 @@ public abstract class BaseRecyclerViewAdapter<T, H extends BaseRecyclerViewAdapt
     //===================================================================================
     //-------------------------------Inner classes---------------------------------------
     //===================================================================================
-    public abstract static class ViewHolder<M> extends RecyclerView.ViewHolder {
+    public abstract static class ViewHolder<T, B extends ViewDataBinding>
+            extends RecyclerView.ViewHolder {
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        @NonNull
+        protected B mBinding;
+
+        public ViewHolder(B binding) {
+            super(binding.getRoot());
+            mBinding = binding;
         }
 
-        protected abstract void bind(@NonNull M item);
+        protected abstract void bind(@NonNull T item);
+
     }
 }

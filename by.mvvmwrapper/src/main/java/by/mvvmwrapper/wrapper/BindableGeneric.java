@@ -11,9 +11,14 @@ import android.databinding.BaseObservable;
  * Time: 2:54<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
+ * Deprecated. Use default two-way binding '@={}' expression for this feature. In the case of @={variable.field}
+ * the binder will create the same code as before, but with additional code for getting the value from the View
+ * and setting it back to your object.
+ *
  * Bindable generic with observable functions. Notifying all components about changes<br>
  * ===================================================================================
  */
+@Deprecated
 public class BindableGeneric<T> extends BaseObservable {
 
     //======================================================

@@ -1,16 +1,14 @@
 package by.pavlovskii.ilya.mvvm.test.ui.adapters;
 
-import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
 import by.mvvmwrapper.adapter.BaseRecyclerViewAdapter;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.AdapterSampleItemBinding;
 import by.pavlovskii.ilya.mvvm.test.models.SampleItem;
 
 import javax.inject.Inject;
-import java.util.Objects;
 
 /**
  * Create with Android Studio<br>
@@ -42,8 +40,8 @@ public class SampleItemAdapter extends BaseRecyclerViewAdapter<SampleItem, Sampl
 
     @NonNull
     @Override
-    protected SampleViewHolder createViewHolder(@NonNull View view) {
-        return new SampleViewHolder(view);
+    protected SampleViewHolder createViewHolder(@NonNull ViewDataBinding binding, int viewType) {
+        return new SampleViewHolder((AdapterSampleItemBinding) binding);
     }
 
     @Override
@@ -55,15 +53,11 @@ public class SampleItemAdapter extends BaseRecyclerViewAdapter<SampleItem, Sampl
         mOnSampleItemClickListener = onSampleItemClickListener;
     }
 
-    public class SampleViewHolder extends BaseRecyclerViewAdapter.ViewHolder<SampleItem> {
+    public class SampleViewHolder extends BaseRecyclerViewAdapter.ViewHolder<SampleItem, AdapterSampleItemBinding> {
 
-        @NonNull
-        private AdapterSampleItemBinding mBinding;
-
-        SampleViewHolder(@NonNull View itemView) {
+        SampleViewHolder(@NonNull AdapterSampleItemBinding itemView) {
             super(itemView);
-            mBinding = Objects.requireNonNull(DataBindingUtil.bind(itemView));
-            mBinding.setOnItemClickListener((View.OnClickListener) v -> {
+            mBinding.setOnItemClickListener(v -> {
                 if (mOnSampleItemClickListener != null) {
                     mOnSampleItemClickListener.onSampleClick(mBinding.getModel());
                 }

@@ -32,17 +32,41 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <style name="RootLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="TwoWayRootItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">@drawable/two_way_root_item_background</item>
+    </style>
+    <style name="TwoWayChildItem" parent="TwoWayRootItem">
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="TwoWayChildWidget">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="TwoWayRootTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 
     <declare-styleable name="StrokedTextAttrs">
-        <attr name="textStrokeColor" format="color" />
-        <attr name="textStrokeWidth" format="float|dimension" />
-        <attr name="textHintStrokeColor" format="color" />
-        <attr name="textHintStrokeWidth" format="float|dimension" />
+        <attr name="textStrokeColor" format="color"/>
+        <attr name="textStrokeWidth" format="float|dimension"/>
+        <attr name="textHintStrokeColor" format="color"/>
+        <attr name="textHintStrokeWidth" format="float|dimension"/>
     </declare-styleable>
     <declare-styleable name="AutofitTextView">
-        <attr name="minTextSize" format="dimension" />
-        <attr name="precision" format="float" />
-        <attr name="sizeToFit" format="boolean" />
+        <attr name="minTextSize" format="dimension"/>
+        <attr name="precision" format="float"/>
+        <attr name="sizeToFit" format="boolean"/>
     </declare-styleable>
 
 </resources>

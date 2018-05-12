@@ -5,21 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-
-import org.joda.time.format.ISODateTimeFormat;
-
-import javax.inject.Inject;
-
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
 import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
-import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import org.joda.time.format.ISODateTimeFormat;
 import timber.log.Timber;
+
+import javax.inject.Inject;
 
 /**
  * Create with Android Studio<br>
@@ -35,31 +30,19 @@ import timber.log.Timber;
  */
 public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
 
-    private DemoActivityFactory mDemoActivityFactory;
-
     @Nullable
     private ObservableEmitter<DemoActivity> mNavigateToEmitter;
 
     @Inject
-    public MainViewModel(@NonNull MainViewData viewData,
-                         @NonNull DemoActivityFactory demoActivityFactory) {
+    public MainViewModel(@NonNull MainViewData viewData) {
         super(viewData);
         Timber.d("constructor: %s", hashCode());
-        mDemoActivityFactory = demoActivityFactory;
     }
 
     @Override
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
         Timber.d("bind: %s", hashCode());
         ((ActivityMainBinding) viewDataBinding).setModel(mViewData);
-        ((ActivityMainBinding) viewDataBinding).setDemoAdapterListener(this::doNavigation);
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initDemoList();
     }
 
     // ===================================================================================
@@ -88,16 +71,6 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
                 mNavigateToEmitter.onNext(item);
             }
         }
-    }
-
-    private void initDemoList() {
-        mDemoActivityFactory.generateDemoActivities()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(list -> {
-                    mViewData.demoList.clear();
-                    mViewData.demoList.addAll(list);
-                }, Throwable::printStackTrace);
     }
 
 }

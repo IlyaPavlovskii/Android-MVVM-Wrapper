@@ -2,11 +2,11 @@ package by.pavlovskii.ilya.mvvm.test.ui.activity.launch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityLaunchBinding;
+import by.pavlovskii.ilya.mvvm.test.models.SampleItem;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
-import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainActivity;
-import by.pavlovskii.ilya.mvvm.test.ui.adapters.SampleItemAdapter;
 import timber.log.Timber;
 
 /**
@@ -30,10 +30,7 @@ public class LaunchActivity extends BaseActivity<LaunchViewModel, ActivityLaunch
                         () -> Timber.d("Init list"),
                         this::handleException)
         );
-        mBinding.setOnSampleClickListener(item -> {
-            startActivity(new Intent(LaunchActivity.this, MainActivity.class));
-            //startActivity(new Intent(LaunchActivity.this, item.getActivityClass()))
-        });
+        mBinding.setOnSampleClickListener(this::navigateTo);
     }
 
     @Override
@@ -46,4 +43,8 @@ public class LaunchActivity extends BaseActivity<LaunchViewModel, ActivityLaunch
         return R.layout.activity_launch;
     }
 
+    private void navigateTo(@NonNull SampleItem item) {
+        Intent intent = new Intent(this, item.getActivityClass());
+        startActivity(intent);
+    }
 }

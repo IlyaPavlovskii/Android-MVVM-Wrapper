@@ -5,6 +5,8 @@ import by.pavlovskii.ilya.mvvm.test.ui.activity.launch.LaunchActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.launch.di.LaunchModule;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.di.MainActivityModule;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.twoway.TwoWayActivity;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.twoway.di.TwoWayModule;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.YellowActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.di.YellowActivityModule;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.di.TimerFragmentProvider;
@@ -29,6 +31,10 @@ public interface ActivityModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {LaunchModule.class})
     LaunchActivity launchActivityInjector();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {TwoWayModule.class})
+    TwoWayActivity twoWayActivityInjector();
 
     @ActivityScope
     @ContributesAndroidInjector(modules = {

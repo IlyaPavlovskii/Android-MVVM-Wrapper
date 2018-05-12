@@ -3,8 +3,6 @@ package by.pavlovskii.ilya.mvvm.test;
 import org.junit.Before;
 import org.junit.Test;
 
-import by.pavlovskii.ilya.mvvm.test.utils.DemoActivityFactory;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

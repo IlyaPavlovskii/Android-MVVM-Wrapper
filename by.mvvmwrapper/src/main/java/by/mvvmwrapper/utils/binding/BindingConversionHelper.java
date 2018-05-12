@@ -2,12 +2,11 @@ package by.mvvmwrapper.utils.binding;
 
 import android.databinding.BindingConversion;
 import android.support.annotation.Nullable;
+import by.mvvmwrapper.wrapper.BindableGeneric;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import by.mvvmwrapper.wrapper.BindableGeneric;
 
 /**
  * Create with Android Studio<br>
@@ -18,10 +17,13 @@ import by.mvvmwrapper.wrapper.BindableGeneric;
  * Time: 1:03<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
+ * Deprecated helper. Use default two way binding expression
+ * <p>
  * All {@link BindingConversion} methods to fast conversion {@link BindableGeneric}
  * to target primitive<br>
  * ===================================================================================
  */
+@Deprecated
 public class BindingConversionHelper {
 
     //======================================================

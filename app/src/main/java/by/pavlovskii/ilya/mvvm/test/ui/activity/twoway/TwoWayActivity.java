@@ -1,9 +1,8 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.twoway;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import by.pavlovskii.ilya.mvvm.test.R;
+import by.pavlovskii.ilya.mvvm.test.databinding.ActivityTwoWayBinding;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
 
 /**
  * Create with Android Studio<br>
@@ -15,11 +14,15 @@ import by.pavlovskii.ilya.mvvm.test.R;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-public class TwoWayActivity extends Activity {
+public class TwoWayActivity extends BaseActivity<TwoWayViewModel, ActivityTwoWayBinding> {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_two_way);
+    protected int getLayoutRes() {
+        return R.layout.activity_two_way;
+    }
+
+    @Override
+    protected Class<TwoWayViewModel> getViewModelClass() {
+        return TwoWayViewModel.class;
     }
 }

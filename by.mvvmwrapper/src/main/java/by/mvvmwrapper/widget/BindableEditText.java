@@ -12,9 +12,12 @@ import android.util.AttributeSet;
  * Time: 22:57<br>
  * Project name: MVVMtest<br>
  * ===================================================================================
+ * Deprecated widget. Use default two way signature '@={}'.
+ *
  * EditText with function to link 2 or more view component to one data<br>
  * ===================================================================================
  */
+@Deprecated
 public class BindableEditText extends android.support.v7.widget.AppCompatEditText {
 
     //======================================================

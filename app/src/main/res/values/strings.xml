@@ -3,4 +3,12 @@
     <string name="typeface_good_times">fonts/good_times.ttf</string>
     <string name="sample_title_two_way_binding">Two-way binding</string>
     <string name="sample_description_two_way_binding">Two way binding example.</string>
+    <string name="edit_text">Edit text</string>
+    <string name="two_way_result">Two way result</string>
+    <string name="check_box">Check box</string>
+    <string name="switch_widget">Switch</string>
+    <string name="value_formatter">Value: %1$s</string>
+    <string name="combo_states">Combo states</string>
+    <string name="toggle_button">Toggle button</string>
+
 </resources>
