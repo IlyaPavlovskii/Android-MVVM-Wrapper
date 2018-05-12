@@ -1,11 +1,7 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.adapter;
 
-import android.databinding.BindingAdapter;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import by.mvvmwrapper.adapter.UpdateAdapter;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityAdapterBinding;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.BaseActivity;
@@ -13,7 +9,6 @@ import timber.log.Timber;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
-import java.util.List;
 
 /**
  * Create with Android Studio<br>
@@ -34,7 +29,6 @@ public class AdapterActivity extends BaseActivity<AdapterViewModel, ActivityAdap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding.setVerticalAdapter(mAdapterProvider.get());
-        mBinding.setHorizontalAdapter(mAdapterProvider.get());
         addDisposable(mViewModel.initList()
                 .subscribe(
                         () -> Timber.d("initList complete: "),
