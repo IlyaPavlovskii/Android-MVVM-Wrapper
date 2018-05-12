@@ -34,8 +34,8 @@ allprojects {
             property "sonar.host.url", getProps("sonar.host")
             property "sonar.login", getProps("sonar.login")
             property "sonar.projectVersion", rootProject.versionName
-            property "sonar.inclusions", "**/com/fishartis/whiledriving/**"
-            property "sonar.coverage.inclusions", "**/com/fishartis/whiledriving/**"
+            property "sonar.inclusions", "**/by/pavlovskii/ilya/mvvm/**"
+            property "sonar.coverage.inclusions", "**/by/pavlovskii/ilya/mvvm/**"
         }
     }
 }
@@ -65,4 +65,15 @@ ext {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+def getProps(String propName) {
+    def propsFile = rootProject.file('local.properties')
+    if (propsFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        return props[propName]
+    } else {
+        return ""
+    }
 }

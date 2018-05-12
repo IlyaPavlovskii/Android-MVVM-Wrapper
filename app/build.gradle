@@ -1,4 +1,30 @@
 apply plugin: 'com.android.application'
+apply from: "jacoco.gradle"
+
+sonarqube {
+    properties {
+        property "sonar.sources", "src/main"
+        property "sonar.tests", "src/test"
+        property "sonar.test.inclusions", "**/*Test*/**"
+        property "sonar.java.binaries", "build/intermediates/classes/demo/debug"
+        property "sonar.jacoco.reportPaths", "build/jacoco/testDebugUnitTest.exec"
+
+        property "sonar.test.inclusions", "**/*Test*/**"
+        property "sonar.language", "java"
+        property "sonar.dynamicAnalysis", "reuseReports"
+        property "sonar.java.binaries", "build/intermediates/classes/debug"
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.jacoco.reportPaths", "build/jacoco/testDebugUnitTest.exec"
+        property "sonar.exclusions", "**/*Test*/**," +
+                "**/res/**," +
+                "**/App*.*," +
+                "**/Constants*.*"
+        property "sonar.test.exclusions", "**/res/**," +
+                "**/res/**"
+        "**/App*.*," +
+                "**/Constants*.*"
+    }
+}
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
