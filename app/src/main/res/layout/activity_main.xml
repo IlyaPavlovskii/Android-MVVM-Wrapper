@@ -12,31 +12,40 @@
 
     <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            style="@style/RootLayout">
 
         <TextView
-                android:text="@{model.info}"
+                android:text="@{@string/timer_value(model.time), default=Time13}"
                 android:textSize="24sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                style="@style/MainRootLayout">
 
-            <FrameLayout
-                    android:id="@+id/vFlContainer"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+            <fragment
+                    android:name="by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerFragment"
+                    android:tag="TimerFragment1"
+                    style="@style/MainFragmentStyle"/>
+            <fragment
+                    android:name="by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerFragment"
+                    android:tag="TimerFragment2"
+                    style="@style/MainFragmentStyle"/>
+            <fragment
+                    android:name="by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerFragment"
+                    android:tag="TimerFragment3"
+                    style="@style/MainFragmentStyle"/>
+            <!--<FrameLayout-->
+            <!--android:id="@+id/vFlContainer"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"/>-->
 
-            <FrameLayout
-                    android:id="@+id/vFlContainer1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+            <!--<FrameLayout-->
+            <!--android:id="@+id/vFlContainer1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"/>-->
         </LinearLayout>
 
     </LinearLayout>

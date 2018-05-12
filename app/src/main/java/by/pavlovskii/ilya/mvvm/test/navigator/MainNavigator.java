@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainActivity;
-import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.YellowActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerFragment;
 import ru.terrakok.cicerone.android.container.ActivityContainerImpl;
 import ru.terrakok.cicerone.android.container.IActivityContainer;
@@ -37,24 +36,22 @@ public class MainNavigator extends FragmentActivityNavigatorImpl {
     @Nullable
     @Override
     protected ISupportFragmentContainer getSupportFragmentContainer(String screenKey, Object... transitionData) {
-        if (Constants.FragmentKeys.TIMER.equals(screenKey)) {
-            if (isEmptyData(transitionData)) {
-                return SupportFragmentContainerImpl.create(R.id.vFlContainer, TimerFragment.newInstance());
-            } else {
-                return SupportFragmentContainerImpl.create(R.id.vFlContainer1, TimerFragment.newInstance());
-            }
-        }
+//        if (Constants.FragmentKeys.TIMER.equals(screenKey)) {
+//            if (isEmptyData(transitionData)) {
+//                return SupportFragmentContainerImpl.create(R.id.vFlContainer, TimerFragment.newInstance());
+//            } else {
+//                return SupportFragmentContainerImpl.create(R.id.vFlContainer1, TimerFragment.newInstance());
+//            }
+//        }
         return null;
     }
 
     @Nullable
     @Override
     protected IActivityContainer getActivityContainer(String commandKey, Object... transitionData) {
-        if (Constants.ActivityKeys.MAIN.equals(commandKey)) {
-            return ActivityContainerImpl.create(getActivity(), MainActivity.class);
-        } else if (Constants.ActivityKeys.YELLOW.equals(commandKey)) {
-            return ActivityContainerImpl.create(getActivity(), YellowActivity.class);
-        }
+//        if (Constants.ActivityKeys.MAIN.equals(commandKey)) {
+//            return ActivityContainerImpl.create(getActivity(), MainActivity.class);
+//        }
         return null;
     }
 

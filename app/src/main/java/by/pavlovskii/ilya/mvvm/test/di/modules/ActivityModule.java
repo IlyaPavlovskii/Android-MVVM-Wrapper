@@ -9,8 +9,6 @@ import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.di.MainActivityModule;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.twoway.TwoWayActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.twoway.di.TwoWayModule;
-import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.YellowActivity;
-import by.pavlovskii.ilya.mvvm.test.ui.activity.yellow.di.YellowActivityModule;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.di.TimerFragmentProvider;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -47,8 +45,4 @@ public interface ActivityModule {
             MainActivityModule.class,
             TimerFragmentProvider.class})
     MainActivity mainActivityInjector();
-
-    @ActivityScope
-    @ContributesAndroidInjector(modules = {YellowActivityModule.class})
-    YellowActivity yellowActivityInjector();
 }

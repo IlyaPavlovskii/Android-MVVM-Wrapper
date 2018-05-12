@@ -1,6 +1,6 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.main;
 
-import android.databinding.ObservableField;
+import android.databinding.ObservableString;
 import by.mvvmwrapper.viewdata.SimpleViewData;
 
 import javax.inject.Inject;
@@ -19,10 +19,13 @@ import javax.inject.Inject;
  */
 public class MainViewData extends SimpleViewData {
 
-    public final ObservableField<String> info = new ObservableField<>("");
+    public final ObservableString time = new ObservableString();
 
     @Inject
     public MainViewData() {
     }
 
+    public void setTime(String time) {
+        this.time.set(time);
+    }
 }

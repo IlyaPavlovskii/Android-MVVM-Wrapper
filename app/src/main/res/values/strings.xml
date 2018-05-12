@@ -14,5 +14,10 @@
     <string name="sample_description_adapter">RecyclerView bind adapter example</string>
     <string name="adapter_vertical">Horizontal RecyclerView</string>
     <string name="adapter_horizontal">Horizontal RecyclerView</string>
+    <string name="sample_title_top_level_injection">Top level injection</string>
+    <string name="sample_description_top_level_injection">Injection Activity components into Fragment</string>
+    <string name="timer_value">Time: %1$s</string>
+    <string name="update">update</string>
+
 
 </resources>

@@ -7,6 +7,7 @@ import android.support.annotation.StringRes;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.models.SampleItem;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.adapter.AdapterActivity;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.twoway.TwoWayActivity;
 import by.pavlovskii.ilya.mvvm.test.utils.factory.SampleItemFactory;
 import io.reactivex.Observable;
@@ -48,6 +49,10 @@ public class SampleItemFactoryImpl implements SampleItemFactory {
                         R.string.sample_title_two_way_binding,
                         R.string.sample_description_two_way_binding,
                         TwoWayActivity.class),
+                makeSample(
+                        R.string.sample_title_top_level_injection,
+                        R.string.sample_description_top_level_injection,
+                        MainActivity.class),
                 makeSample(
                         R.string.sample_title_adapter,
                         R.string.sample_description_adapter,

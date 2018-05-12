@@ -5,11 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
-
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.FragmentTimerBinding;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.BaseFragment;
-import timber.log.Timber;
 
 /**
  * Create with Android Studio<br>
@@ -35,11 +33,6 @@ public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBin
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mBinding.setOnUpdateInfoClickListener(v -> mViewModel.updateInfo());
-        addDisposable(getViewModel()
-                .timer()
-                .subscribe(
-                        val -> Timber.d("Init timer"),
-                        this::handleException));
     }
 
     @Override
