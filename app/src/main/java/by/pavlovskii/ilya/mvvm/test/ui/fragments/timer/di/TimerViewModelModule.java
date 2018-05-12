@@ -6,13 +6,17 @@ import android.support.annotation.NonNull;
 import by.mvvmwrapper.dagger.map.ViewModelKey;
 import by.mvvmwrapper.dagger.qualifier.TopLevelDependency;
 import by.mvvmwrapper.viewmodel.BaseViewModel;
+import by.pavlovskii.ilya.mvvm.test.storage.Constants;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
+import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerFragment;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.timer.TimerViewModel;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoMap;
+
+import javax.inject.Named;
 
 /**
  * Create with Android Studio<br>
@@ -26,6 +30,12 @@ import dagger.multibindings.IntoMap;
  */
 @Module
 public abstract class TimerViewModelModule {
+
+    @Provides
+    @Named(Constants.Dagger.TAG)
+    static String provideTag(@NonNull TimerFragment fragment) {
+        return fragment.getTag();
+    }
 
     @Binds
     @IntoMap

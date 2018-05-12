@@ -14,22 +14,10 @@ package by.pavlovskii.ilya.mvvm.test.storage;
  */
 public class Constants {
 
-    public static class ActivityKeys extends ru.terrakok.cicerone.Constants.ActivityKeys {
-        public static final String MAIN = PREFIX + "main";
-        public static final String YELLOW = PREFIX + "yellow";
-    }
+    public class Dagger {
+        public static final String TAG = "tag";
 
-    public static class FragmentKeys extends ru.terrakok.cicerone.Constants.FragmentKeys {
-        public static final String TIMER = PREFIX + "timer";
+        private Dagger() {
+        }
     }
-
-    public static class Command {
-        public static final String NAVIGATE_TO = "navigate_to";
-        public static final String NEW_ROOT_SCREEN = "new_root_screen";
-        public static final String REPLACE = "replace";
-        public static final String SHOW_SYSTEM_MESSAGE = "show_system_message";
-        public static final String EXIT = "exit";
-        public static final String THROW_EXCEPTION = "exception";
-    }
-
 }

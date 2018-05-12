@@ -8,6 +8,7 @@ import android.view.View;
 import by.pavlovskii.ilya.mvvm.test.R;
 import by.pavlovskii.ilya.mvvm.test.databinding.FragmentTimerBinding;
 import by.pavlovskii.ilya.mvvm.test.ui.fragments.BaseFragment;
+import timber.log.Timber;
 
 /**
  * Create with Android Studio<br>
@@ -33,6 +34,11 @@ public class TimerFragment extends BaseFragment<TimerViewModel, FragmentTimerBin
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mBinding.setOnUpdateInfoClickListener(v -> mViewModel.updateInfo());
+        addDisposable(getViewModel()
+                .subscribeTagChanges()
+                .subscribe(
+                        tag -> Timber.d("Receive tag: %s", tag),
+                        this::handleException));
     }
 
     @Override

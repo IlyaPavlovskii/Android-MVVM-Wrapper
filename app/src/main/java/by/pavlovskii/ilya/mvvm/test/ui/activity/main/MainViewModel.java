@@ -4,6 +4,8 @@ import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.ActivityMainBinding;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 import org.joda.time.format.ISODateTimeFormat;
 import timber.log.Timber;
 
@@ -22,6 +24,8 @@ import javax.inject.Inject;
  * ===================================================================================<br>
  */
 public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
+
+    private final PublishSubject<String> mSelectedTagSubject = PublishSubject.create();
 
     @Inject
     public MainViewModel(@NonNull MainViewData viewData) {
@@ -46,4 +50,11 @@ public class MainViewModel extends SimpleViewModelImpl<MainViewData> {
         return time;
     }
 
+    public void setCurrentTag(String tag) {
+        mSelectedTagSubject.onNext(tag);
+    }
+
+    public Observable<String> getSelectTagObs() {
+        return mSelectedTagSubject;
+    }
 }
