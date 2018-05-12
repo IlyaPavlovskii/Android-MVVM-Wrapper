@@ -1,7 +1,6 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.main;
 
 import android.databinding.ViewDataBinding;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;

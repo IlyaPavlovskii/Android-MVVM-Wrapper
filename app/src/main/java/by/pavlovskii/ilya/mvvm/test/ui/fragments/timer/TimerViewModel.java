@@ -4,7 +4,7 @@ import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import by.mvvmwrapper.viewmodel.SimpleViewModelImpl;
 import by.pavlovskii.ilya.mvvm.test.databinding.FragmentTimerBinding;
-import by.pavlovskii.ilya.mvvm.test.di.ViewModelStorageKey;
+import by.mvvmwrapper.dagger.qualifier.TopLevelDependency;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainViewModel;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,7 +33,7 @@ public class TimerViewModel extends SimpleViewModelImpl<TimerViewData> {
 
     @Inject
     public TimerViewModel(@NonNull TimerViewData viewData,
-                          @NonNull @ViewModelStorageKey MainViewModel viewModel) {
+                          @NonNull @TopLevelDependency MainViewModel viewModel) {
         super(viewData);
         mMainViewModel = viewModel;
     }

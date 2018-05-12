@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+                name="model"
+                type="by.pavlovskii.ilya.mvvm.test.ui.activity.adapter.AdapterViewData"/>
+        <variable
+                name="verticalAdapter"
+                type="android.support.v7.widget.RecyclerView.Adapter"/>
+        <variable
+                name="horizontalAdapter"
+                type="android.support.v7.widget.RecyclerView.Adapter"/>
+    </data>
+    <LinearLayout
+            android:orientation="vertical"
+            style="@style/RootLayout">
+
+        <android.support.v7.widget.RecyclerView
+                style="@style/AdapterRecyclerView"
+                android:orientation="vertical"
+                bindAdapter="@{verticalAdapter}"
+                bindList="@{model.colors}"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+        <android.support.v7.widget.RecyclerView
+                style="@style/AdapterRecyclerView"
+                android:orientation="horizontal"
+                bindAdapter="@{verticalAdapter}"
+                bindList="@{model.colors}"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+    </LinearLayout>
+</layout>

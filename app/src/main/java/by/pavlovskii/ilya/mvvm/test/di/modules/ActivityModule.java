@@ -1,6 +1,8 @@
 package by.pavlovskii.ilya.mvvm.test.di.modules;
 
 import by.mvvmwrapper.dagger.scope.ActivityScope;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.adapter.AdapterActivity;
+import by.pavlovskii.ilya.mvvm.test.ui.activity.adapter.di.AdapterModule;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.launch.LaunchActivity;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.launch.di.LaunchModule;
 import by.pavlovskii.ilya.mvvm.test.ui.activity.main.MainActivity;
@@ -35,6 +37,10 @@ public interface ActivityModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = {TwoWayModule.class})
     TwoWayActivity twoWayActivityInjector();
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {AdapterModule.class})
+    AdapterActivity adapterActivityInjector();
 
     @ActivityScope
     @ContributesAndroidInjector(modules = {

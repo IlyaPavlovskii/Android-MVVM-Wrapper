@@ -8,6 +8,7 @@ import by.pavlovskii.ilya.mvvm.test.utils.factory.SampleItemFactory;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 import javax.inject.Inject;
 
@@ -31,6 +32,7 @@ public class LaunchViewModel extends SimpleViewModelImpl<LaunchViewData> {
                            @NonNull SampleItemFactory sampleItemFactory) {
         super(viewData);
         mSampleItemFactory = sampleItemFactory;
+        Timber.d("LaunchViewModel: %d", hashCode());
     }
 
     @Override

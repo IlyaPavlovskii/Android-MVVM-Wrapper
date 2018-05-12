@@ -1,13 +1,9 @@
 package by.pavlovskii.ilya.mvvm.test.ui.activity.main;
 
-import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
-import android.databinding.ObservableList;
+import by.mvvmwrapper.viewdata.SimpleViewData;
 
 import javax.inject.Inject;
-
-import by.mvvmwrapper.viewdata.SimpleViewData;
-import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
 
 /**
  * Create with Android Studio<br>
@@ -23,16 +19,10 @@ import by.pavlovskii.ilya.mvvm.test.models.DemoActivity;
  */
 public class MainViewData extends SimpleViewData {
 
-    public final ObservableList<DemoActivity> demoList = new ObservableArrayList<>();
     public final ObservableField<String> info = new ObservableField<>("");
 
     @Inject
     public MainViewData() {
     }
 
-    @Override
-    public void destroy() {
-        super.destroy();
-        demoList.clear();
-    }
 }

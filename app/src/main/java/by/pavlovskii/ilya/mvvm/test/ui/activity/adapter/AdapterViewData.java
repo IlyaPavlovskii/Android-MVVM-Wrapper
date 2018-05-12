@@ -1,10 +1,9 @@
-package by.pavlovskii.ilya.mvvm.test.ui.activity.launch;
+package by.pavlovskii.ilya.mvvm.test.ui.activity.adapter;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 import by.mvvmwrapper.viewdata.BaseViewData;
-import by.pavlovskii.ilya.mvvm.test.models.SampleItem;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -14,27 +13,27 @@ import java.util.List;
  * Created by Pavlovskii Ilya<br>
  * E-mail: pavlovskii_ilya@mail.ru, trane91666@gmail.com<br>
  * Skype: trane9119<br>
- * Date: 04.05.2018<br>
- * Time: 2:12<br>
+ * Date: 12.05.2018<br>
+ * Time: 20:32<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
-public class LaunchViewData extends BaseViewData {
+public class AdapterViewData extends BaseViewData {
 
-    public final ObservableList<SampleItem> sampleItems = new ObservableArrayList<>();
+    public final ObservableList<String> colors = new ObservableArrayList<>();
 
     @Inject
-    public LaunchViewData() {
-    }
-
-    public void setSampleItems(@NonNull List<SampleItem> list) {
-        this.sampleItems.clear();
-        this.sampleItems.addAll(list);
+    public AdapterViewData() {
     }
 
     @Override
     public void destroy() {
         super.destroy();
-        this.sampleItems.clear();
+        colors.clear();
+    }
+
+    public void setColors(@NonNull List<String> list) {
+        this.colors.clear();
+        this.colors.addAll(list);
     }
 }

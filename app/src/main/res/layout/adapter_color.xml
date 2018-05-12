@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable name="color" type="Integer"/>
+    </data>
+
+    <View
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@{color}"/>
+
+</layout>

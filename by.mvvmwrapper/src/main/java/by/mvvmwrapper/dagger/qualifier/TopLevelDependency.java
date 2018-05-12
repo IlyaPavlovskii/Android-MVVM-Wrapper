@@ -1,10 +1,9 @@
-package by.pavlovskii.ilya.mvvm.test.di;
-
-import by.mvvmwrapper.viewmodel.BaseViewModel;
-import dagger.MapKey;
+package by.mvvmwrapper.dagger.qualifier;
 
 import javax.inject.Qualifier;
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Create with Android Studio<br>
@@ -15,11 +14,9 @@ import java.lang.annotation.*;
  * Time: 12:36<br>
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
- * //TODO Add description<br>
- * ===================================================================================<br>
  */
 @Documented
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ViewModelStorageKey {
+public @interface TopLevelDependency {
 }

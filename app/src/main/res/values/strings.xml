@@ -10,5 +10,7 @@
     <string name="value_formatter">Value: %1$s</string>
     <string name="combo_states">Combo states</string>
     <string name="toggle_button">Toggle button</string>
+    <string name="sample_title_adapter">Adapter</string>
+    <string name="sample_description_adapter">RecyclerView bind adapter example</string>
 
 </resources>
