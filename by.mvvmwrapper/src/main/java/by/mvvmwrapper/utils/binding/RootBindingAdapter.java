@@ -4,7 +4,6 @@ import android.databinding.BindingAdapter;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.util.Log;
 import android.util.Pair;
@@ -12,16 +11,13 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import by.mvvmwrapper.adapter.UpdateAdapter;
 import by.mvvmwrapper.utils.SeekBarChangeAdapter;
 import by.mvvmwrapper.utils.TextWatcherAdapter;
 import by.mvvmwrapper.utils.TypefaceHelper;
 import by.mvvmwrapper.widget.BindableEditText;
 import by.mvvmwrapper.wrapper.BindableGeneric;
 
-import javax.inject.Provider;
 import java.io.File;
-import java.util.List;
 
 /**
  * Create with Android Studio<br>
@@ -37,51 +33,12 @@ import java.util.List;
  */
 public class RootBindingAdapter {
 
-    //======================================================
-    //-----------------------Constants----------------------
-    //======================================================
     private static final String ATTR_TAG = "attr";
-
-    //======================================================
-    //---------------------Constructors---------------------
-    //======================================================
 
     /**
      * Implement base helper realization constructor
      */
     private RootBindingAdapter() {
-    }
-
-    //======================================================
-    //---------------------Public methods-------------------
-    //======================================================
-    @BindingAdapter({"bindAdapter", "bindList"})
-    public static void bindAdapter(@NonNull RecyclerView recyclerView,
-                                   @Nullable RecyclerView.Adapter adapter,
-                                   @Nullable List list) {
-        if (adapter != null) {
-            if (recyclerView.getAdapter() == null) {
-                recyclerView.setAdapter(adapter);
-            }
-            if (adapter instanceof UpdateAdapter) {
-                ((UpdateAdapter) adapter).update(list);
-            }
-        }
-    }
-
-    public static void bindAdapter(@NonNull Provider<? extends RecyclerView.Adapter> adapterProvider,
-                                   @NonNull RecyclerView recyclerView,
-                                   @Nullable List list) {
-        if (list != null) {
-            if (recyclerView.getAdapter() == null) {
-                RecyclerView.Adapter adapter = adapterProvider.get();
-                recyclerView.setAdapter(adapter);
-            }
-            if (recyclerView.getAdapter() instanceof UpdateAdapter) {
-                ((UpdateAdapter) recyclerView.getAdapter())
-                        .update(list);
-            }
-        }
     }
 
     /**

@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import by.mvvmwrapper.utils.binding.RecyclerViewBindingAdapter;
 import by.mvvmwrapper.utils.binding.RootBindingAdapter;
 import by.pavlovskii.ilya.mvvm.test.ui.adapters.ColorAdapter;
 
@@ -35,6 +36,6 @@ public class AdapterBindingAdapter {
 
     @BindingAdapter("bindColorAdapter")
     public void bindColorAdapter(@NonNull RecyclerView recyclerView, @Nullable List<String> list) {
-        RootBindingAdapter.bindAdapter(mAdapterProvider, recyclerView, list);
+        RecyclerViewBindingAdapter.bindAdapter(mAdapterProvider, recyclerView, list);
     }
 }

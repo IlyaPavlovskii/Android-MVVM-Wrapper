@@ -12,6 +12,7 @@ import java.util.List;
  * Project name: MVVMtest<br>
  * ===================================================================================<br>
  */
+
 public interface UpdateAdapter<T> {
 
     void update(List<T> list);

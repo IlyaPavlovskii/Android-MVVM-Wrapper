@@ -12,7 +12,7 @@
     <string name="toggle_button">Toggle button</string>
     <string name="sample_title_adapter">Adapter</string>
     <string name="sample_description_adapter">RecyclerView bind adapter example</string>
-    <string name="adapter_vertical">Horizontal RecyclerView</string>
+    <string name="adapter_vertical">Vertical RecyclerView</string>
     <string name="adapter_horizontal">Horizontal RecyclerView</string>
     <string name="sample_title_top_level_injection">Top level injection</string>
     <string name="sample_description_top_level_injection">Injection Activity components into Fragment</string>
