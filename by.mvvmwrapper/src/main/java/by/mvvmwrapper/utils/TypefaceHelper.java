@@ -9,8 +9,8 @@ import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 /**
  * Create with Android Studio<br>
@@ -30,7 +30,7 @@ public class TypefaceHelper {
     //======================================================
     //------------------------Fields------------------------
     //======================================================
-    private static Map<String, Typeface> sTypefaceBuffer = new HashMap<>();
+    private static Map<String, Typeface> sTypefaceBuffer = new WeakHashMap<>();
 
     //======================================================
     //---------------------Constructors---------------------

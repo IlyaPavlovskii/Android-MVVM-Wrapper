@@ -150,43 +150,88 @@ public class RootBindingAdapter {
         }
     }
 
+    /**
+     * Set custom {@link Typeface} to {@link TextView} from asset storage
+     *
+     * @param textView  target widget
+     * @param assetPath asset file full path
+     */
     @BindingAdapter("bindAssetTypeface")
     public static void bindAssetTypeface(@NonNull TextView textView, @Nullable String assetPath) {
-        bindAssetTypefaceAttr(textView, assetPath);
-    }
-
-    @BindingAdapter({ATTR_TAG + ":assetTypeface"})
-    public static void bindAssetTypefaceAttr(@NonNull TextView textView, @Nullable String assetPath) {
         Typeface typeface = TypefaceHelper.getTypefaceFromAssets(textView.getContext(), assetPath);
         if (typeface != null) {
             textView.setTypeface(typeface);
         }
+
     }
 
+    /**
+     * Deprecated method. Use {@link #bindAssetTypeface(TextView, String)}
+     * <p>
+     * Set custom {@link Typeface} to {@link TextView} from asset storage
+     *
+     * @param textView  target widget
+     * @param assetPath asset file full path
+     */
+    @Deprecated
+    @BindingAdapter({ATTR_TAG + ":assetTypeface"})
+    public static void bindAssetTypefaceAttr(@NonNull TextView textView, @Nullable String assetPath) {
+        bindAssetTypeface(textView, assetPath);
+    }
+
+    /**
+     * Set custom {@link Typeface} to {@link TextView} from file storage
+     *
+     * @param textView target widget
+     * @param filePath file full path from local file storage
+     */
     @BindingAdapter({"bindFileTypeface"})
     public static void bindFileTypeface(@NonNull TextView textView, @Nullable String filePath) {
-        bindFileTypefaceAttr(textView, filePath);
-    }
-
-    @BindingAdapter({ATTR_TAG + ":fileTypeface"})
-    public static void bindFileTypefaceAttr(@NonNull TextView textView, @Nullable String filePath) {
         Typeface typeface = TypefaceHelper.getTypefaceFromFile(filePath);
         if (typeface != null) {
             textView.setTypeface(typeface);
         }
     }
 
-    @BindingAdapter({"bindFileTypeface"})
-    public static void bindFileTypeface(@NonNull TextView textView, @Nullable File typefaceFile) {
-        bindFileTypefaceAttr(textView, typefaceFile);
+    /**
+     * Deprecated. Use {@link #bindFileTypeface(TextView, File)}
+     * <p>
+     * Set custom {@link Typeface} to {@link TextView} from file storage
+     *
+     * @param textView target widget
+     * @param filePath file full path from local file storage
+     */
+    @Deprecated
+    @BindingAdapter({ATTR_TAG + ":fileTypeface"})
+    public static void bindFileTypefaceAttr(@NonNull TextView textView, @Nullable String filePath) {
+        bindFileTypeface(textView, filePath);
     }
 
-    @BindingAdapter({ATTR_TAG + ":fileTypeface"})
-    public static void bindFileTypefaceAttr(@NonNull TextView textView, @Nullable File typefaceFile) {
+    /**
+     * Set custom {@link Typeface} to {@link TextView} from file storage
+     *
+     * @param textView     target widget
+     * @param typefaceFile typeface file
+     */
+    @BindingAdapter({"bindFileTypeface"})
+    public static void bindFileTypeface(@NonNull TextView textView, @Nullable File typefaceFile) {
         Typeface typeface = TypefaceHelper.getTypefaceFromFile(typefaceFile);
         if (typeface != null) {
             textView.setTypeface(typeface);
         }
+    }
+
+    /**
+     * Deprecated. Use {@link #bindFileTypeface(TextView, File)}
+     * Set custom {@link Typeface} to {@link TextView} from file storage
+     *
+     * @param textView     target widget
+     * @param typefaceFile typeface file
+     */
+    @Deprecated
+    @BindingAdapter({ATTR_TAG + ":fileTypeface"})
+    public static void bindFileTypefaceAttr(@NonNull TextView textView, @Nullable File typefaceFile) {
+        bindFileTypeface(textView, typefaceFile);
     }
 
 }
